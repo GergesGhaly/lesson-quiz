@@ -1,4 +1,4 @@
-import { rewardLevels } from "../data/rewardLevels";
+import { rewardLevels } from "../data/RewardLevels";
 
 export function checkAndGrantRewards(totalScore, unlockedRewards) {
   let newlyUnlocked = [];
@@ -13,5 +13,5 @@ export function checkAndGrantRewards(totalScore, unlockedRewards) {
 }
 
 export function getRewardsDisplay(unlockedKeys) {
-  return rewardLevels.filter(r => unlockedKeys.includes(r.key));
+  return rewardLevels.filter((r) => unlockedKeys.includes(r.key));
 }

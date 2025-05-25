@@ -3,9 +3,9 @@ import { rewardLevels } from "../data/RewardLevels";
 export function checkAndGrantRewards(totalScore, unlockedRewards) {
   let newlyUnlocked = [];
 
-  rewardLevels.forEach(({ threshold, reward, key }) => {
+  rewardLevels.forEach(({ threshold, reward, key, icon, image }) => {
     if (totalScore >= threshold && !unlockedRewards.includes(key)) {
-      newlyUnlocked.push({ key, reward });
+      newlyUnlocked.push({ key, reward, icon, image, threshold });
     }
   });
 

@@ -87,7 +87,7 @@ function Home() {
         if (percentageFinal >= 50) {
           setShowConfetti(true);
           setShowFinalIcon(true);
-          setTimeout(() => setShowFinalIcon(false), 7000);
+          setTimeout(() => setShowFinalIcon(false), 6000);
         }
       }
     }

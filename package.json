@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "framer-motion": "^12.12.2",
     "lottie-react": "^2.4.1",
     "quiz": "file:",
     "react": "^19.1.0",

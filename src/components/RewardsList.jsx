@@ -10,8 +10,15 @@ export default function RewardsList({ rewards }) {
         {rewards
           .slice()
           .reverse()
-          .map(({ key, reward }) => (
-            <li key={key}>{reward}</li>
+          .map(({ key, reward, icon, image }) => (
+            <li key={key} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              {image ? (
+                <img src={image} alt={reward} style={{ width: 24, height: 24 }} />
+              ) : (
+                <span style={{ fontSize: 20 }}>{icon}</span>
+              )}
+              <span>{reward}</span>
+            </li>
           ))}
       </ul>
     </div>

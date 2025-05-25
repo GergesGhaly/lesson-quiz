@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Results({
   score,
@@ -7,6 +7,11 @@ export default function Results({
   onRetry,
   evaluationMessage,
 }) {
+  useEffect(() => {
+    const audio = new Audio("/sound/tryAgain.mp3");
+    audio.play().catch((err) => console.warn("فشل تشغيل الصوت", err));
+  }, []);
+
   return (
     <div style={{ textAlign: "center" }}>
       <h2>

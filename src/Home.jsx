@@ -17,6 +17,7 @@ import { checkAndGrantRewards, getRewardsDisplay } from "./utils/rewardUtils";
 import { quizzes } from "./data/Questions";
 import { useParams } from "react-router-dom";
 import NextLevelBtn from "./components/NextLevelBtn";
+import wall from "./assets/mainWall.jpg";
 
 function Home() {
   const { quizId } = useParams();
@@ -143,7 +144,18 @@ function Home() {
   };
 
   return (
-    <div style={{ padding: 20, fontFamily: "Arial", direction: "rtl" }}>
+    <div
+      style={{
+        padding: 20,
+        fontFamily: "Arial",
+        direction: "rtl",
+        backgroundImage: `url(${wall})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+      }}
+    >
       <h2 style={{ textAlign: "center", marginBottom: 20 }}>{quiz.title}</h2>
       <div
         style={{

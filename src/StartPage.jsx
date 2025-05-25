@@ -1,67 +1,106 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { quizzes } from "./data/Questions";
-import wall from "./assets/wall1.jpg";
 import btnWall from "./assets/btnWall.png";
+import wallVideo from "./assets/wall2.mp4";
+import startSound from "/sound/gameStart.mp3";
+
 const StartPage = () => {
   const navigate = useNavigate();
 
   const handleStartQuiz = (quizId) => {
+    const sound = new Audio(startSound);
+    sound.play().catch((err) => console.warn("فشل تشغيل الصوت", err));
+
     navigate(`/quiz/${quizId}`);
   };
 
   return (
     <div
       style={{
-        padding: 40,
-        textAlign: "center",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 30,
+        position: "relative",
         minHeight: "100vh",
-        backgroundImage: `url(${wall})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-
-        backgroundPosition: "center",
+        overflow: "hidden",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "start",
       }}
     >
-      <h2 style={{ fontSize: 30 }}>اختر اختبارًا للبدء</h2>
-      <div
+      {/* 🎥 خلفية الفيديو */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
         style={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: 20,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -1,
         }}
       >
-        {quizzes.map((quiz) => (
-          <button
-            key={quiz.id}
-            onClick={() => handleStartQuiz(quiz.id)}
-            style={{
-              // margin: 10,
-              // padding: "12px 24px",
-              fontSize: 30,
-              // borderRadius: 10,
-              border: "none",
-              backgroundColor: "transparent",
-              color: "#fff",
-              cursor: "pointer",
-              backgroundImage: `url(${btnWall})`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
-              objectFit: "cover",
-              // backgroundSize: "100%",
-              backgroundPosition: "center",
-              height: 100,
-              width: 350,
-            }}
-          >
-            {quiz.title}
-          </button>
-        ))}
+        <source src={wallVideo} type="video/mp4" />
+        المتصفح لا يدعم تشغيل الفيديو.
+      </video>
+
+      {/* 🎯 المحتوى */}
+      <div
+        style={{
+          padding: 40,
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          // justifyContent: "start",
+          gap: 30,
+          zIndex: 1,
+          color: "#fff",
+        }}
+      >
+        <h2
+          style={{
+            fontSize: 30,
+            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.678)",
+          }}
+        >
+          اختر اختبارًا للبدء
+        </h2>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            gap: 20,
+          }}
+        >
+          {quizzes.map((quiz) => (
+            <button
+              key={quiz.id}
+              onClick={() => handleStartQuiz(quiz.id)}
+              style={{
+                fontSize: 30,
+                border: "none",
+                backgroundColor: "transparent",
+                color: "#fff",
+                cursor: "pointer",
+                backgroundImage: `url(${btnWall})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: 100,
+                width: 350,
+                textShadow: "0px 3px 4px rgba(0, 0, 0, 0.836)",
+                
+                // shadow: "0px 4px 6px rgba(0, 0, 0, 0.63)",
+              }}
+            >
+              {quiz.title}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

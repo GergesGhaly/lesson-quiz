@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import CoinAnimation from "./CoinAnimation";
 import ComboMessage from "./ComboMessage";
+import ProgressDots from "./ProgressDots";
 
 export default function Quiz({ questions, current, onAnswer }) {
   const correctSoundRef = useRef(null);
@@ -10,6 +11,9 @@ export default function Quiz({ questions, current, onAnswer }) {
   const [comboCount, setComboCount] = useState(0);
   const [showCombo, setShowCombo] = useState(false);
   const [comboNumber, setComboNumber] = useState(0);
+  const [answersStatus, setAnswersStatus] = useState(
+    Array(questions.length).fill(null)
+  );
 
   // أرقام الكمبونت اللي تظهر عندها الرسالة
   const comboTriggers = [3, 6, 9];
@@ -22,6 +26,13 @@ export default function Quiz({ questions, current, onAnswer }) {
 
   const handleAnswer = (index) => {
     const isCorrect = index === questions[current].correct;
+
+    setAnswersStatus((prev) => {
+      const updated = [...prev];
+      updated[current] = isCorrect ? "correct" : "wrong";
+      return updated;
+    });
+
     if (isCorrect) {
       correctSoundRef.current?.play().catch(() => {});
       setShowCoin(true);
@@ -63,6 +74,13 @@ export default function Quiz({ questions, current, onAnswer }) {
         justifyContent: "center",
       }}
     >
+      {/* ✅ النقاط أعلى الكويز */}
+      {/* ✅ dots */}
+      <ProgressDots
+        total={questions.length}
+        current={current}
+        answersStatus={answersStatus}
+      />
       {/* رسالة الكمبونت */}
       <ComboMessage visible={showCombo} comboNumber={comboNumber} />
 

@@ -26,7 +26,6 @@ const ComboMessage = ({ visible, comboNumber }) => {
             position: "absolute",
             top: "-100px",
             left: "50%",
-            transform: "translate(-50%)",
             fontSize: "40px",
             fontWeight: "bold",
             textShadow: "0 0 12px #FFD700",

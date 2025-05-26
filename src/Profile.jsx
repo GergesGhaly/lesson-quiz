@@ -47,13 +47,20 @@ const Profile = () => {
         alignItems: "center",
         textAlign: "center",
         justifyContent: "space-between",
+
+        width: "100%",
       }}
     >
       {/* <h2 style={{ textAlign: "center", marginBottom: "30px" }}>
         👤 ملف المستخدم
       </h2> */}
       <div
-        style={{ marginBottom: "20px", fontSize: "24px", fontWeight: "bold" }}
+        style={{
+          marginBottom: "20px",
+          fontSize: "24px",
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
       >
         إجمالي النقاط: {totalScore}
       </div>
@@ -144,15 +151,8 @@ const Profile = () => {
         <button
           style={{
             background: "transparent",
-            // width: "100%",
-            // maxWidth: "300px",
             color: "white",
-            // padding: "10px 20px",
-            // fontSize: "18px",
-            // marginTop: "20px",
-            // borderRadius: "12px",
             border: "none",
-            // cursor: "pointer",
           }}
         >
           Back

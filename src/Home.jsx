@@ -21,6 +21,7 @@ import NextLevelBtn from "./components/NextLevelBtn";
 import wall from "./assets/mainWall.jpg";
 import CurrentReward from "./components/CurrentReward";
 import ProfileNavigationBtn from "./components/ProfileNavigationBtn";
+import QuizNavBar from "./components/QuizNavBar";
 
 function Home() {
   const { quizId } = useParams();
@@ -157,83 +158,54 @@ function Home() {
   };
 
   return (
-    
-      <div
-        style={{
-          padding: 20,
-          fontFamily: "Arial",
-          direction: "rtl",
-          backgroundImage: `url(${wall})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          minHeight: "100vh",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            // flexDirection: "column-reverse",
-            justifyContent: "space-between",
-            alignItems: "start",
-            marginBottom: 20,
-            textAlign: "center",
-          }}
-        >
-          <h2
-            style={{ textAlign: "start", fontSize: isMobile ? "18px" : "24px" }}
-          >
-            {quiz.title}
-          </h2>
-          <CurrentReward
-            imageSize={isMobile ? 60 : 100}
-            fontSize={isMobile ? 45 : 60}
-          />
-          <div style={{ marginBottom: 20 }}>
-            <h2
-              style={{
-                textAlign: "end",
-                fontSize: isMobile ? "18px" : "24px",
-              }}
-            >
-              {getTotalScoreIcon()} إجمالي النقاط: {totalScore}
-            </h2>
-          </div>
-        </div>
+    <div
+      style={{
+        padding: 20,
+        fontFamily: "Arial",
+        direction: "rtl",
+        backgroundImage: `url(${wall})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <QuizNavBar
+        quiz={quiz}
+        getTotalScoreIcon={getTotalScoreIcon}
+        totalScore={totalScore}
+      />
 
-        <FinalIconOverlay show={showFinalIcon} icon={getTotalScoreIcon()} />
-        <ConfettiOverlay
-          show={showConfetti && percentage >= 50}
-          icon={getTotalScoreIcon()}
+      <FinalIconOverlay show={showFinalIcon} icon={getTotalScoreIcon()} />
+      <ConfettiOverlay
+        show={showConfetti && percentage >= 50}
+        icon={getTotalScoreIcon()}
+      />
+      <RewardPopup
+        reward={rewardPopup}
+        onClose={handleCloseRewardPopup}
+        disableOutsideClick={true}
+      />
+
+      {/* <NextLevelBtn/> */}
+
+      {showResult ? (
+        <Results
+          score={score}
+          totalQuestions={quiz.questions.length}
+          percentage={percentage}
+          onRetry={resetScores}
+          evaluationMessage={getEvaluationMessage()}
         />
-        <RewardPopup
-          reward={rewardPopup}
-          onClose={handleCloseRewardPopup}
-          disableOutsideClick={true}
+      ) : (
+        <Quiz
+          questions={quiz.questions}
+          current={current}
+          onAnswer={handleAnswer}
         />
-
-        {/* <NextLevelBtn/> */}
-
-        {showResult ? (
-          <Results
-            score={score}
-            totalQuestions={quiz.questions.length}
-            percentage={percentage}
-            onRetry={resetScores}
-            evaluationMessage={getEvaluationMessage()}
-          />
-        ) : (
-          <Quiz
-            questions={quiz.questions}
-            current={current}
-            onAnswer={handleAnswer}
-          />
-        )}
+      )}
       {/* <ProfileNavigationBtn /> */}
-      </div>
-
-    
+    </div>
   );
 }
 

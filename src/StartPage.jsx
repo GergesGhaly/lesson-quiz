@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { quizzes } from "./data/Questions";
 import btnWall from "./assets/btnWall.png";
@@ -15,6 +15,17 @@ const StartPage = () => {
 
     navigate(`/quiz/${quizId}`);
   };
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div
@@ -63,7 +74,7 @@ const StartPage = () => {
       >
         <h2
           style={{
-            fontSize: 30,
+            fontSize: isMobile ? 20 : 30,
             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.678)",
           }}
         >
@@ -82,7 +93,7 @@ const StartPage = () => {
               key={quiz.id}
               onClick={() => handleStartQuiz(quiz.id)}
               style={{
-                fontSize: 30,
+                fontSize: isMobile ? 20 : 30,
                 border: "none",
                 backgroundColor: "transparent",
                 color: "#fff",
@@ -92,9 +103,9 @@ const StartPage = () => {
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 height: 100,
-                width: 350,
+                width: isMobile ? 250 : 350,
                 textShadow: "0px 3px 4px rgba(0, 0, 0, 0.836)",
-                
+
                 // shadow: "0px 4px 6px rgba(0, 0, 0, 0.63)",
               }}
             >
@@ -103,7 +114,7 @@ const StartPage = () => {
           ))}
         </div>
       </div>
-        <ProfileNavigationBtn/>
+      <ProfileNavigationBtn />
     </div>
   );
 };

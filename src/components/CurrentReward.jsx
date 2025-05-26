@@ -27,7 +27,15 @@ const CurrentReward = ({ imageSize, fontSize }) => {
   const { reward, icon, image } = lastReward;
 
   return (
-    <div style={{ marginBottom: "40px" }}>
+    <div
+      style={{
+        marginBottom: "40px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <h3>🏆 المكافآة الحالية</h3>
       <motion.div
         initial={{ scale: 5, opacity: 0.2 }}

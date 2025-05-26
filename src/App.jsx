@@ -2,9 +2,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import StartPage from "./StartPage";
 import Home from "./Home";
 import Profile from "./Profile";
+import ChooseTestPage from "./ChooseTestPage";
+import StartPage from "./StartPage";
+import Competition from "./Competition";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -17,6 +19,14 @@ function AnimatedRoutes() {
           element={
             <PageWrapper>
               <StartPage />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/ChooseTestPage"
+          element={
+            <PageWrapper>
+              <ChooseTestPage />
             </PageWrapper>
           }
         />
@@ -34,6 +44,14 @@ function AnimatedRoutes() {
           element={
             <PageWrapper>
               <Profile />
+            </PageWrapper>
+          }
+        />
+           <Route
+          path="/competition"
+          element={
+            <PageWrapper>
+              <Competition />
             </PageWrapper>
           }
         />

@@ -10,8 +10,8 @@ const ProfileNavigationBtn = () => {
       style={{
         width: "100%",
         // height: "60px",
-        position: "absolute",
-        buttom: "10px",
+        // position: "absolute",
+        // buttom: "10px",
         // left: "10px",
         zIndex: "999999",
         display: "flex",
@@ -32,16 +32,14 @@ const ProfileNavigationBtn = () => {
         />
       </Link>
 
-      {/* <Link to="/profile">
-        <motion.img
-          src={aboutBtn}
-          style={{
-            width: "60px",
-            objectFit: "cover",
-          }}
-          alt="profile"
-        />
-      </Link> */}
+      <motion.img
+        src={aboutBtn}
+        style={{
+          width: "60px",
+          objectFit: "cover",
+        }}
+        alt="profile"
+      />
     </div>
   );
 };

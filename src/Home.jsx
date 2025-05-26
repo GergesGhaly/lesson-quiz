@@ -5,6 +5,7 @@ import RewardsList from "./components/RewardsList";
 import ConfettiOverlay from "./components/ConfettiOverlay";
 import RewardPopup from "./components/RewardPopup";
 import FinalIconOverlay from "./components/FinalIconOverlay";
+import { motion } from "framer-motion";
 
 import {
   getQuizResults,
@@ -15,9 +16,11 @@ import {
 
 import { checkAndGrantRewards, getRewardsDisplay } from "./utils/rewardUtils";
 import { quizzes } from "./data/Questions";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import NextLevelBtn from "./components/NextLevelBtn";
 import wall from "./assets/mainWall.jpg";
+import CurrentReward from "./components/CurrentReward";
+import ProfileNavigationBtn from "./components/ProfileNavigationBtn";
 
 function Home() {
   const { quizId } = useParams();
@@ -33,6 +36,16 @@ function Home() {
 
   const [pendingConfetti, setPendingConfetti] = useState(false);
   const [pendingFinalIcon, setPendingFinalIcon] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const savedResults = getQuizResults();
@@ -144,65 +157,83 @@ function Home() {
   };
 
   return (
-    <div
-      style={{
-        padding: 20,
-        fontFamily: "Arial",
-        direction: "rtl",
-        backgroundImage: `url(${wall})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-      }}
-    >
-      <h2 style={{ textAlign: "center", marginBottom: 20 }}>{quiz.title}</h2>
+    
       <div
         style={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column-reverse",
-          justifyContent: "start",
-          alignItems: "start",
+          padding: 20,
+          fontFamily: "Arial",
+          direction: "rtl",
+          backgroundImage: `url(${wall})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          minHeight: "100vh",
         }}
       >
-        <RewardsList rewards={unlockedRewards} />
-        <div style={{ marginBottom: 20 }}>
-          <h2>
-            {getTotalScoreIcon()} إجمالي النقاط: {totalScore}
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            // flexDirection: "column-reverse",
+            justifyContent: "space-between",
+            alignItems: "start",
+            marginBottom: 20,
+            textAlign: "center",
+          }}
+        >
+          <h2
+            style={{ textAlign: "start", fontSize: isMobile ? "18px" : "24px" }}
+          >
+            {quiz.title}
           </h2>
+          <CurrentReward
+            imageSize={isMobile ? 60 : 100}
+            fontSize={isMobile ? 45 : 60}
+          />
+          <div style={{ marginBottom: 20 }}>
+            <h2
+              style={{
+                textAlign: "end",
+                fontSize: isMobile ? "18px" : "24px",
+              }}
+            >
+              {getTotalScoreIcon()} إجمالي النقاط: {totalScore}
+            </h2>
+          </div>
         </div>
+
+        <FinalIconOverlay show={showFinalIcon} icon={getTotalScoreIcon()} />
+        <ConfettiOverlay
+          show={showConfetti && percentage >= 50}
+          icon={getTotalScoreIcon()}
+        />
+        <RewardPopup
+          reward={rewardPopup}
+          onClose={handleCloseRewardPopup}
+          disableOutsideClick={true}
+        />
+
+        {/* <NextLevelBtn/> */}
+
+        {showResult ? (
+          <Results
+            score={score}
+            totalQuestions={quiz.questions.length}
+            percentage={percentage}
+            onRetry={resetScores}
+            evaluationMessage={getEvaluationMessage()}
+          />
+        ) : (
+          <Quiz
+            questions={quiz.questions}
+            current={current}
+            onAnswer={handleAnswer}
+          />
+        )}
+      {/* <ProfileNavigationBtn /> */}
       </div>
 
-      <FinalIconOverlay show={showFinalIcon} icon={getTotalScoreIcon()} />
-      <ConfettiOverlay
-        show={showConfetti && percentage >= 50}
-        icon={getTotalScoreIcon()}
-      />
-      <RewardPopup
-        reward={rewardPopup}
-        onClose={handleCloseRewardPopup}
-        disableOutsideClick={true}
-      />
-
-      {/* <NextLevelBtn/> */}
-
-      {showResult ? (
-        <Results
-          score={score}
-          totalQuestions={quiz.questions.length}
-          percentage={percentage}
-          onRetry={resetScores}
-          evaluationMessage={getEvaluationMessage()}
-        />
-      ) : (
-        <Quiz
-          questions={quiz.questions}
-          current={current}
-          onAnswer={handleAnswer}
-        />
-      )}
-    </div>
+    
   );
 }
 

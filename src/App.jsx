@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import StartPage from "./StartPage";
 import Home from "./Home";
+import Profile from "./Profile";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -24,6 +25,15 @@ function AnimatedRoutes() {
           element={
             <PageWrapper>
               <Home />
+            </PageWrapper>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <PageWrapper>
+              <Profile />
             </PageWrapper>
           }
         />

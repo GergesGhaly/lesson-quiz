@@ -4,6 +4,7 @@ import { quizzes } from "./data/Questions";
 import btnWall from "./assets/btnWall.png";
 import wallVideo from "./assets/wall2.mp4";
 import startSound from "/sound/gameStart.mp3";
+import ProfileNavigationBtn from "./components/ProfileNavigationBtn";
 
 const StartPage = () => {
   const navigate = useNavigate();
@@ -102,6 +103,7 @@ const StartPage = () => {
           ))}
         </div>
       </div>
+        <ProfileNavigationBtn/>
     </div>
   );
 };

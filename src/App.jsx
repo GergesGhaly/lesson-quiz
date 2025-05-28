@@ -1,5 +1,5 @@
 // App.js
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Home from "./Home";
@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import ChooseTestPage from "./ChooseTestPage";
 import StartPage from "./StartPage";
 import Competition from "./Competition";
+import AboutMoadal from "./components/modals/AboutMoadal";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -18,7 +19,7 @@ function AnimatedRoutes() {
           path="/"
           element={
             <PageWrapper>
-              <StartPage />
+              <StartPage  />
             </PageWrapper>
           }
         />
@@ -47,7 +48,7 @@ function AnimatedRoutes() {
             </PageWrapper>
           }
         />
-           <Route
+        <Route
           path="/competition"
           element={
             <PageWrapper>

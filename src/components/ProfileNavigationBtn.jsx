@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import profileBtn from "../assets/profileBtn.png";
-import aboutBtn from "../assets/aboutBtn.png";
+import aboutBtn from "../assets/buttons/aboutBtn.png";
 
-const ProfileNavigationBtn = () => {
+const ProfileNavigationBtn = ({ setShowAbout }) => {
   return (
     <div
       style={{
@@ -34,6 +34,7 @@ const ProfileNavigationBtn = () => {
 
       <motion.img
         src={aboutBtn}
+        onClick={() => setShowAbout(true)}
         style={{
           width: "60px",
           objectFit: "cover",

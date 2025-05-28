@@ -26,6 +26,7 @@ import QuizNavBar from "./components/QuizNavBar";
 function Home() {
   const { quizId } = useParams();
   const quiz = quizzes.find((q) => q.id === Number(quizId));
+
   const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -204,6 +205,8 @@ function Home() {
           onAnswer={handleAnswer}
         />
       )}
+
+   
       {/* <ProfileNavigationBtn /> */}
     </div>
   );

@@ -103,7 +103,7 @@ const ChooseTestPage = () => {
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 height: 100,
-                width: isMobile ? 250 : 350,
+                width: isMobile ? 270 : 350,
                 textShadow: "0px 3px 4px rgba(0, 0, 0, 0.836)",
 
                 // shadow: "0px 4px 6px rgba(0, 0, 0, 0.63)",

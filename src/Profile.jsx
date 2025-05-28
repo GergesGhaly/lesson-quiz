@@ -28,10 +28,12 @@ const Profile = () => {
 
     // تشغيل الصوت عند الدخول
     const audio = new Audio(proifile);
-    audio.play().catch((e) => {
-      // في حال منع المتصفح التشغيل التلقائي
-      console.warn("لم يتم تشغيل الصوت تلقائيًا:", e);
-    });
+    if (total > 0) {
+      audio.play().catch((e) => {
+        // في حال منع المتصفح التشغيل التلقائي
+        console.warn("لم يتم تشغيل الصوت تلقائيًا:", e);
+      });
+    }
   }, []);
 
   return (

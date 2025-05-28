@@ -1,0 +1,72 @@
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import wrong from "../../assets/wrong.png";
+
+const AboutMoadal = ({ isOpen, onClose }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {/* المودال */}
+          <motion.div
+            className="modal"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.5, opacity: 0 }}
+            transition={{ duration: 0.1 }}
+            style={{
+              background: "#2C3E50",
+              color: "white",
+              padding: "30px",
+              borderRadius: "16px",
+              zIndex: 1001,
+              minWidth: "300px",
+              textAlign: "center",
+              boxSizing: "border-box",
+              border: "2px solid white",
+              position: "relative",
+            }}
+          >
+            {/* زر الإغلاق */}
+            <button
+              onClick={onClose}
+              style={{
+                position: "absolute",
+                top: "-25px",
+                right: "-20px",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              <img
+                src={wrong}
+                alt="close"
+                style={{ width: "60px", height: "60px" }}
+              />
+            </button>
+
+            {/* نص المودال */}
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis
+              ducimus tempora sequi cupiditate quibusdam...
+            </p>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default AboutMoadal;

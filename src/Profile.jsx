@@ -9,8 +9,13 @@ import { getRewardsDisplay } from "./utils/rewardUtils"; // ✅ استيراد �
 import { Link } from "react-router-dom";
 import RewardsList from "./components/RewardsList";
 import CurrentReward from "./components/CurrentReward";
+import { useTranslation } from "react-i18next";
+import { useSound } from "./contexts/SoundContext";
 
 const Profile = () => {
+  const { t } = useTranslation();
+  const { isSoundOn } = useSound();
+
   const [quizResults, setQuizResults] = useState([]);
   const [unlockedRewards, setUnlockedRewards] = useState([]);
   const [totalScore, setTotalScore] = useState(0);
@@ -28,7 +33,7 @@ const Profile = () => {
 
     // تشغيل الصوت عند الدخول
     const audio = new Audio(proifile);
-    if (total > 0) {
+    if (total > 0 && isSoundOn) {
       audio.play().catch((e) => {
         // في حال منع المتصفح التشغيل التلقائي
         console.warn("لم يتم تشغيل الصوت تلقائيًا:", e);
@@ -64,74 +69,8 @@ const Profile = () => {
           textAlign: "center",
         }}
       >
-        إجمالي النقاط: {totalScore}
+        {t("total_score")}: {totalScore}
       </div>
-
-      {/* <div style={{ marginBottom: "40px" }}>
-        <h3>🏆 المكافآة الحالية</h3>
-        {unlockedRewards.length === 0 ? (
-          <p>لا توجد مكافآت حتى الآن.</p>
-        ) : (
-          (() => {
-            const { reward, icon, image } =
-              unlockedRewards[unlockedRewards.length - 1];
-            return (
-              <motion.div
-                initial={{ scale: 5, opacity: 0.2 }}
-                animate={{
-                  scale: 1,
-                  opacity: 1,
-                  transition: { duration: 0.5, ease: "easeOut" },
-                }}
-                // transition={{ duration: 0.8, ease: "easeOut" }}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "20px",
-                  borderRadius: "12px",
-                  width: "140px",
-                }}
-              >
-                {image ? (
-                  <motion.img
-                    src={image}
-                    alt={reward}
-                    style={{
-                      width: 170,
-                      height: 170,
-                      objectFit: "contain",
-                    }}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                  />
-                ) : (
-                  <motion.span
-                    style={{ fontSize: 130 }}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                  >
-                    {icon}
-                  </motion.span>
-                )}
-                <span
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: "600",
-                    marginTop: "8px",
-                    textAlign: "center",
-                  }}
-                >
-                  {reward}
-                </span>
-              </motion.div>
-            );
-          })()
-        )}
-      </div> */}
 
       <CurrentReward imageSize={170} fontSize={130} />
       <RewardsList rewards={unlockedRewards} />
@@ -157,7 +96,7 @@ const Profile = () => {
             border: "none",
           }}
         >
-          Back
+          {t("back")}
         </button>
       </Link>
     </div>

@@ -1,10 +1,15 @@
 // src/components/RewardPopup.jsx
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { useSound } from "../contexts/SoundContext";
 
 const RewardPopup = ({ reward, onClose }) => {
+  const { t } = useTranslation();
+  const { isSoundOn } = useSound();
+
   useEffect(() => {
-    if (reward) {
+    if (reward && isSoundOn) {
       // تأكد من أن threshold رقم
       // const threshold = Number(reward.threshold);
       console.log("Threshold:", reward.threshold);
@@ -26,6 +31,7 @@ const RewardPopup = ({ reward, onClose }) => {
       console.log(reward);
     }
   }, [reward]);
+
   if (!reward) return null;
 
   const imageAnimation = {
@@ -82,7 +88,7 @@ const RewardPopup = ({ reward, onClose }) => {
         )}
 
         <div style={{ fontSize: 25, fontWeight: "bold" }}>{reward.reward}</div>
-        <h4 style={{ margin: "15px 0" }}>لقد حصلت على مكافأة جديدة!</h4>
+        <h4 style={{ margin: "15px 0" }}>{t("new_reward")}</h4>
         <button
           onClick={onClose}
           style={{
@@ -95,7 +101,7 @@ const RewardPopup = ({ reward, onClose }) => {
             cursor: "pointer",
           }}
         >
-          حسناً
+          {t("OK")}
         </button>
       </div>
     </div>

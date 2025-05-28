@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const NextLevelBtn = () => {
@@ -6,8 +7,9 @@ const NextLevelBtn = () => {
   // const { quizId } = useParams();
 
   const handleNextQuiz = () => {
-    navigate(`/`);
+    navigate(`/ChooseTest`);
   };
+  const { t } = useTranslation();
 
   return (
     <button
@@ -29,7 +31,8 @@ const NextLevelBtn = () => {
         transition: "background-color 0.3s ease",
       }}
     >
-      ابدا اختبار اخر
+      {/* ابدا اختبار اخر */}
+      {t("next_quiz")}
     </button>
   );
 };

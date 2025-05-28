@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function RewardsList({ rewards }) {
+  const { t } = useTranslation();
+
   if (!rewards.length) return null;
 
   return (
@@ -15,9 +18,9 @@ export default function RewardsList({ rewards }) {
         width: "100%",
       }}
     >
-      <h3>🏆 المكافآت المفتوحة</h3>
+      <h3>🏆 {t("unlocked_rewards")}</h3>
       {rewards.length === 0 ? (
-        <p>لا توجد مكافآت حتى الآن.</p>
+        <p> {t("no_rewards")} </p>
       ) : (
         <ul
           style={{

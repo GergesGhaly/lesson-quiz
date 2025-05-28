@@ -1,0 +1,33 @@
+{
+  "start_game": "Start Game",
+  "about": "About",
+  "settings": "Settings",
+  "choose_test": "Choose Test",
+  "video_error_message": "Your browser does not support video playback. ",
+  "total_score": "Total Score",
+  "current_reward": "Current Reward",
+  "no_rewards": "No rewards yet.",
+  "back": "Back",
+  "next_quiz": "Next Quiz",
+  "new_reward": "You got a new reward!",
+  "OK": "OK",
+  "unlocked_rewards": "Unlocked Rewards",
+  "try_again": "Try Again",
+  "try_again_message": "From here you can try again",
+  "your_score": "Your Score",
+  "from": "from",
+  "reward": {
+    "beginner": "Beginner Medal",
+    "effort": "Effort Medal",
+    "achiever": "Achiever Medal",
+    "elite": "Elite Medal",
+    "excellence": "Excellence Medal",
+    "legend": "Legend Medal",
+    "wisdom": "Wisdom Medal",
+    "light": "Medal of Light",
+    "courage": "Medal of Courage",
+    "warrior": "Warrior Medal",
+    "master": "Master Medal",
+    "eternal": "Eternal Medal"
+  }
+}

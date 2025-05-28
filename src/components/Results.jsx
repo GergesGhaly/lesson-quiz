@@ -1,5 +1,7 @@
 // import React, { useEffect } from "react";
 
+import { useTranslation } from "react-i18next";
+
 export default function Results({
   score,
   totalQuestions,
@@ -11,21 +13,23 @@ export default function Results({
   //   const audio = new Audio("/sound/tryAgain.mp3");
   //   audio.play().catch((err) => console.warn("فشل تشغيل الصوت", err));
   // }, []);
+  const { t } = useTranslation();
 
   return (
     <div style={{ textAlign: "center" }}>
       <h2>
-        🎉 نتيجتك: {score} من {totalQuestions} ({percentage.toFixed(1)}%)
+        🎉 {t("your_score")}: {score} {t("from")} {totalQuestions} (
+        {percentage.toFixed(1)}%)
       </h2>
       {percentage >= 50 && <h3>{evaluationMessage}</h3>}
       {percentage < 50 && (
         <>
-          <h3>❤️ من هنا تقدر تحاول تانى</h3>
+          <h3>❤️ {t("try_again_message")}</h3>
           <button
             onClick={onRetry}
             style={{ padding: "10px 20px", fontSize: "18px", marginTop: 20 }}
           >
-            حاول تانى
+            {t("try_again")}
           </button>
         </>
       )}

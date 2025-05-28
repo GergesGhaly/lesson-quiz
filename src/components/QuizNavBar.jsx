@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import CurrentReward from "./CurrentReward";
+import { useTranslation } from "react-i18next";
 
 const QuizNavBar = ({ quiz, totalScore, getTotalScoreIcon }) => {
+  const { t, i18n } = useTranslation();
+  const language = i18n.language || "ar";
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
 
   useEffect(() => {
@@ -18,28 +21,31 @@ const QuizNavBar = ({ quiz, totalScore, getTotalScoreIcon }) => {
       style={{
         width: "100%",
         display: "flex",
-        // flexDirection: "column-reverse",
         justifyContent: "space-between",
-        alignItems: "start",
+        // alignItems: "center",
         marginBottom: 20,
         textAlign: "center",
       }}
     >
-      <h2 style={{ textAlign: "start", fontSize: isMobile ? "16px" : "24px" }}>
-        {quiz.title}
-      </h2>
-      <CurrentReward
-        imageSize={isMobile ? 60 : 100}
-        fontSize={isMobile ? 45 : 60}
-      />
-      <div style={{ marginBottom: 20 }}>
-        <h2
-          style={{
-            textAlign: "end",
-            fontSize: isMobile ? "16px" : "24px",
-          }}
-        >
-          {getTotalScoreIcon()} إجمالي النقاط: {totalScore}
+      {/* ✅ العنوان على اليسار */}
+      <div style={{ flex: 1, textAlign: "start" }}>
+        <h2 style={{ fontSize: isMobile ? "16px" : "20px" }}>
+          {quiz.title[language]}
+        </h2>
+      </div>
+
+      {/* ✅ المكافأة في الوسط */}
+      <div style={{ flex: 1, textAlign: "center" }}>
+        <CurrentReward
+          imageSize={isMobile ? 60 : 100}
+          fontSize={isMobile ? 45 : 60}
+        />
+      </div>
+
+      {/* ✅ مجموع النقاط على اليمين */}
+      <div style={{ flex: 1, textAlign: "end" }}>
+        <h2 style={{ fontSize: isMobile ? "16px" : "20px" }}>
+          {getTotalScoreIcon()} {t("total_score")}: {totalScore}
         </h2>
       </div>
     </div>

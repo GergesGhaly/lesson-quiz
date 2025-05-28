@@ -12,18 +12,22 @@ import { Link } from "react-router-dom";
 import ProfileNavigationBtn from "./components/ProfileNavigationBtn";
 // import SettingsModal from "./components/modals/SettingsModal";
 import AboutMoadal from "./components/modals/AboutMoadal";
+import { useTranslation } from "react-i18next";
+import { useSound } from "./contexts/SoundContext";
 
 const StartPage = () => {
+  const { isSoundOn, setIsSoundOn } = useSound();
+
   // const [showSettings, setShowSettings] = useState(false);
   // const [showAbout, setShowAbout] = useState(false);
   const [selectedLang, setSelectedLang] = useState("ar"); // الحالة الافتراضية عربية
-  const [isSoundOn, setIsSoundOn] = useState(false); // الصوت مغلق افتراضيًا
+  // const [isSoundOn, setIsSoundOn] = useState(false); // الصوت مغلق افتراضيًا
   const [showAbout, setShowAbout] = useState(false);
-
+  const { i18n } = useTranslation();
   const [buttons, setButtons] = useState([
     {
       title: "ابدأ الاختبار",
-      link: "/ChooseTestPage",
+      link: "/ChooseTest",
       image: play,
     },
     {
@@ -43,6 +47,15 @@ const StartPage = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    setSelectedLang(i18n.language);
+  }, [i18n.language]);
+
+  const toggleLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("lang", lang); // احفظ اللغة الجديدة
+  };
+
   return (
     <div
       style={{
@@ -58,8 +71,8 @@ const StartPage = () => {
         flexDirection: "column",
       }}
     >
+      {/* <button>{t("start_game")}</button>; */}
       <img style={{ width: "100%", maxWidth: "500px" }} src={logo} alt="logo" />
-
       {/* الأزرار */}
       <div
         style={{
@@ -76,7 +89,6 @@ const StartPage = () => {
           </Link>
         ))}
       </div>
-
       {/* زر الصوت */}
       <div
         style={{
@@ -118,7 +130,6 @@ const StartPage = () => {
           )}
         </button>
       </div>
-
       {/* اختيار اللغة */}
       <div
         style={{
@@ -136,7 +147,7 @@ const StartPage = () => {
               border: "none",
               cursor: "pointer",
             }}
-            onClick={() => setSelectedLang("en")}
+            onClick={() => toggleLanguage("en")}
           >
             <img
               style={{
@@ -173,10 +184,8 @@ const StartPage = () => {
               border: "none",
               cursor: "pointer",
               position: "relative", // لضمان أن الصورة فوق الزر
-              // width: "60px",
-              // height: "60px",
             }}
-            onClick={() => setSelectedLang("ar")}
+            onClick={() => toggleLanguage("ar")}
           >
             <img
               style={{
@@ -206,7 +215,6 @@ const StartPage = () => {
           </button>
         </div>
       </div>
-
       {/* التنقل */}
       <div
         style={{
@@ -218,11 +226,6 @@ const StartPage = () => {
       >
         <ProfileNavigationBtn setShowAbout={setShowAbout} />
       </div>
-
-      {/* <SettingsModal
-        isOpen={showSettings}
-        onClose={() => setShowSettings(false)}
-      /> */}
       <AboutMoadal isOpen={showAbout} onClose={() => setShowAbout(false)} />
     </div>
   );

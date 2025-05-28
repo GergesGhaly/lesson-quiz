@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSound } from "../contexts/SoundContext";
 
 const ComboMessage = ({ visible, comboNumber }) => {
+  const { isSoundOn } = useSound();
+
   const comboSoundRef = useRef(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
 
@@ -19,7 +22,7 @@ const ComboMessage = ({ visible, comboNumber }) => {
   }, []);
 
   useEffect(() => {
-    if (visible) {
+    if (visible && isSoundOn) {
       comboSoundRef.current?.play().catch(() => {});
     }
   }, [visible]);

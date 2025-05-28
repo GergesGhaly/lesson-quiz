@@ -15,7 +15,7 @@ import {
 } from "./utils/localStorageHelpers";
 
 import { checkAndGrantRewards, getRewardsDisplay } from "./utils/rewardUtils";
-import { quizzes } from "./data/Questions";
+import { quizzes } from "./data/QuizzesWithTranslations";
 import { Link, useParams } from "react-router-dom";
 import NextLevelBtn from "./components/NextLevelBtn";
 import wall from "./assets/mainWall.jpg";
@@ -206,7 +206,6 @@ function Home() {
         />
       )}
 
-   
       {/* <ProfileNavigationBtn /> */}
     </div>
   );

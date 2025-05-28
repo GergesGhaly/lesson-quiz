@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { getUnlockedRewards } from "../utils/localStorageHelpers";
 import { getRewardsDisplay } from "../utils/rewardUtils";
+import { useTranslation } from "react-i18next";
 
 const CurrentReward = ({ imageSize, fontSize }) => {
   const [lastReward, setLastReward] = useState(null);
@@ -15,11 +16,22 @@ const CurrentReward = ({ imageSize, fontSize }) => {
     setLastReward(last);
   }, []);
 
+  const { t } = useTranslation();
+
   if (!lastReward) {
     return (
-      <div style={{ marginBottom: "40px" }}>
-        <h3>🏆 المكافآة الحالية</h3>
-        <p>لا توجد مكافآت حتى الآن.</p>
+      <div
+        style={{
+          marginBottom: "40px",
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <h3>🏆 {t("current_reward")}</h3>
+        <p> {t("no_rewards")}.</p>
       </div>
     );
   }
@@ -36,7 +48,7 @@ const CurrentReward = ({ imageSize, fontSize }) => {
         justifyContent: "center",
       }}
     >
-      <h3>🏆 المكافآة الحالية</h3>
+      <h3>🏆 {t("current_reward")}</h3>
       <motion.div
         initial={{ scale: 5, opacity: 0.2 }}
         animate={{

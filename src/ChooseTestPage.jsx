@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { quizzes } from "./data/Questions";
+import { quizzes } from "./data/QuizzesWithTranslations";
 import btnWall from "./assets/btnWall.png";
 import wallVideo from "./assets/wall2.mp4";
 import startSound from "/sound/gameStart.mp3";
 import ProfileNavigationBtn from "./components/ProfileNavigationBtn";
+import { useTranslation } from "react-i18next";
+import { useSound } from "./contexts/SoundContext";
 
 const ChooseTestPage = () => {
+  const { t, i18n } = useTranslation();
+  const language = i18n.language;
+  const { isSoundOn } = useSound();
+
   const navigate = useNavigate();
 
   const handleStartQuiz = (quizId) => {
     const sound = new Audio(startSound);
-    sound.play().catch((err) => console.warn("فشل تشغيل الصوت", err));
+    if (isSoundOn) {
+      sound.play().catch((err) => console.warn("فشل تشغيل الصوت", err));
+    }
 
     navigate(`/quiz/${quizId}`);
   };
@@ -55,7 +63,7 @@ const ChooseTestPage = () => {
         }}
       >
         <source src={wallVideo} type="video/mp4" />
-        المتصفح لا يدعم تشغيل الفيديو.
+        {t("video_error_message")}
       </video>
 
       {/* 🎯 المحتوى */}
@@ -78,7 +86,8 @@ const ChooseTestPage = () => {
             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.678)",
           }}
         >
-          اختر اختبارًا للبدء
+          {/* اختر اختبارًا للبدء */}
+          {t("choose_test")}
         </h2>
         <div
           style={{
@@ -109,7 +118,7 @@ const ChooseTestPage = () => {
                 // shadow: "0px 4px 6px rgba(0, 0, 0, 0.63)",
               }}
             >
-              {quiz.title}
+              {quiz.title[language]}
             </button>
           ))}
         </div>

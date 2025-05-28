@@ -2,8 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import CoinAnimation from "./CoinAnimation";
 import ComboMessage from "./ComboMessage";
 import ProgressDots from "./ProgressDots";
+import { useTranslation } from "react-i18next";
+import { useSound } from "../contexts/SoundContext";
 
 export default function Quiz({ questions, current, onAnswer }) {
+  const { i18n } = useTranslation(); // نستخدم i18n للحصول على اللغة الحالية
+  const language = i18n.language || "ar"; // "ar" أو "en" // اللغة الحالية ("ar", "en", ...)
+  const { isSoundOn } = useSound();
+
   const correctSoundRef = useRef(null);
   const wrongSoundRef = useRef(null);
   // const comboSoundRef = useRef(null);
@@ -21,6 +27,7 @@ export default function Quiz({ questions, current, onAnswer }) {
   useEffect(() => {
     correctSoundRef.current = new Audio("/sound/correct.mp3");
     wrongSoundRef.current = new Audio("/sound/wrong.mp3");
+
     // comboSoundRef.current = new Audio("/sound/combo.mp3");
   }, []);
 
@@ -34,7 +41,9 @@ export default function Quiz({ questions, current, onAnswer }) {
     });
 
     if (isCorrect) {
-      correctSoundRef.current?.play().catch(() => {});
+      if (isSoundOn) {
+        correctSoundRef.current?.play().catch(() => {});
+      }
       setShowCoin(true);
       setTimeout(() => setShowCoin(false), 1000);
 
@@ -56,7 +65,9 @@ export default function Quiz({ questions, current, onAnswer }) {
         return newCount;
       });
     } else {
-      wrongSoundRef.current?.play().catch(() => {});
+      if (isSoundOn) {
+        wrongSoundRef.current?.play().catch(() => {});
+      }
       setComboCount(0);
     }
 
@@ -84,9 +95,18 @@ export default function Quiz({ questions, current, onAnswer }) {
       {/* رسالة الكمبونت */}
       <ComboMessage visible={showCombo} comboNumber={comboNumber} />
 
-      <h3 style={{ marginBottom: "20px" }}>{questions[current].question}</h3>
+      <h3
+        style={{
+          marginBottom: "20px",
+          direction: language === "ar" ? "rtl" : "ltr",
+        }}
+      >
+        {questions[current].question[language]}
+      </h3>
 
-      {questions[current].answers.map((answer, index) => (
+      {/* <h3 style={{ marginBottom: "20px" }}>{questions[current].question}</h3> */}
+      {/* عرض الإجابات بحسب اللغة */}
+      {questions[current].answers[language].map((answer, index) => (
         <button
           key={index}
           style={{
@@ -102,6 +122,22 @@ export default function Quiz({ questions, current, onAnswer }) {
           {answer}
         </button>
       ))}
+      {/* {questions[current].answers.map((answer, index) => (
+        <button
+          key={index}
+          style={{
+            display: "block",
+            margin: "8px auto",
+            padding: "10px",
+            fontSize: "20px",
+            width: "100%",
+            maxWidth: "400px",
+          }}
+          onClick={() => handleAnswer(index)}
+        >
+          {answer}
+        </button>
+      ))} */}
 
       <CoinAnimation visible={showCoin} />
     </div>

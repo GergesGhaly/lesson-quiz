@@ -8,7 +8,7 @@ export default function ConfettiOverlay({ show }) {
   return (
     <>
       <Confetti />
-       <NextLevelBtn/>
+      <NextLevelBtn />
     </>
   );
 }

@@ -24,7 +24,7 @@ function AnimatedRoutes() {
           }
         />
         <Route
-          path="/ChooseTestPage"
+          path="/ChooseTest"
           element={
             <PageWrapper>
               <ChooseTestPage />

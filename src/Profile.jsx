@@ -72,7 +72,7 @@ const Profile = () => {
         {t("total_score")}: {totalScore}
       </div>
 
-      <CurrentReward imageSize={170} fontSize={130} />
+      <CurrentReward imageSize={170} fontSize={90} />
       <RewardsList rewards={unlockedRewards} />
       <Link
         to="/"

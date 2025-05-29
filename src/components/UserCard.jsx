@@ -1,6 +1,6 @@
 import React from "react";
-import cardImage from "../assets/startPage.png"; // قم بنقل الصورة إلى مجلد المشروع
-import falg from "../assets/rewardsFlags/reawrdFalg.jpg";
+// import cardImage from "../assets/startPage.png"; // قم بنقل الصورة إلى مجلد المشروع
+import falg from "../assets/rewardsFlags/8.png";
 const UserCard = ({ totalPoints, currentReward, pastRewards }) => {
   return (
     <div

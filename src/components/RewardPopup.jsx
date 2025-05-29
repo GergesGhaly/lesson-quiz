@@ -69,10 +69,19 @@ const RewardPopup = ({ reward, onClose }) => {
           boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
         }}
       >
-        {reward.image ? (
+        {reward.flag ? (
+          <motion.img
+            src={reward.flag}
+            alt={reward.reward[language]}
+            style={{ width: 170, objectFit: "contain", marginBottom: 10 }}
+            initial="initial"
+            animate="animate"
+            variants={imageAnimation}
+          />
+        ) : reward.image ? (
           <motion.img
             src={reward.image}
-            alt={reward.reward}
+            alt={reward.reward[language]}
             style={{ width: 170, height: 170, marginBottom: 10 }}
             initial="initial"
             animate="animate"

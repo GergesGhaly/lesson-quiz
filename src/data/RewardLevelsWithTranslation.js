@@ -5,9 +5,20 @@ import reward3 from "../assets/rewards/3.png";
 import reward4 from "../assets/rewards/4.png";
 import reward5 from "../assets/rewards/5.png";
 
+import flag0 from "../assets/rewardsFlags/0.png";
+import flag1 from "../assets/rewardsFlags/1.png";
+import flag2 from "../assets/rewardsFlags/2.png";
+import flag3 from "../assets/rewardsFlags/3.png";
+import flag4 from "../assets/rewardsFlags/4.png";
+import flag5 from "../assets/rewardsFlags/5.png";
+import flag6 from "../assets/rewardsFlags/6.png";
+import flag7 from "../assets/rewardsFlags/7.png";
+import flag8 from "../assets/rewardsFlags/8.png";
+import flag9 from "../assets/rewardsFlags/9.png";
+
 export const rewardLevels = [
   {
-    threshold: 10,
+    threshold: 15,
     reward: {
       ar: "وسام البدايات",
       en: "Beginner Medal",
@@ -16,7 +27,7 @@ export const rewardLevels = [
     icon: "🥉",
   },
   {
-    threshold: 20,
+    threshold: 30,
     reward: {
       ar: "وسام الاجتهاد",
       en: "Effort Medal",
@@ -25,7 +36,18 @@ export const rewardLevels = [
     icon: "🥈",
   },
   {
-    threshold: 30,
+    threshold: 40,
+    reward: {
+      ar: "شارة الاجتهاد ",
+      en: "Effort flag",
+    },
+    key: "effort+",
+    // icon: "🥈",
+    flag: flag0,
+  },
+
+  {
+    threshold: 55,
     reward: {
       ar: "وسام الإنجاز",
       en: "Achievement Medal",
@@ -34,7 +56,18 @@ export const rewardLevels = [
     icon: "🥇",
   },
   {
-    threshold: 40,
+    threshold: 65,
+    reward: {
+      ar: "شارة الإنجاز ",
+      en: "Achievement flag",
+    },
+    key: "achiever+",
+    // icon: "🥇",
+    flag: flag1,
+  },
+
+  {
+    threshold: 75,
     reward: {
       ar: "وسام النخبة",
       en: "Elite Medal",
@@ -43,7 +76,18 @@ export const rewardLevels = [
     icon: "🏅",
   },
   {
-    threshold: 45,
+    threshold: 85,
+    reward: {
+      ar: "شارة النخبة ",
+      en: "Elite flag",
+    },
+    key: "elite+",
+    // icon: "🏅",
+    flag: flag2,
+  },
+
+  {
+    threshold: 100,
     reward: {
       ar: "وسام التميز",
       en: "Excellence Medal",
@@ -51,8 +95,20 @@ export const rewardLevels = [
     key: "excellence",
     icon: "🎖",
   },
+
   {
-    threshold: 55,
+    threshold: 110,
+    reward: {
+      ar: "شارة التميز",
+      en: "Excellence flag",
+    },
+    key: "excellence+",
+    // icon: "🎖",
+    flag: flag3,
+  },
+
+  {
+    threshold: 125,
     reward: {
       ar: "وسام الأسطورة",
       en: "Legend Medal",
@@ -60,18 +116,41 @@ export const rewardLevels = [
     key: "legend",
     icon: "👑",
   },
+
   {
-    threshold: 60,
+    threshold: 125,
+    reward: {
+      ar: "شارة الأسطورة",
+      en: "Legend flag",
+    },
+    key: "legend+",
+    // icon: "👑",
+    flag: flag4,
+  },
+
+  {
+    threshold: 135,
     reward: {
       ar: "وسام الحكمة",
       en: "Wisdom Medal",
     },
     key: "wisdom",
     image: reward0,
-    
   },
+
   {
-    threshold: 70,
+    threshold: 145,
+    reward: {
+      ar: "شارة الحكمة",
+      en: "Wisdom flag",
+    },
+    key: "wisdom+",
+    // image: reward0,
+    flag: flag5,
+  },
+
+  {
+    threshold: 160,
     reward: {
       ar: "وسام النور",
       en: "Light Medal",
@@ -79,8 +158,20 @@ export const rewardLevels = [
     key: "light",
     image: reward1,
   },
+
   {
-    threshold: 80,
+    threshold: 160,
+    reward: {
+      ar: "شارة النور",
+      en: "Light flag",
+    },
+    key: "light+",
+    // image: reward1,
+    flag: flag6,
+  },
+
+  {
+    threshold: 175,
     reward: {
       ar: "وسام الشجاعة",
       en: "Courage Medal",
@@ -88,8 +179,20 @@ export const rewardLevels = [
     key: "courage",
     image: reward2,
   },
+
   {
-    threshold: 90,
+    threshold: 185,
+    reward: {
+      ar: "شارة الشجاعة",
+      en: "Courage flag",
+    },
+    key: "courage+",
+    // image: reward2,
+    flag: flag7,
+  },
+
+  {
+    threshold: 200,
     reward: {
       ar: "وسام المحارب",
       en: "Warrior Medal",
@@ -97,8 +200,20 @@ export const rewardLevels = [
     key: "warrior",
     image: reward3,
   },
+
   {
-    threshold: 100,
+    threshold: 210,
+    reward: {
+      ar: "شارة المحارب",
+      en: "Warrior flag",
+    },
+    key: "warrior+",
+    // image: reward3,
+    flag: flag8,
+  },
+
+  {
+    threshold: 225,
     reward: {
       ar: "وسام المُعلِّم",
       en: "Master Medal",
@@ -107,7 +222,18 @@ export const rewardLevels = [
     image: reward4,
   },
   {
-    threshold: 110,
+    threshold: 235,
+    reward: {
+      ar: "شارة المُعلِّم",
+      en: "Master flag",
+    },
+    key: "master+",
+    // image: reward4,
+    flag: flag9,
+  },
+
+  {
+    threshold: 250,
     reward: {
       ar: "وسام الخالد",
       en: "Eternal Medal",
@@ -115,4 +241,14 @@ export const rewardLevels = [
     key: "eternal",
     image: reward5,
   },
+  // {
+  //   threshold: 260,
+  //   reward: {
+  //     ar: "شارة الخالد",
+  //     en: "Eternal flag",
+  //   },
+  //   key: "eternal",
+  //   // image: reward5,
+  //   flag: flag10,
+  // },
 ];

@@ -34,21 +34,23 @@ export default function RewardsList({ rewards }) {
           {rewards
             .slice()
             .reverse()
-            .map(({ key, reward, icon, image }) => (
+            .map(({ key, reward, icon, image, flag }) => (
               <li
                 key={key}
                 style={{
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: "center",
                   gap: "12px",
+                  width: "100%",
                   marginBottom: "12px",
                   background: "#ffffff22",
                   padding: "10px 16px",
                   borderRadius: "12px",
-                  // direction: "rtl",
                   direction: language === "ar" ? "rtl" : "ltr",
                 }}
               >
+                {/* صورة المكافأة أو الأيقونة */}
                 {image ? (
                   <img
                     src={image}
@@ -58,6 +60,17 @@ export default function RewardsList({ rewards }) {
                 ) : (
                   <span style={{ fontSize: 32 }}>{icon}</span>
                 )}
+
+                {/* إذا كان هناك flag نعرض صورته فقط */}
+                {flag && (
+                  <img
+                    src={flag}
+                    alt={reward[language]}
+                    style={{ width: 40, height: 40, objectFit: "cover" }}
+                  />
+                )}
+
+                {/* اسم المكافأة */}
                 <span style={{ fontSize: "18px", fontWeight: "500" }}>
                   {reward[language]}
                 </span>

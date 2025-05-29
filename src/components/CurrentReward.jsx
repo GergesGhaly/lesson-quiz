@@ -6,6 +6,8 @@ import { getRewardsDisplay } from "../utils/rewardUtils";
 import { useTranslation } from "react-i18next";
 
 const CurrentReward = ({ imageSize, fontSize }) => {
+  const { t, i18n } = useTranslation();
+  const language = i18n.language || "ar";
   const [lastReward, setLastReward] = useState(null);
 
   useEffect(() => {
@@ -16,7 +18,7 @@ const CurrentReward = ({ imageSize, fontSize }) => {
     setLastReward(last);
   }, []);
 
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   if (!lastReward) {
     return (
@@ -69,7 +71,7 @@ const CurrentReward = ({ imageSize, fontSize }) => {
         {image ? (
           <motion.img
             src={image}
-            alt={reward}
+            alt={reward[language]}
             style={{
               width: imageSize,
               height: imageSize,
@@ -97,7 +99,7 @@ const CurrentReward = ({ imageSize, fontSize }) => {
             textAlign: "center",
           }}
         >
-          {reward}
+          {reward[language]}
         </span>
       </motion.div>
     </div>

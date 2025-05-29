@@ -1,4 +1,4 @@
-import { rewardLevels } from "../data/RewardLevels";
+import { rewardLevels } from "../data/RewardLevelsWithTranslation";
 
 export function checkAndGrantRewards(totalScore, unlockedRewards) {
   let newlyUnlocked = [];

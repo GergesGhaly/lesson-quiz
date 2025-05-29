@@ -2,7 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 export default function RewardsList({ rewards }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n.language || "ar";
 
   if (!rewards.length) return null;
 
@@ -44,20 +45,21 @@ export default function RewardsList({ rewards }) {
                   background: "#ffffff22",
                   padding: "10px 16px",
                   borderRadius: "12px",
-                  direction: "rtl",
+                  // direction: "rtl",
+                  direction: language === "ar" ? "rtl" : "ltr",
                 }}
               >
                 {image ? (
                   <img
                     src={image}
-                    alt={reward}
+                    alt={reward[language]}
                     style={{ width: 40, height: 40, objectFit: "contain" }}
                   />
                 ) : (
                   <span style={{ fontSize: 32 }}>{icon}</span>
                 )}
                 <span style={{ fontSize: "18px", fontWeight: "500" }}>
-                  {reward}
+                  {reward[language]}
                 </span>
               </li>
             ))}

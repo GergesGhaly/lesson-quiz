@@ -28,8 +28,13 @@ const QuizNavBar = ({ quiz, totalScore, getTotalScoreIcon }) => {
       }}
     >
       {/* ✅ العنوان على اليسار */}
-      <div style={{ flex: 1, textAlign: "start" }}>
-        <h2 style={{ fontSize: isMobile ? "16px" : "20px" }}>
+      <div style={{ flex: 1, textAlign: language === "en" ? "end" : "start" }}>
+        <h2
+          style={{
+            fontSize: isMobile ? "16px" : "20px",
+            direction: language === "en" ? "ltr" : "rtl",
+          }}
+        >
           {quiz.title[language]}
         </h2>
       </div>

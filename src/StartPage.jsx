@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import wallPc from "./assets/startWall.png";
 import play from "./assets/buttons/play.png";
 import battel from "./assets/buttons/battel.png";
-import logo from "./assets/logo2.png";
+// import logo from "./assets/logo2.png";
 import correct from "./assets/correct.png";
 import wrong from "./assets/wrong.png";
 import sound from "./assets/buttons/sound.png";
 import en from "./assets/buttons/en.jpg";
 import ar from "./assets/buttons/ar.jpg";
 import { Link } from "react-router-dom";
-import ProfileNavigationBtn from "./components/ProfileNavigationBtn";
-// import SettingsModal from "./components/modals/SettingsModal";
+import SettingsModal from "./components/modals/SettingsModal";
 import AboutMoadal from "./components/modals/AboutMoadal";
 import { useTranslation } from "react-i18next";
 import { useSound } from "./contexts/SoundContext";
+import { motion } from "framer-motion";
+import StartPageNav from "./components/StartPageNav";
+import Logo from "./components/Logo";
 
 const StartPage = () => {
   const { isSoundOn, setIsSoundOn } = useSound();
@@ -71,8 +73,8 @@ const StartPage = () => {
         flexDirection: "column",
       }}
     >
-      {/* <button>{t("start_game")}</button>; */}
-      <img style={{ width: "100%", maxWidth: "500px" }} src={logo} alt="logo" />
+      <Logo />
+      {/* <img style={{ width: "100%", maxWidth: "500px" }} src={logo} alt="logo" /> */}
       {/* الأزرار */}
       <div
         style={{
@@ -84,9 +86,20 @@ const StartPage = () => {
         }}
       >
         {buttons.map((btn) => (
-          <Link to={btn.link} key={btn.title}>
-            <img src={btn.image} alt={btn.title} />
-          </Link>
+          <motion.button
+            style={{
+              backgroundColor: "transparent",
+              border: "none",
+              cursor: "pointer",
+              position: "relative",
+            }}
+            whileTap={{ scale: 0.9 }}
+            sty
+          >
+            <Link to={btn.link} key={btn.title}>
+              <img src={btn.image} alt={btn.title} />
+            </Link>
+          </motion.button>
         ))}
       </div>
       {/* زر الصوت */}
@@ -100,8 +113,9 @@ const StartPage = () => {
           position: "relative",
         }}
       >
-        <button
+        <motion.button
           onClick={() => setIsSoundOn((prev) => !prev)}
+          whileTap={{ scale: 0.9 }}
           style={{
             backgroundColor: "transparent",
             border: "none",
@@ -115,9 +129,12 @@ const StartPage = () => {
             style={{ width: "100px", height: "110px", objectFit: "contain" }}
           />
           {!isSoundOn && (
-            <img
+            <motion.img
               src={wrong}
               alt="sound off"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               style={{
                 position: "absolute",
                 bottom: "5px",
@@ -128,7 +145,7 @@ const StartPage = () => {
               }}
             />
           )}
-        </button>
+        </motion.button>
       </div>
       {/* اختيار اللغة */}
       <div
@@ -141,13 +158,14 @@ const StartPage = () => {
       >
         {/* علم EN */}
         <div style={{ position: "relative" }}>
-          <button
+          <motion.button
             style={{
               backgroundColor: "transparent",
               border: "none",
               cursor: "pointer",
             }}
             onClick={() => toggleLanguage("en")}
+            whileTap={{ scale: 0.9 }}
           >
             <img
               style={{
@@ -160,32 +178,37 @@ const StartPage = () => {
               alt="English"
             />
             {selectedLang === "en" && (
-              <img
+              <motion.img
                 src={correct}
                 alt="correct"
+                initial={{ scale: 0, opacity: 0, y: -20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0, opacity: 0, y: -20 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
                 style={{
                   position: "absolute",
                   top: "-15px",
                   left: "0px",
                   width: "90px",
                   height: "90px",
-                  pointerEvents: "none", // لمنع التداخل مع الضغط
+                  pointerEvents: "none",
                 }}
               />
             )}
-          </button>
+          </motion.button>
         </div>
 
         {/* علم AR */}
         <div style={{ position: "relative" }}>
-          <button
+          <motion.button
             style={{
               backgroundColor: "transparent",
               border: "none",
               cursor: "pointer",
-              position: "relative", // لضمان أن الصورة فوق الزر
+              position: "relative",
             }}
             onClick={() => toggleLanguage("ar")}
+            whileTap={{ scale: 0.9 }}
           >
             <img
               style={{
@@ -199,20 +222,24 @@ const StartPage = () => {
             />
 
             {selectedLang === "ar" && (
-              <img
+              <motion.img
                 src={correct}
                 alt="correct"
+                initial={{ scale: 0, opacity: 0, y: -20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0, opacity: 0, y: -20 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
                 style={{
                   position: "absolute",
                   top: "-15px",
                   left: "0px",
                   width: "90px",
                   height: "90px",
-                  pointerEvents: "none", // لمنع التداخل مع الضغط
+                  pointerEvents: "none",
                 }}
               />
             )}
-          </button>
+          </motion.button>
         </div>
       </div>
       {/* التنقل */}
@@ -224,7 +251,7 @@ const StartPage = () => {
           width: "100%",
         }}
       >
-        <ProfileNavigationBtn setShowAbout={setShowAbout} />
+        <StartPageNav setShowAbout={setShowAbout} />
       </div>
       <AboutMoadal isOpen={showAbout} onClose={() => setShowAbout(false)} />
     </div>

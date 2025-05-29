@@ -20,7 +20,6 @@ import { Link, useParams } from "react-router-dom";
 import NextLevelBtn from "./components/NextLevelBtn";
 import wall from "./assets/mainWall.jpg";
 import CurrentReward from "./components/CurrentReward";
-import ProfileNavigationBtn from "./components/ProfileNavigationBtn";
 import QuizNavBar from "./components/QuizNavBar";
 
 function Home() {
@@ -205,8 +204,6 @@ function Home() {
           onAnswer={handleAnswer}
         />
       )}
-
-      {/* <ProfileNavigationBtn /> */}
     </div>
   );
 }

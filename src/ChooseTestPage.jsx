@@ -4,9 +4,9 @@ import { quizzes } from "./data/QuizzesWithTranslations";
 import btnWall from "./assets/btnWall.png";
 import wallVideo from "./assets/wall2.mp4";
 import startSound from "/sound/gameStart.mp3";
-import ProfileNavigationBtn from "./components/ProfileNavigationBtn";
 import { useTranslation } from "react-i18next";
 import { useSound } from "./contexts/SoundContext";
+import { motion } from "framer-motion";
 
 const ChooseTestPage = () => {
   const { t, i18n } = useTranslation();
@@ -98,7 +98,8 @@ const ChooseTestPage = () => {
           }}
         >
           {quizzes.map((quiz) => (
-            <button
+            <motion.button
+              whileTap={{ scale: 0.9 }}
               key={quiz.id}
               onClick={() => handleStartQuiz(quiz.id)}
               style={{
@@ -119,7 +120,7 @@ const ChooseTestPage = () => {
               }}
             >
               {quiz.title[language]}
-            </button>
+            </motion.button>
           ))}
         </div>
       </div>

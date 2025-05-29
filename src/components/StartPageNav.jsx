@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import profileBtn from "../assets/profileBtn.png";
 import aboutBtn from "../assets/buttons/aboutBtn.png";
 
-const ProfileNavigationBtn = ({ setShowAbout }) => {
+const StartPageNav = ({ setShowAbout }) => {
   return (
     <div
       style={{
@@ -45,4 +45,4 @@ const ProfileNavigationBtn = ({ setShowAbout }) => {
   );
 };
 
-export default ProfileNavigationBtn;
+export default StartPageNav;

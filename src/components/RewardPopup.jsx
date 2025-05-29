@@ -5,7 +5,9 @@ import { useTranslation } from "react-i18next";
 import { useSound } from "../contexts/SoundContext";
 
 const RewardPopup = ({ reward, onClose }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n.language || "ar";
+
   const { isSoundOn } = useSound();
 
   useEffect(() => {
@@ -87,7 +89,9 @@ const RewardPopup = ({ reward, onClose }) => {
           </motion.div>
         )}
 
-        <div style={{ fontSize: 25, fontWeight: "bold" }}>{reward.reward}</div>
+        <div style={{ fontSize: 25, fontWeight: "bold" }}>
+          {reward.reward[language]}
+        </div>
         <h4 style={{ margin: "15px 0" }}>{t("new_reward")}</h4>
         <button
           onClick={onClose}

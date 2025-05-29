@@ -68,6 +68,7 @@ export const rewardLevels = [
     },
     key: "wisdom",
     image: reward0,
+    
   },
   {
     threshold: 70,

@@ -44,7 +44,7 @@ const Profile = () => {
   return (
     <div
       style={{
-        minHeight: "100vh",
+        minHeight: "100dvh",
         background: "radial-gradient(circle, #433C7D, #1E2247)",
         color: "#fff",
         padding: "40px",

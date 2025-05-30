@@ -66,7 +66,7 @@ const StartPage = () => {
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center center",
-        minHeight: "100vh",
+        minHeight: "100dvh",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",

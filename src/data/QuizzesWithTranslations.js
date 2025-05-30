@@ -1,5 +1,135 @@
 export const quizzes = [
   {
+    id: 0,
+    title: {
+      ar: "من القائل؟",
+      en: "Who said this?",
+    },
+    questions: [
+      {
+        question: {
+          ar: "من القائل: تعظم نفسي الرب لأنه سمع إلى اتضاع أمته؟",
+          en: "Who said: 'My soul magnifies the Lord, for He has regarded the low estate of His handmaiden'?",
+        },
+        answers: {
+          ar: ["إليصابات", "حنة", "مريم", "راعوث"],
+          en: ["Elizabeth", "Hannah", "Mary", "Ruth"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من القائل: خذوني واطرحوني في البحر فيسكن البحر عنكم؟",
+          en: "Who said: 'Pick me up and throw me into the sea, and it will become calm for you'?",
+        },
+        answers: {
+          ar: ["يونان", "بولس", "موسى", "نوح"],
+          en: ["Jonah", "Paul", "Moses", "Noah"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من القائل: هوذا حمل الله الذي يرفع خطية العالم؟",
+          en: "Who said: 'Behold! The Lamb of God who takes away the sin of the world'?",
+        },
+        answers: {
+          ar: ["بولس", "يوحنا المعمدان", "بطرس", "يسوع"],
+          en: ["Paul", "John the Baptist", "Peter", "Jesus"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من القائل: حقا قال الله لا تأكلا من كل شجر الجنة؟",
+          en: "Who said: 'Has God indeed said, “You shall not eat of every tree of the garden”?'",
+        },
+        answers: {
+          ar: ["الحية", "حواء", "قايين", "آدم"],
+          en: ["The serpent", "Eve", "Cain", "Adam"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من القائل: هوذا حين صار صوت سلامك في أذني ارتكض الجنين بابتهاج في بطني؟",
+          en: "Who said: 'As soon as the voice of your greeting sounded in my ears, the babe leaped in my womb for joy'?",
+        },
+        answers: {
+          ar: ["حنّة", "إليصابات", "نعمي", "مريم"],
+          en: ["Hannah", "Elizabeth", "Naomi", "Mary"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من القائل: هذه الآن عظم من عظامي ولحم من لحمي؟",
+          en: "Who said: 'This is now bone of my bones and flesh of my flesh'?",
+        },
+        answers: {
+          ar: ["إبراهيم", "موسى", "آدم", "يعقوب"],
+          en: ["Abraham", "Moses", "Adam", "Jacob"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من القائل: أنت بطرس، وعلى هذه الصخرة أبني كنيستي؟",
+          en: "Who said: 'You are Peter, and on this rock I will build my church'?",
+        },
+        answers: {
+          ar: ["بطرس", "يسوع", "بولس", "يهوذا"],
+          en: ["Peter", "Jesus", "Paul", "Judas"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من القائل: يا سيد، لو كنت ههنا لم يمت أخي؟",
+          en: "Who said: 'Lord, if you had been here, my brother would not have died'?",
+        },
+        answers: {
+          ar: ["إليصابات", "مرثا", "مريم", "حنّة"],
+          en: ["Elizabeth", "Martha", "Mary", "Hannah"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من القائل: أنت تأتي إلي بسيف وبرمح وبترس، وأنا آتي إليك باسم رب الجنود؟",
+          en: "Who said: 'You come to me with a sword, a spear, and a javelin, but I come to you in the name of the Lord of hosts'?",
+        },
+        answers: {
+          ar: ["صموئيل", "داود", "شاول", "يشوع"],
+          en: ["Samuel", "David", "Saul", "Joshua"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من القائل: إن لم أبصر في يديه أثر المسامير لا أؤمن؟",
+          en: "Who said: 'Unless I see in His hands the print of the nails, I will not believe'?",
+        },
+        answers: {
+          ar: ["بطرس", "توما", "يوحنا", "فيلبس"],
+          en: ["Peter", "Thomas", "John", "Philip"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من القائل: هوذا النار والحطب، ولكن أين الخروف للمحرقة؟",
+          en: "Who said: 'Look, the fire and the wood, but where is the lamb for a burnt offering?'",
+        },
+        answers: {
+          ar: ["شاول", "يعقوب", "إسحاق", "موسى"],
+          en: ["Saul", "Jacob", "Isaac", "Moses"],
+        },
+        correct: 2,
+      },
+    ],
+  },
+  {
     id: 1,
     title: {
       ar: "قصص من العهد القديم",

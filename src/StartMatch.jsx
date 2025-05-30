@@ -19,6 +19,7 @@ const StartMatch = ({ onStart }) => {
   return (
     <div
       style={{
+        position: "relative",
         // maxWidth: "400px",
         margin: "auto",
         padding: "20px",
@@ -37,6 +38,20 @@ const StartMatch = ({ onStart }) => {
         gap: "20px",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0, 0, 0, 0.541)",
+          zIndex: 9999999,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+        }}
+      >
+        <h1>under development</h1>
+      </div>
       <UserCard
         totalPoints={15}
         currentReward={{

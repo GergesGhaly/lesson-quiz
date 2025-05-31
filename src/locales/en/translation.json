@@ -29,5 +29,18 @@
     "warrior": "Warrior Medal",
     "master": "Master Medal",
     "eternal": "Eternal Medal"
-  }
+  },
+
+    "verses": [
+    "The Lord is my shepherd; I shall not want",
+    "Trust in the Lord with all your heart",
+    "For God so loved the world",
+    "Be strong and courageous",
+    "We love because He first loved us",
+    "Rejoice always",
+    "Pray without ceasing",
+    "God is love",
+    "I can do all things through Christ"
+  ]
+
 }

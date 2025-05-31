@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import leafs from "../assets/aleafs.jpg";
 
-const leafCount = 6;
+const leafCount = 7;
 
 const generateLeafProps = () => {
   return {
@@ -11,7 +11,7 @@ const generateLeafProps = () => {
     size: 50 + Math.random() * 30,
     duration: 8 + Math.random() * 7,
     delay: Math.random() * 20,
-    rotate: (Math.random() - 0.5) * 360, // اجعل المدى أوسع لتنوع الدوران
+    rotate: (Math.random() - 0.5) * 360,
     xMotionRange: (Math.random() - 0.5) * 100,
   };
 };
@@ -59,8 +59,10 @@ const FlyinLeaf = ({ props }) => (
 );
 
 const FlyinLeafs = () => {
-  const leaves = Array.from({ length: leafCount }).map(() =>
-    generateLeafProps()
+  // توليد الأوراق مرة واحدة فقط
+  const leaves = useMemo(
+    () => Array.from({ length: leafCount }).map(() => generateLeafProps()),
+    []
   );
 
   return (

@@ -70,24 +70,9 @@ const StartPage = () => {
       audioRef.current.loop = true;
     }
 
-    const playOnUserInteraction = () => {
-      if (isSoundOn) {
-        audioRef.current.play().catch((err) => {
-          console.warn("Autoplay blocked:", err);
-        });
-      }
-      // إزالة الحدث بعد أول تفاعل
-      document.removeEventListener("click", playOnUserInteraction);
-      document.removeEventListener("touchstart", playOnUserInteraction);
-    };
-
     if (isSoundOn) {
       // حاول تشغيله مباشرة
-      audioRef.current.play().catch((err) => {
-        // إذا فشل التشغيل، انتظر التفاعل
-        document.addEventListener("click", playOnUserInteraction);
-        document.addEventListener("touchstart", playOnUserInteraction);
-      });
+      audioRef.current.play().catch((err) => {});
     } else {
       audioRef.current.pause();
     }
@@ -97,8 +82,6 @@ const StartPage = () => {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
       }
-      document.removeEventListener("click", playOnUserInteraction);
-      document.removeEventListener("touchstart", playOnUserInteraction);
     };
   }, [isSoundOn]);
 
@@ -134,7 +117,7 @@ const StartPage = () => {
       >
         <Leafs />
       </div>
-      <div style={{ position: "absolute", top: "-50px", right: "50%" }}>
+      <div style={{ position: "absolute", top: "-50px", right: "0" }}>
         <FlyinLeafs />
       </div>
       {/* <div>

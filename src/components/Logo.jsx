@@ -4,10 +4,12 @@ import {
   useMotionValue,
   useTransform,
   useAnimationFrame,
+  AnimatePresence,
 } from "framer-motion";
 import logo from "../assets/logo2.png";
 import butterfly from "../assets/butterfly.png";
 import { useSound } from "../contexts/SoundContext";
+import RandomVerse from "./RandomVerse";
 
 const Logo = () => {
   const { isSoundOn } = useSound();
@@ -18,6 +20,7 @@ const Logo = () => {
   const [isNear, setIsNear] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [showRandomVerse, setShowRandomVerse] = useState(false); // ✅
 
   const rotate = useMotionValue(0);
   const flap = useMotionValue(0);
@@ -99,12 +102,17 @@ const Logo = () => {
 
   const handleClick = () => {
     setShowHint(false);
+    setShowRandomVerse(true);
 
     setIsClicked(true);
     if (isSoundOn) {
       correctSoundRef.current?.play().catch(() => {});
     }
     setTimeout(() => setIsClicked(false), 300);
+    // إخفاء الآية بعد 5 ثوانٍ مثلاً:
+    setTimeout(() => {
+      setShowRandomVerse(false);
+    }, 5000);
   };
 
   return (
@@ -130,40 +138,42 @@ const Logo = () => {
       />
 
       {/* الفراشة */}
-      <motion.img
-        ref={butterflyRef}
-        src={butterfly}
-        alt="butterfly"
-        onClick={handleClick}
-        animate={{
-          scale: isClicked ? [1, 0.8, 1.1, 1] : 1,
-        }}
-        transition={{ duration: 0.3 }}
-        style={{
-          width: "50px",
-          height: "50px",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          x,
-          y,
-          translateX: "-50%",
-          translateY: "-50%",
-          zIndex,
-          rotateZ,
-          rotateX,
-          scaleX, // ✅ التحكم باتجاه الوجه
-          transformStyle: "preserve-3d",
-          willChange: "transform",
-          userSelect: "none",
-          cursor: "pointer",
-          pointerEvents: "auto",
-          filter: isClicked
-            ? "brightness(1.8) drop-shadow(0 0 10px gold)"
-            : "none",
-          transition: "filter 0.3s ease",
-        }}
-      />
+      <button>
+        <motion.img
+          ref={butterflyRef}
+          src={butterfly}
+          alt="butterfly"
+          onClick={handleClick}
+          animate={{
+            scale: isClicked ? [1, 0.8, 1.1, 1] : 1,
+          }}
+          transition={{ duration: 0.3 }}
+          style={{
+            width: "50px",
+            height: "50px",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            x,
+            y,
+            translateX: "-50%",
+            translateY: "-50%",
+            zIndex,
+            rotateZ,
+            rotateX,
+            scaleX, // ✅ التحكم باتجاه الوجه
+            transformStyle: "preserve-3d",
+            willChange: "transform",
+            userSelect: "none",
+            cursor: "pointer",
+            pointerEvents: "auto",
+            filter: isClicked
+              ? "brightness(1.8) drop-shadow(0 0 10px gold)"
+              : "none",
+            transition: "filter 0.3s ease",
+          }}
+        />
+      </button>
       {showHint && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -192,6 +202,7 @@ const Logo = () => {
           Click me
         </motion.div>
       )}
+      {showRandomVerse && <RandomVerse x={x} y={hintY} />}
     </div>
   );
 };

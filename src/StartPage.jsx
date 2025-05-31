@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import wallPc from "./assets/startWall.png";
+import wallPc from "./assets/startWall.webp";
 import play from "./assets/buttons/play.png";
 import battel from "./assets/buttons/battel.png";
 // import logo from "./assets/logo2.png";
@@ -98,7 +98,7 @@ const StartPage = () => {
       <div style={{ position: "absolute", top: "-50px", right: "0" }}>
         <FlyinLeafs />
       </div>
-      
+
       <div
         style={{
           display: "flex",

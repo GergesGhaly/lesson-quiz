@@ -139,6 +139,7 @@ const ChooseTestPage = () => {
                 color: "#fff",
                 cursor: "pointer",
                 backgroundImage: `url(${btnWall})`,
+
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
                 backgroundPosition: "center",

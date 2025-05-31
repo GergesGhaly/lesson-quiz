@@ -16,7 +16,7 @@ import {
 import { checkAndGrantRewards, getRewardsDisplay } from "./utils/rewardUtils";
 import { quizzes } from "./data/QuizzesWithTranslations";
 import { useParams } from "react-router-dom";
-import wall from "./assets/mainWall.jpg";
+import wall from "./assets/mainWall.webp";
 import QuizNavBar from "./components/QuizNavBar";
 
 function Home() {

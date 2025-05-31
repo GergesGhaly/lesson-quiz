@@ -12,13 +12,10 @@
   "dependencies": {
     "framer-motion": "^12.12.2",
     "i18next": "^25.2.1",
-    "lottie-react": "^2.4.1",
-    "quiz": "file:",
     "react": "^19.1.0",
     "react-confetti": "^6.4.0",
     "react-dom": "^19.1.0",
     "react-i18next": "^15.5.2",
-    "react-quiz-component": "^0.9.1",
     "react-router-dom": "^7.6.0"
   },
   "devDependencies": {

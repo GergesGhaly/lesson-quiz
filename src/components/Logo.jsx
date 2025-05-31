@@ -129,6 +129,7 @@ const Logo = () => {
       <img
         src={logo}
         alt="logo"
+        rel="preload"
         style={{
           width: "100%",
           display: "block",

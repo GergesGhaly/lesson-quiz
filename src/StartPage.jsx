@@ -63,28 +63,45 @@ const StartPage = () => {
     }
   }, []);
   useEffect(() => {
-    const playAudio = () => {
-      if (audioRef.current && isSoundOn) {
+    // إنشاء عنصر الصوت إذا لم يكن موجودًا
+    if (!audioRef.current) {
+      audioRef.current = new Audio(bgMusic);
+      audioRef.current.volume = 0.5;
+      audioRef.current.loop = true;
+    }
+
+    const playOnUserInteraction = () => {
+      if (isSoundOn) {
         audioRef.current.play().catch((err) => {
-          console.warn("Playback blocked or failed:", err);
+          console.warn("Autoplay blocked:", err);
         });
       }
-      // إزالة المستمع بعد أول تفاعل
-      document.removeEventListener("click", playAudio);
-      document.removeEventListener("touchstart", playAudio);
+      // إزالة الحدث بعد أول تفاعل
+      document.removeEventListener("click", playOnUserInteraction);
+      document.removeEventListener("touchstart", playOnUserInteraction);
     };
 
-    // إذا الصوت مفعل نضيف المستمع
     if (isSoundOn) {
-      document.addEventListener("click", playAudio);
-      document.addEventListener("touchstart", playAudio);
+      // حاول تشغيله مباشرة
+      audioRef.current.play().catch((err) => {
+        // إذا فشل التشغيل، انتظر التفاعل
+        document.addEventListener("click", playOnUserInteraction);
+        document.addEventListener("touchstart", playOnUserInteraction);
+      });
+    } else {
+      audioRef.current.pause();
     }
 
     return () => {
-      document.removeEventListener("click", playAudio);
-      document.removeEventListener("touchstart", playAudio);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+      document.removeEventListener("click", playOnUserInteraction);
+      document.removeEventListener("touchstart", playOnUserInteraction);
     };
   }, [isSoundOn]);
+
   const toggleLanguage = (lang) => {
     i18n.changeLanguage(lang);
     localStorage.setItem("lang", lang); // احفظ اللغة الجديدة

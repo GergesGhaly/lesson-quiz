@@ -17,6 +17,7 @@ const Logo = () => {
 
   const [isNear, setIsNear] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
   const rotate = useMotionValue(0);
   const flap = useMotionValue(0);
@@ -44,6 +45,7 @@ const Logo = () => {
 
   // ✅ تحديد اتجاه الوجه بناءً على زاوية الدوران
   const scaleX = useTransform(rotate, (r) => (r >= 90 && r <= 270 ? -1 : 1));
+  const hintY = useTransform(y, (val) => val - 35);
 
   useAnimationFrame((t) => {
     flap.set((t / 7) % 60);
@@ -61,6 +63,22 @@ const Logo = () => {
     }
   });
 
+  // timer to show hint
+  useEffect(() => {
+    const showTimer = setTimeout(() => {
+      setShowHint(true);
+
+      const hideTimer = setTimeout(() => {
+        setShowHint(false);
+      }, 3000); // تختفي بعد 3 ثوانٍ من ظهورها
+
+      // تنظيف مؤقت الاختفاء
+      return () => clearTimeout(hideTimer);
+    }, 2000); // تظهر بعد 2 ثانية من بداية التطبيق
+
+    // تنظيف مؤقت الظهور
+    return () => clearTimeout(showTimer);
+  }, []);
   useEffect(() => {
     correctSoundRef.current = new Audio("/sound/shine.mp3");
 
@@ -80,6 +98,8 @@ const Logo = () => {
   }, []);
 
   const handleClick = () => {
+    setShowHint(false);
+
     setIsClicked(true);
     if (isSoundOn) {
       correctSoundRef.current?.play().catch(() => {});
@@ -144,6 +164,34 @@ const Logo = () => {
           transition: "filter 0.3s ease",
         }}
       />
+      {showHint && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            x,
+            y: hintY, // يتحرك مع الفراشة
+            translateX: "-50%",
+            translateY: "-50%",
+            background: "#91eeff",
+            color: "#333",
+            padding: "6px 12px",
+            borderRadius: "8px",
+            fontSize: "12px",
+            pointerEvents: "none",
+            zIndex: 4,
+            boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Click me
+        </motion.div>
+      )}
     </div>
   );
 };

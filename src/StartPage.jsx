@@ -6,6 +6,7 @@ import battel from "./assets/buttons/battel.png";
 import correct from "./assets/correct.png";
 import wrong from "./assets/wrong.png";
 import sound from "./assets/buttons/sound.png";
+
 import en from "./assets/buttons/en.jpg";
 import ar from "./assets/buttons/ar.jpg";
 import { Link } from "react-router-dom";
@@ -16,14 +17,15 @@ import { useSound } from "./contexts/SoundContext";
 import { motion } from "framer-motion";
 import StartPageNav from "./components/StartPageNav";
 import Logo from "./components/Logo";
+import Leafs from "./components/Leafs";
+import FlyinLeafs from "./components/FlyinLeafs";
+import bgMusic from "/sound/gameBackground.mp3";
+import { useRef } from "react";
 
 const StartPage = () => {
+  const audioRef = useRef(null);
   const { isSoundOn, setIsSoundOn } = useSound();
-
-  // const [showSettings, setShowSettings] = useState(false);
-  // const [showAbout, setShowAbout] = useState(false);
   const [selectedLang, setSelectedLang] = useState("ar"); // الحالة الافتراضية عربية
-  // const [isSoundOn, setIsSoundOn] = useState(false); // الصوت مغلق افتراضيًا
   const [showAbout, setShowAbout] = useState(false);
   const { i18n } = useTranslation();
   const [buttons, setButtons] = useState([
@@ -53,6 +55,36 @@ const StartPage = () => {
     setSelectedLang(i18n.language);
   }, [i18n.language]);
 
+  useEffect(() => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio(bgMusic);
+      audioRef.current.volume = 0.5;
+      audioRef.current.loop = true;
+    }
+  }, []);
+  useEffect(() => {
+    const playAudio = () => {
+      if (audioRef.current && isSoundOn) {
+        audioRef.current.play().catch((err) => {
+          console.warn("Playback blocked or failed:", err);
+        });
+      }
+      // إزالة المستمع بعد أول تفاعل
+      document.removeEventListener("click", playAudio);
+      document.removeEventListener("touchstart", playAudio);
+    };
+
+    // إذا الصوت مفعل نضيف المستمع
+    if (isSoundOn) {
+      document.addEventListener("click", playAudio);
+      document.addEventListener("touchstart", playAudio);
+    }
+
+    return () => {
+      document.removeEventListener("click", playAudio);
+      document.removeEventListener("touchstart", playAudio);
+    };
+  }, [isSoundOn]);
   const toggleLanguage = (lang) => {
     i18n.changeLanguage(lang);
     localStorage.setItem("lang", lang); // احفظ اللغة الجديدة
@@ -74,7 +106,23 @@ const StartPage = () => {
       }}
     >
       <Logo />
-      {/* <img style={{ width: "100%", maxWidth: "500px" }} src={logo} alt="logo" /> */}
+      <div
+        style={{
+          position: "absolute",
+          top: "40%",
+          right: "20%",
+          transform: "translateX(50%)",
+          // zIndex: -1,
+        }}
+      >
+        <Leafs />
+      </div>
+      <div style={{ position: "absolute", top: "-50px", right: "50%" }}>
+        <FlyinLeafs />
+      </div>
+      {/* <div>
+        <img style={{ width: "100px" }} src={leafs} alt="" srcset="" />
+      </div> */}
       {/* الأزرار */}
       <div
         style={{
@@ -92,6 +140,7 @@ const StartPage = () => {
               border: "none",
               cursor: "pointer",
               position: "relative",
+              outline: "none",
             }}
             whileTap={{ scale: 0.9 }}
             sty
@@ -119,6 +168,7 @@ const StartPage = () => {
           style={{
             backgroundColor: "transparent",
             border: "none",
+            outline: "none",
             cursor: "pointer",
             position: "relative",
           }}
@@ -162,6 +212,7 @@ const StartPage = () => {
             style={{
               backgroundColor: "transparent",
               border: "none",
+              outline: "none",
               cursor: "pointer",
             }}
             onClick={() => toggleLanguage("en")}
@@ -204,6 +255,7 @@ const StartPage = () => {
             style={{
               backgroundColor: "transparent",
               border: "none",
+              outline: "none",
               cursor: "pointer",
               position: "relative",
             }}

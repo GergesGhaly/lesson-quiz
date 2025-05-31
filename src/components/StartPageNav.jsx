@@ -22,6 +22,7 @@ const StartPageNav = ({ setShowAbout }) => {
     >
       <Link to="/profile">
         <motion.img
+          whileHover={{ scale: 1.1 }}
           src={profileBtn}
           style={{
             width: "60px",
@@ -33,6 +34,7 @@ const StartPageNav = ({ setShowAbout }) => {
       </Link>
 
       <motion.img
+        whileHover={{ scale: 1.1 }}
         src={aboutBtn}
         onClick={() => setShowAbout(true)}
         style={{

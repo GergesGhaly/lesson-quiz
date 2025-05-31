@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { quizzes } from "./data/QuizzesWithTranslations";
 import btnWall from "./assets/btnWall.png";
@@ -7,24 +7,31 @@ import startSound from "/sound/gameStart.mp3";
 import { useTranslation } from "react-i18next";
 import { useSound } from "./contexts/SoundContext";
 import { motion } from "framer-motion";
+import bgMusicFile from "/sound/sky-lark-sound-birds.mp3"; // <-- تم إعادة التسمية لتجنب التعارض
 
 const ChooseTestPage = () => {
   const { t, i18n } = useTranslation();
   const language = i18n.language;
   const { isSoundOn } = useSound();
-
   const navigate = useNavigate();
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+  const bgMusicRef = useRef(null); // 🎵 مرجع للموسيقى الخلفية
 
   const handleStartQuiz = (quizId) => {
     const sound = new Audio(startSound);
     if (isSoundOn) {
-      sound.play().catch((err) => console.warn("فشل تشغيل الصوت", err));
+      sound.play().catch((err) => console.warn("فشل تشغيل صوت البدء", err));
+    }
+
+    // إيقاف الخلفية عند الانتقال
+    if (bgMusicRef.current) {
+      bgMusicRef.current.pause();
+      bgMusicRef.current.currentTime = 0;
     }
 
     navigate(`/quiz/${quizId}`);
   };
-
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,6 +41,31 @@ const ChooseTestPage = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    // أنشئ كائن الصوت مرة واحدة
+    bgMusicRef.current = new Audio(bgMusicFile);
+    bgMusicRef.current.loop = true;
+
+    // شغّل أو أوقف حسب isSoundOn
+    if (isSoundOn) {
+      bgMusicRef.current
+        .play()
+        .catch((err) =>
+          console.warn("❌ فشل تشغيل الموسيقى الخلفية تلقائيًا", err)
+        );
+    } else {
+      bgMusicRef.current.pause();
+    }
+
+    // عند الخروج من الصفحة
+    return () => {
+      if (bgMusicRef.current) {
+        bgMusicRef.current.pause();
+        bgMusicRef.current.currentTime = 0;
+      }
+    };
+  }, [isSoundOn]);
 
   return (
     <div
@@ -46,7 +78,7 @@ const ChooseTestPage = () => {
         alignItems: "start",
       }}
     >
-      {/* 🎥 خلفية الفيديو */}
+      {/* فيديو الخلفية */}
       <video
         autoPlay
         loop
@@ -66,7 +98,7 @@ const ChooseTestPage = () => {
         {t("video_error_message")}
       </video>
 
-      {/* 🎯 المحتوى */}
+      {/* المحتوى */}
       <div
         style={{
           padding: 40,
@@ -74,7 +106,6 @@ const ChooseTestPage = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          // justifyContent: "start",
           gap: 30,
           zIndex: 1,
           color: "#fff",
@@ -86,7 +117,6 @@ const ChooseTestPage = () => {
             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.678)",
           }}
         >
-          {/* اختر اختبارًا للبدء */}
           {t("choose_test")}
         </h2>
         <div
@@ -115,8 +145,6 @@ const ChooseTestPage = () => {
                 height: 100,
                 width: isMobile ? 270 : 350,
                 textShadow: "0px 3px 4px rgba(0, 0, 0, 0.836)",
-
-                // shadow: "0px 4px 6px rgba(0, 0, 0, 0.63)",
               }}
             >
               {quiz.title[language]}

@@ -39,7 +39,9 @@ const AboutMoadal = ({ isOpen, onClose }) => {
             }}
           >
             {/* زر الإغلاق */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
               onClick={onClose}
               style={{
                 position: "absolute",
@@ -47,6 +49,7 @@ const AboutMoadal = ({ isOpen, onClose }) => {
                 right: "-20px",
                 background: "transparent",
                 border: "none",
+                outline: "none",
                 cursor: "pointer",
               }}
             >
@@ -55,7 +58,7 @@ const AboutMoadal = ({ isOpen, onClose }) => {
                 alt="close"
                 style={{ width: "60px", height: "60px" }}
               />
-            </button>
+            </motion.button>
 
             {/* نص المودال */}
             <p>

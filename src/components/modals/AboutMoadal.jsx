@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import wrong from "../../assets/wrong.png";
+import wrong from "../../assets/wrong.avif";
 import { Link } from "react-router-dom";
 
 const AboutMoadal = ({ isOpen, onClose }) => {

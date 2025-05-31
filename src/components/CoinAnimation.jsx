@@ -1,7 +1,7 @@
 // src/components/CoinAnimation.jsx
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import coin from "../assets/coin.png";
+import coin from "../assets/coin.avif";
 
 const CoinAnimation = ({ visible }) => {
   return (

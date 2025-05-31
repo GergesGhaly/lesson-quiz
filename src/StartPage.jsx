@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import wallPc from "./assets/startWall.webp";
-import play from "./assets/buttons/play.png";
-import battel from "./assets/buttons/battel.png";
+import play from "./assets/buttons/play.avif";
+import battel from "./assets/buttons/battel.avif";
 // import logo from "./assets/logo2.png";
-import correct from "./assets/correct.png";
-import wrong from "./assets/wrong.png";
-import sound from "./assets/buttons/sound.png";
+import correct from "./assets/correct.avif";
+import wrong from "./assets/wrong.avif";
+import sound from "./assets/buttons/sound.avif";
 
-import en from "./assets/buttons/en.jpg";
-import ar from "./assets/buttons/ar.jpg";
+import en from "./assets/buttons/en.avif";
+import ar from "./assets/buttons/ar.avif";
 import { Link } from "react-router-dom";
 import AboutMoadal from "./components/modals/AboutMoadal";
 import { useTranslation } from "react-i18next";

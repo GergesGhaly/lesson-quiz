@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import leafs from "../assets/aleafs.jpg";
+import leafs from "../assets/aleafs.avif";
 
 const leafCount = 7;
 

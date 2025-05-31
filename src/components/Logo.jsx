@@ -6,8 +6,8 @@ import {
   useAnimationFrame,
   AnimatePresence,
 } from "framer-motion";
-import logo from "../assets/logo2.png";
-import butterfly from "../assets/butterfly.png";
+import logo from "../assets/logo2.avif";
+import butterfly from "../assets/butterfly.avif";
 import { useSound } from "../contexts/SoundContext";
 import RandomVerse from "./RandomVerse";
 

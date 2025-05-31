@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import wall from "./assets/startChallengWall.jpg";
-import vs from "./assets/vs.png";
+import wall from "./assets/startChallengWall.webp";
+import vs from "./assets/vs.avif";
 import UserCard from "./components/UserCard";
 
 const StartMatch = ({ onStart }) => {

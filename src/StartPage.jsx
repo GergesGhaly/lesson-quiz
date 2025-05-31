@@ -10,14 +10,12 @@ import sound from "./assets/buttons/sound.png";
 import en from "./assets/buttons/en.jpg";
 import ar from "./assets/buttons/ar.jpg";
 import { Link } from "react-router-dom";
-import SettingsModal from "./components/modals/SettingsModal";
 import AboutMoadal from "./components/modals/AboutMoadal";
 import { useTranslation } from "react-i18next";
 import { useSound } from "./contexts/SoundContext";
 import { motion } from "framer-motion";
 import StartPageNav from "./components/StartPageNav";
 import Logo from "./components/Logo";
-import Leafs from "./components/Leafs";
 import FlyinLeafs from "./components/FlyinLeafs";
 import bgMusic from "/sound/gameBackground.mp3";
 import { useRef } from "react";
@@ -28,7 +26,7 @@ const StartPage = () => {
   const [selectedLang, setSelectedLang] = useState("ar"); // الحالة الافتراضية عربية
   const [showAbout, setShowAbout] = useState(false);
   const { i18n } = useTranslation();
-  const [buttons, setButtons] = useState([
+  const [buttons] = useState([
     {
       title: "ابدأ الاختبار",
       link: "/ChooseTest",
@@ -40,16 +38,6 @@ const StartPage = () => {
       image: battel,
     },
   ]);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 600);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     setSelectedLang(i18n.language);
@@ -106,24 +94,11 @@ const StartPage = () => {
       }}
     >
       <Logo />
-      <div
-        style={{
-          position: "absolute",
-          top: "40%",
-          right: "20%",
-          transform: "translateX(50%)",
-          // zIndex: -1,
-        }}
-      >
-        <Leafs />
-      </div>
+
       <div style={{ position: "absolute", top: "-50px", right: "0" }}>
         <FlyinLeafs />
       </div>
-      {/* <div>
-        <img style={{ width: "100px" }} src={leafs} alt="" srcset="" />
-      </div> */}
-      {/* الأزرار */}
+      
       <div
         style={{
           display: "flex",

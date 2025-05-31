@@ -9,10 +9,7 @@ const StartPageNav = ({ setShowAbout }) => {
     <div
       style={{
         width: "100%",
-        // height: "60px",
-        // position: "absolute",
-        // buttom: "10px",
-        // left: "10px",
+       
         zIndex: "999999",
         display: "flex",
         justifyContent: "space-between",
@@ -26,7 +23,7 @@ const StartPageNav = ({ setShowAbout }) => {
           src={profileBtn}
           style={{
             width: "60px",
-            // height: "100%",
+         
             objectFit: "cover",
           }}
           alt="profile"

@@ -28,7 +28,6 @@ export default function Quiz({ questions, current, onAnswer }) {
     correctSoundRef.current = new Audio("/sound/correct.mp3");
     wrongSoundRef.current = new Audio("/sound/wrong.mp3");
 
-    // comboSoundRef.current = new Audio("/sound/combo.mp3");
   }, []);
 
   const handleAnswer = (index) => {
@@ -104,7 +103,7 @@ export default function Quiz({ questions, current, onAnswer }) {
         {questions[current].question[language]}
       </h3>
 
-      {/* <h3 style={{ marginBottom: "20px" }}>{questions[current].question}</h3> */}
+    
       {/* عرض الإجابات بحسب اللغة */}
       {questions[current].answers[language].map((answer, index) => (
         <button
@@ -122,22 +121,7 @@ export default function Quiz({ questions, current, onAnswer }) {
           {answer}
         </button>
       ))}
-      {/* {questions[current].answers.map((answer, index) => (
-        <button
-          key={index}
-          style={{
-            display: "block",
-            margin: "8px auto",
-            padding: "10px",
-            fontSize: "20px",
-            width: "100%",
-            maxWidth: "400px",
-          }}
-          onClick={() => handleAnswer(index)}
-        >
-          {answer}
-        </button>
-      ))} */}
+   
 
       <CoinAnimation visible={showCoin} />
     </div>

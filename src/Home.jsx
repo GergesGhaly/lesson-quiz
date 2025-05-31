@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Quiz from "./components/Quiz";
 import Results from "./components/Results";
-import RewardsList from "./components/RewardsList";
 import ConfettiOverlay from "./components/ConfettiOverlay";
 import RewardPopup from "./components/RewardPopup";
 import FinalIconOverlay from "./components/FinalIconOverlay";
@@ -16,10 +15,8 @@ import {
 
 import { checkAndGrantRewards, getRewardsDisplay } from "./utils/rewardUtils";
 import { quizzes } from "./data/QuizzesWithTranslations";
-import { Link, useParams } from "react-router-dom";
-import NextLevelBtn from "./components/NextLevelBtn";
+import { useParams } from "react-router-dom";
 import wall from "./assets/mainWall.jpg";
-import CurrentReward from "./components/CurrentReward";
 import QuizNavBar from "./components/QuizNavBar";
 
 function Home() {

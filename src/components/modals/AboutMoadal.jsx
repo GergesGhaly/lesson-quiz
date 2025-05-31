@@ -90,12 +90,7 @@ const AboutMoadal = ({ isOpen, onClose }) => {
                 Gerges Ghaly
               </motion.a>{" "}
               <motion.span
-                // animate={{ scale: [1, 1.1, 1] }}
-                // transition={{
-                //   duration: 1.1,
-                //   repeat: Infinity,
-                //   ease: "easeInOut",
-                // }}
+              
                 style={{ display: "inline-block" }}
               >
                 ❤️

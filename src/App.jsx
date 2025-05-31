@@ -1,13 +1,10 @@
 // App.js
-import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Home from "./Home";
 import Profile from "./Profile";
 import ChooseTestPage from "./ChooseTestPage";
 import StartPage from "./StartPage";
-import Competition from "./Competition";
-import AboutMoadal from "./components/modals/AboutMoadal";
 import StartMatch from "./StartMatch";
 
 function AnimatedRoutes() {

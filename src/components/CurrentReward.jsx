@@ -35,15 +35,6 @@ const CurrentReward = ({ imageSize, fontSize }) => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   const rewardsKeys = getUnlockedRewards(); // استرجاع المفاتيح من localStorage
-  //   const fullRewards = getRewardsDisplay(rewardsKeys); // تحويل المفاتيح إلى بيانات كاملة
-  //   const last =
-  //     fullRewards.length > 0 ? fullRewards[fullRewards.length - 1] : null;
-  //   setLastReward(last);
-  // }, []);
-
-  // const { t } = useTranslation();
 
   if (!lastReward || (!lastReward.visual && !lastReward.flag)) {
     return (
@@ -91,8 +82,7 @@ const CurrentReward = ({ imageSize, fontSize }) => {
           <div
             style={{
               width: "100%",
-              // height: imageSize,
-              // margin: "0 auto",
+          
               display: "flex",
               justifyContent: "center",
               alignItems: "center",

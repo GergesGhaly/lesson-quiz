@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { quizzes } from "./data/QuizzesWithTranslations";
 import btnWall from "./assets/btnWall.png";
-import wallVideo from "./assets/wall2.mp4";
+import wallVideo from "./assets/wall2+.mp4";
 import startSound from "/sound/gameStart.mp3";
 import { useTranslation } from "react-i18next";
 import { useSound } from "./contexts/SoundContext";

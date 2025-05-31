@@ -58,9 +58,7 @@ const Profile = () => {
         width: "100%",
       }}
     >
-      {/* <h2 style={{ textAlign: "center", marginBottom: "30px" }}>
-        👤 ملف المستخدم
-      </h2> */}
+    
       <div
         style={{
           marginBottom: "20px",

@@ -1,4 +1,3 @@
-// import React, { useEffect } from "react";
 
 import { useTranslation } from "react-i18next";
 
@@ -9,10 +8,7 @@ export default function Results({
   onRetry,
   evaluationMessage,
 }) {
-  // useEffect(() => {
-  //   const audio = new Audio("/sound/tryAgain.mp3");
-  //   audio.play().catch((err) => console.warn("فشل تشغيل الصوت", err));
-  // }, []);
+ 
   const { t } = useTranslation();
 
   return (

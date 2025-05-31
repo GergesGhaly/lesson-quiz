@@ -1,5 +1,4 @@
 import React from "react";
-// import cardImage from "../assets/startPage.png"; // قم بنقل الصورة إلى مجلد المشروع
 import falg from "../assets/rewardsFlags/8.png";
 const UserCard = ({ totalPoints, currentReward, pastRewards }) => {
   return (
@@ -17,7 +16,7 @@ const UserCard = ({ totalPoints, currentReward, pastRewards }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        // justifyContent: "space-between",
+     
       }}
     >
       <h5>🏆 Total Points: {totalPoints}</h5>

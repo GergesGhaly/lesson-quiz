@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import wrong from "../../assets/wrong.png";
+import { Link } from "react-router-dom";
 
 const AboutMoadal = ({ isOpen, onClose }) => {
   return (
@@ -61,9 +62,44 @@ const AboutMoadal = ({ isOpen, onClose }) => {
             </motion.button>
 
             {/* نص المودال */}
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis
-              ducimus tempora sequi cupiditate quibusdam...
+            <p
+              style={{
+                fontSize: "14px",
+                lineHeight: "1.6",
+                textAlign: "center",
+              }}
+            >
+              The work would not have been completed without Mariam Ghaly, Ghaly
+              Bebawy, Remone Ghaly, Mariam Rushdi, and Dr. Sylvia Ikram.
+              Developed by <br />
+              <motion.a
+                href="https://www.facebook.com/gerges.ghaly.35"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "white",
+                  textDecoration: "underline",
+                  fontWeight: "bold",
+                  display: "inline-block",
+                }}
+                whileHover={{
+                  scale: 1.03,
+                }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                Gerges Ghaly
+              </motion.a>{" "}
+              <motion.span
+                // animate={{ scale: [1, 1.1, 1] }}
+                // transition={{
+                //   duration: 1.1,
+                //   repeat: Infinity,
+                //   ease: "easeInOut",
+                // }}
+                style={{ display: "inline-block" }}
+              >
+                ❤️
+              </motion.span>
             </p>
           </motion.div>
         </div>

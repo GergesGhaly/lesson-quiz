@@ -44,7 +44,7 @@ const RandomVerse = () => {
           whiteSpace: "nowrap",
         }}
       >
-        {verse}
+        {verse} 
       </motion.div>
     </AnimatePresence>
   );

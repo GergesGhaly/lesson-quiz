@@ -1,20 +1,20 @@
-import reward0 from "../assets/rewards/0.png";
-import reward1 from "../assets/rewards/1.png";
-import reward2 from "../assets/rewards/2.png";
-import reward3 from "../assets/rewards/3.png";
-import reward4 from "../assets/rewards/4.png";
-import reward5 from "../assets/rewards/5.png";
+import reward0 from "../assets/rewards/0.avif";
+import reward1 from "../assets/rewards/1.avif";
+import reward2 from "../assets/rewards/2.avif";
+import reward3 from "../assets/rewards/3.avif";
+import reward4 from "../assets/rewards/4.avif";
+import reward5 from "../assets/rewards/5.avif";
 
-import flag0 from "../assets/rewardsFlags/0.png";
-import flag1 from "../assets/rewardsFlags/1.png";
-import flag2 from "../assets/rewardsFlags/2.png";
-import flag3 from "../assets/rewardsFlags/3.png";
-import flag4 from "../assets/rewardsFlags/4.png";
-import flag5 from "../assets/rewardsFlags/5.png";
-import flag6 from "../assets/rewardsFlags/6.png";
-import flag7 from "../assets/rewardsFlags/7.png";
-import flag8 from "../assets/rewardsFlags/8.png";
-import flag9 from "../assets/rewardsFlags/9.png";
+import flag0 from "../assets/rewardsFlags/0.avif";
+import flag1 from "../assets/rewardsFlags/1.avif";
+import flag2 from "../assets/rewardsFlags/2.avif";
+import flag3 from "../assets/rewardsFlags/3.avif";
+import flag4 from "../assets/rewardsFlags/4.avif";
+import flag5 from "../assets/rewardsFlags/5.avif";
+import flag6 from "../assets/rewardsFlags/6.avif";
+import flag7 from "../assets/rewardsFlags/7.avif";
+import flag8 from "../assets/rewardsFlags/8.avif";
+import flag9 from "../assets/rewardsFlags/9.avif";
 
 export const rewardLevels = [
   {

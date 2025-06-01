@@ -1,5 +1,5 @@
 import React from "react";
-import falg from "../assets/rewardsFlags/8.png";
+import falg from "../assets/rewardsFlags/8.avif";
 const UserCard = ({ totalPoints, currentReward, pastRewards }) => {
   return (
     <div
@@ -16,7 +16,6 @@ const UserCard = ({ totalPoints, currentReward, pastRewards }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-     
       }}
     >
       <h5>🏆 Total Points: {totalPoints}</h5>

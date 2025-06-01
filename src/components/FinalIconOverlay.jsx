@@ -22,9 +22,9 @@ const FinalIconOverlay = ({ show, icon }) => {
         position: "fixed",
         top: 0,
         left: 0,
-        width: "100vw",
+        width: "100%",
         height: "100vh",
-        backgroundColor: "rgba(255, 255, 255, 0.2)",
+        // backgroundColor: "rgba(255, 255, 255, 0)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -33,7 +33,8 @@ const FinalIconOverlay = ({ show, icon }) => {
         flexDirection: "column",
       }}
     >
-      {icon}
+      lol
+      {/* {icon} */}
     </div>
   );
 };

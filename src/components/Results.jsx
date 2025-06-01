@@ -1,23 +1,42 @@
-
 import { useTranslation } from "react-i18next";
+import cup from "../assets/winMessage/cup.avif";
+import celebrate from "../assets/winMessage/celebrate.avif";
+import crown from "../assets/winMessage/crown.avif";
+import TotalScoreIcon from "./TotalScoreIcon";
+import NextLevelBtn from "./NextLevelBtn";
 
 export default function Results({
   score,
   totalQuestions,
   percentage,
   onRetry,
-  evaluationMessage,
+  // evaluationMessage,
 }) {
- 
   const { t } = useTranslation();
+
 
   return (
     <div style={{ textAlign: "center" }}>
       <h2>
-        🎉 {t("your_score")}: {score} {t("from")} {totalQuestions} (
+        {t("your_score")}: {score} {t("from")} {totalQuestions} (
         {percentage.toFixed(1)}%)
       </h2>
-      {percentage >= 50 && <h3>{evaluationMessage}</h3>}
+      {percentage >= 50 && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginTop: 15,
+            justifyContent: "center",
+            flexDirection: "column",
+            gap: 1,
+          }}
+        >
+          <TotalScoreIcon percentage={percentage} />
+          <NextLevelBtn />
+        </div>
+      )}
+
       {percentage < 50 && (
         <>
           <h3>❤️ {t("try_again_message")}</h3>

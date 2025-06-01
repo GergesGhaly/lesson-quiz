@@ -17,6 +17,10 @@ import { checkAndGrantRewards, getRewardsDisplay } from "./utils/rewardUtils";
 import { quizzes } from "./data/QuizzesWithTranslations";
 import { useParams } from "react-router-dom";
 import wall from "./assets/mainWall.webp";
+import cup from "./assets/winMessage/cup.avif";
+import celebrate from "./assets/winMessage/celebrate.avif";
+import crown from "./assets/winMessage/crown.avif";
+import lamp from "./assets/winMessage/lamp.avif";
 import QuizNavBar from "./components/QuizNavBar";
 
 function Home() {
@@ -28,7 +32,7 @@ function Home() {
   const [showResult, setShowResult] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showFinalIcon, setShowFinalIcon] = useState(false);
+  // const [showFinalIcon, setShowFinalIcon] = useState(false);
   const [unlockedRewards, setUnlockedRewards] = useState([]);
   const [rewardPopup, setRewardPopup] = useState(null);
 
@@ -98,8 +102,8 @@ function Home() {
         // ✅ لا يوجد Popup → أظهر المؤثرات مباشرة إذا كان التأهل >= 50%
         if (percentageFinal >= 50) {
           setShowConfetti(true);
-          setShowFinalIcon(true);
-          setTimeout(() => setShowFinalIcon(false), 6000);
+          // setShowFinalIcon(true);
+          // setTimeout(() => setShowFinalIcon(false), 6000);
         }
       }
     }
@@ -109,8 +113,8 @@ function Home() {
     setRewardPopup(null);
     if (pendingConfetti) setShowConfetti(true);
     if (pendingFinalIcon) {
-      setShowFinalIcon(true);
-      setTimeout(() => setShowFinalIcon(false), 10000);
+      // setShowFinalIcon(true);
+      // setTimeout(() => setShowFinalIcon(false), 10000);
     }
     setPendingConfetti(false);
     setPendingFinalIcon(false);
@@ -128,31 +132,11 @@ function Home() {
     setCurrent(0);
     setShowResult(false);
     setShowConfetti(false);
-    setShowFinalIcon(false);
+    // setShowFinalIcon(false);
     setRewardPopup(null);
   };
 
   const percentage = (score / quiz.questions.length) * 100;
-
-  const getEvaluationMessage = () => {
-    if (percentage > 85) return "👑 ممتاز!";
-    if (percentage > 75) return "🏆 جيد جدا!";
-    if (percentage >= 50) return "🎉 جيد!";
-    return "";
-  };
-
-  const getTotalScoreIcon = () => {
-    const savedResults = getQuizResults();
-    const totalScore = savedResults.reduce((sum, val) => sum + val, 0);
-    const totalPossible = savedResults.length * quiz.questions.length;
-    const totalPercentage =
-      totalPossible > 0 ? (totalScore / totalPossible) * 100 : 0;
-
-    if (totalPercentage > 85) return "👑";
-    if (totalPercentage > 75) return "🏆";
-    if (totalPercentage >= 50) return "🎉";
-    return "💡";
-  };
 
   return (
     <div
@@ -165,26 +149,18 @@ function Home() {
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
+        width: "100vw",
+        overflow: "hidden",
       }}
     >
-      <QuizNavBar
-        quiz={quiz}
-        getTotalScoreIcon={getTotalScoreIcon}
-        totalScore={totalScore}
-      />
+      <QuizNavBar quiz={quiz} totalScore={totalScore} />
 
-      <FinalIconOverlay show={showFinalIcon} icon={getTotalScoreIcon()} />
-      <ConfettiOverlay
-        show={showConfetti && percentage >= 50}
-        icon={getTotalScoreIcon()}
-      />
+      <ConfettiOverlay show={showConfetti && percentage >= 50} />
       <RewardPopup
         reward={rewardPopup}
         onClose={handleCloseRewardPopup}
         disableOutsideClick={true}
       />
-
-      {/* <NextLevelBtn/> */}
 
       {showResult ? (
         <Results
@@ -192,7 +168,6 @@ function Home() {
           totalQuestions={quiz.questions.length}
           percentage={percentage}
           onRetry={resetScores}
-          evaluationMessage={getEvaluationMessage()}
         />
       ) : (
         <Quiz

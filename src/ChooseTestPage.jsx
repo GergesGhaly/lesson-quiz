@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { quizzes } from "./data/QuizzesWithTranslations";
 import btnWall from "./assets/btnWall.avif";
-import wallVideo from "./assets/wall2+.mp4";
 import startSound from "/sound/gameStart.mp3";
 import { useTranslation } from "react-i18next";
 import { useSound } from "./contexts/SoundContext";
 import { motion } from "framer-motion";
-import bgMusicFile from "/sound/sky-lark-sound-birds.mp3"; // <-- تم إعادة التسمية لتجنب التعارض
+import bgMusicFile from "/sound/sky-lark-sound-birds.mp3";
+import moriningForsetBg from "/sound/moriningForsetBg_out.mp3";
+import wallBg from "./assets/choosTestBg.webp";
 
 const ChooseTestPage = () => {
   const { t, i18n } = useTranslation();
@@ -16,7 +17,14 @@ const ChooseTestPage = () => {
   const navigate = useNavigate();
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
-  const bgMusicRef = useRef(null); // 🎵 مرجع للموسيقى الخلفية
+  const [isNight, setIsNight] = useState(false);
+  const [rainDrops, setRainDrops] = useState([]);
+  const bgMusicRef = useRef(null);
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    setIsNight(hour >= 18 || hour < 6);
+  }, []);
 
   const handleStartQuiz = (quizId) => {
     const sound = new Audio(startSound);
@@ -24,7 +32,6 @@ const ChooseTestPage = () => {
       sound.play().catch((err) => console.warn("فشل تشغيل صوت البدء", err));
     }
 
-    // إيقاف الخلفية عند الانتقال
     if (bgMusicRef.current) {
       bgMusicRef.current.pause();
       bgMusicRef.current.currentTime = 0;
@@ -43,11 +50,9 @@ const ChooseTestPage = () => {
   }, []);
 
   useEffect(() => {
-    // أنشئ كائن الصوت مرة واحدة
-    bgMusicRef.current = new Audio(bgMusicFile);
+    bgMusicRef.current = new Audio(isNight ? bgMusicFile : moriningForsetBg);
     bgMusicRef.current.loop = true;
 
-    // شغّل أو أوقف حسب isSoundOn
     if (isSoundOn) {
       bgMusicRef.current
         .play()
@@ -58,14 +63,30 @@ const ChooseTestPage = () => {
       bgMusicRef.current.pause();
     }
 
-    // عند الخروج من الصفحة
     return () => {
       if (bgMusicRef.current) {
         bgMusicRef.current.pause();
         bgMusicRef.current.currentTime = 0;
       }
     };
-  }, [isSoundOn]);
+  }, [isSoundOn, isNight]);
+
+  // 💧 إنشاء قطرات المطر
+  const generateRain = (count) => {
+    return Array.from({ length: count }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      delay: Math.random() * 2,
+      duration: Math.random() * 1.5 + 1.5,
+      height: Math.random() * 20 + 10,
+    }));
+  };
+
+  useEffect(() => {
+    if (isNight) {
+      setRainDrops(generateRain(100));
+    }
+  }, [isNight]);
 
   return (
     <div
@@ -76,27 +97,90 @@ const ChooseTestPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "start",
+        backgroundImage: `url(${wallBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      {/* فيديو الخلفية */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: -1,
-        }}
-      >
-        <source src={wallVideo} type="video/mp4" />
-        {t("video_error_message")}
-      </video>
+      {/* 💧 تضمين تحريك قطرات المطر */}
+      <style>
+        {`
+          @keyframes fall {
+            0% {
+              transform: translateY(-100px);
+              opacity: 0;
+            }
+            30% {
+              opacity: 1;
+            }
+            100% {
+              transform: translateY(100vh);
+              opacity: 0;
+            }
+          }
+        `}
+      </style>
+
+      {/* ☀️ الشمس (تظهر فقط في النهار) */}
+      {!isNight && (
+        <motion.div
+          initial={{ rotate: 0 }}
+          animate={{ rotate: 360 }}
+          transition={{
+            repeat: Infinity,
+            duration: 40,
+            ease: "linear",
+          }}
+          style={{
+            position: "absolute",
+            top: "-100px",
+            left: "-100px",
+            width: 400,
+            height: 400,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(255,240,150,0.85), rgba(255,223,0,0.2))",
+            filter: "blur(50px)",
+            zIndex: 0,
+            pointerEvents: "none",
+          }}
+        />
+      )}
+
+      {/* 🌙 طبقة شفافة ليلية */}
+      {isNight && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.3)",
+            zIndex: 0,
+          }}
+        ></div>
+      )}
+
+      {/* 💧 قطرات المطر */}
+      {isNight &&
+        rainDrops.map((drop) => (
+          <div
+            key={drop.id}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: `${drop.left}%`,
+              width: 1.5,
+              height: drop.height,
+              backgroundColor: "rgba(255, 255, 255, 0.6)",
+              animation: `fall ${drop.duration}s linear infinite`,
+              animationDelay: `${drop.delay}s`,
+              zIndex: 0,
+            }}
+          />
+        ))}
 
       {/* المحتوى */}
       <div
@@ -124,7 +208,7 @@ const ChooseTestPage = () => {
             display: "flex",
             justifyContent: "center",
             flexWrap: "wrap",
-            gap: 20,
+            gap: isMobile ? 13 : 20,
           }}
         >
           {quizzes.map((quiz) => (
@@ -139,7 +223,6 @@ const ChooseTestPage = () => {
                 color: "#fff",
                 cursor: "pointer",
                 backgroundImage: `url(${btnWall})`,
-
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
                 backgroundPosition: "center",

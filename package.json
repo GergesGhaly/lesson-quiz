@@ -12,6 +12,7 @@
   "dependencies": {
     "framer-motion": "^12.12.2",
     "i18next": "^25.2.1",
+    "quiz": "file:",
     "react": "^19.1.0",
     "react-confetti": "^6.4.0",
     "react-dom": "^19.1.0",

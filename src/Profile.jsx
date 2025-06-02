@@ -11,6 +11,7 @@ import RewardsList from "./components/RewardsList";
 import CurrentReward from "./components/CurrentReward";
 import { useTranslation } from "react-i18next";
 import { useSound } from "./contexts/SoundContext";
+import NextRewardProgress from "./components/NextRewardProgress";
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -19,6 +20,16 @@ const Profile = () => {
   const [quizResults, setQuizResults] = useState([]);
   const [unlockedRewards, setUnlockedRewards] = useState([]);
   const [totalScore, setTotalScore] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const savedResults = getQuizResults();
@@ -47,7 +58,7 @@ const Profile = () => {
         minHeight: "100dvh",
         background: "radial-gradient(circle, #433C7D, #1E2247)",
         color: "#fff",
-        padding: "40px",
+        padding: "40px 20px",
         fontFamily: "Arial, sans-serif",
         display: "flex",
         flexDirection: "column",
@@ -58,7 +69,6 @@ const Profile = () => {
         width: "100%",
       }}
     >
-    
       <div
         style={{
           marginBottom: "20px",
@@ -70,8 +80,18 @@ const Profile = () => {
         {t("total_score")}: {totalScore}
       </div>
 
-      <CurrentReward imageSize={170} fontSize={90} />
-      <RewardsList rewards={unlockedRewards} />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "20px",
+        }}
+      >
+        <CurrentReward imageSize={isMobile ? 90 : 135} fontSize={90} />
+        <NextRewardProgress totalScore={totalScore} />
+        <RewardsList rewards={unlockedRewards} />
+      </div>
       <Link
         to="/"
         style={{

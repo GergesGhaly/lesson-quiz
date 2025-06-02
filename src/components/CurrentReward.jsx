@@ -4,39 +4,64 @@ import { motion } from "framer-motion";
 import { getUnlockedRewards } from "../utils/localStorageHelpers";
 import { getRewardsDisplay } from "../utils/rewardUtils";
 import { useTranslation } from "react-i18next";
+import RewardZoomModal from "./RewardZoomModal";
 
 const CurrentReward = ({ imageSize, fontSize }) => {
   const { t, i18n } = useTranslation();
   const language = i18n.language || "ar";
   const [lastReward, setLastReward] = useState(null);
-
+  // حالة لإظهار المودال مع الصورة المختارة
+  const [modalImage, setModalImage] = useState(null);
   useEffect(() => {
     const rewardsKeys = getUnlockedRewards();
     const fullRewards = getRewardsDisplay(rewardsKeys);
+    if (!fullRewards || fullRewards.length === 0) return;
 
     let lastVisualReward = null;
     let lastFlagReward = null;
+    let lastShieldReward = null;
+    let lastSwordReward = null;
 
-    // loop from end to start to find the latest matching
     for (let i = fullRewards.length - 1; i >= 0; i--) {
       const reward = fullRewards[i];
+
       if (!lastVisualReward && (reward.image || reward.icon)) {
         lastVisualReward = reward;
       }
       if (!lastFlagReward && reward.flag) {
         lastFlagReward = reward;
       }
-      if (lastVisualReward && lastFlagReward) break;
+      if (!lastShieldReward && reward.shield) {
+        lastShieldReward = reward;
+      }
+      if (!lastSwordReward && reward.sword) {
+        lastSwordReward = reward;
+      }
+
+      if (
+        lastVisualReward &&
+        lastFlagReward &&
+        lastShieldReward &&
+        lastSwordReward
+      )
+        break;
     }
 
     setLastReward({
       visual: lastVisualReward,
       flag: lastFlagReward,
+      shield: lastShieldReward,
+      sword: lastSwordReward,
     });
   }, []);
 
-
-  if (!lastReward || (!lastReward.visual && !lastReward.flag)) {
+  if (
+    !lastReward ||
+    (!lastReward.visual &&
+      !lastReward.flag &&
+      !lastReward.shield &&
+      !lastReward.sword)
+  ) {
     return (
       <div style={{ marginBottom: "40px", textAlign: "center" }}>
         <h3>🏆 {t("current_reward")}</h3>
@@ -45,12 +70,12 @@ const CurrentReward = ({ imageSize, fontSize }) => {
     );
   }
 
-  const { visual, flag } = lastReward;
+  const { visual, flag, shield, sword } = lastReward;
   return (
     <div
       style={{
         display: "flex",
-        marginBottom: "40px",
+
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
@@ -71,10 +96,8 @@ const CurrentReward = ({ imageSize, fontSize }) => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            padding: "20px",
-            borderRadius: "12px",
-            width: "140px",
-            marginBottom: "20px",
+            padding: "10px",
+
             textAlign: "center",
           }}
         >
@@ -82,55 +105,67 @@ const CurrentReward = ({ imageSize, fontSize }) => {
           <div
             style={{
               width: "100%",
-          
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              padding: "10px",
             }}
           >
             {flag && (
               <motion.img
                 src={flag.flag}
-                alt={flag.reward[language]}
-                style={{
-                  width: imageSize,
-
-                  objectFit: "contain",
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
+                alt="flag"
+                style={{ width: imageSize, cursor: "pointer" }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5 }}
+                onClick={() => setModalImage(flag.flag)}
               />
             )}
 
-            {visual.image ? (
+            {shield && (
+              <motion.img
+                src={shield.shield}
+                alt="shield"
+                style={{ width: imageSize, cursor: "pointer" }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5 }}
+                onClick={() => setModalImage(shield.shield)}
+              />
+            )}
+
+            {sword && (
+              <motion.img
+                src={sword.sword}
+                alt="sword"
+                style={{ width: imageSize, cursor: "pointer" }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5 }}
+                onClick={() => setModalImage(sword.sword)}
+              />
+            )}
+
+            {visual?.image ? (
               <motion.img
                 src={visual.image}
-                alt={visual.reward[language]}
-                style={{
-                  width: imageSize,
-                  // height: imageSize,
-                  objectFit: "contain",
-                  position: "relative",
-                  // zIndex: 1,
-                }}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
+                alt="visual reward"
+                style={{ width: imageSize, cursor: "pointer" }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5 }}
+                onClick={() => setModalImage(visual.image)}
               />
             ) : (
               <motion.span
-                style={{
-                  fontSize: fontSize,
-                  position: "relative",
-                  zIndex: 1,
-                  display: "inline-block",
-                }}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5 }}
+                style={{ fontSize: fontSize, cursor: "pointer" }}
+                onClick={() => setModalImage(visual.icon)}
               >
-                {visual.icon}
+                {visual?.icon}
               </motion.span>
             )}
           </div>
@@ -140,6 +175,13 @@ const CurrentReward = ({ imageSize, fontSize }) => {
           </div>
         </motion.div>
       )}
+      {/* مودال الصورة */}
+      {/* استدعاء المودال */}
+      <RewardZoomModal
+        imageSrc={modalImage}
+        altText="reward enlarged"
+        onClose={() => setModalImage(null)}
+      />
     </div>
   );
 };

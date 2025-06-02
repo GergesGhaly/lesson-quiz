@@ -16,6 +16,10 @@
   "try_again_message": "From here you can try again",
   "your_score": "Your Score",
   "from": "from",
+  "Next challenge at": "Next challenge at",
+  "all_rewards_unlocked": " You've earned all rewards!",
+  "point": "point",
+
   "reward": {
     "beginner": "Beginner Medal",
     "effort": "Effort Medal",

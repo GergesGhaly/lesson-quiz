@@ -87,6 +87,24 @@ const RewardPopup = ({ reward, onClose }) => {
             animate="animate"
             variants={imageAnimation}
           />
+        ) : reward.shield ? (
+          <motion.img
+            src={reward.shield}
+            alt={reward.reward[language]}
+            style={{ width: 170, height: 170, marginBottom: 10 }}
+            initial="initial"
+            animate="animate"
+            variants={imageAnimation}
+          />
+        ) : reward.sword ? (
+          <motion.img
+            src={reward.sword}
+            alt={reward.reward[language]}
+            style={{ width: 170, height: 170, marginBottom: 10 }}
+            initial="initial"
+            animate="animate"
+            variants={imageAnimation}
+          />
         ) : (
           <motion.div
             style={{ fontSize: 90, marginBottom: 10 }}

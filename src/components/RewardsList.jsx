@@ -34,18 +34,18 @@ export default function RewardsList({ rewards }) {
           {rewards
             .slice()
             .reverse()
-            .map(({ key, reward, icon, image, flag }) => (
+            .map(({ key, reward, icon, image, flag, shield, sword }) => (
               <li
                 key={key}
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
+                  justifyContent: "space-between",
                   gap: "12px",
                   width: "100%",
                   marginBottom: "12px",
                   background: "#ffffff22",
-                  padding: "10px 16px",
+                  padding: "10px 20px",
                   borderRadius: "12px",
                   direction: language === "ar" ? "rtl" : "ltr",
                 }}
@@ -55,7 +55,11 @@ export default function RewardsList({ rewards }) {
                   <img
                     src={image}
                     alt={reward[language]}
-                    style={{ width: 40, height: 40, objectFit: "contain" }}
+                    style={{
+                      width: 40,
+                      height: 40,
+                      objectFit: "contain",
+                    }}
                   />
                 ) : (
                   <span style={{ fontSize: 32 }}>{icon}</span>
@@ -65,6 +69,26 @@ export default function RewardsList({ rewards }) {
                 {flag && (
                   <img
                     src={flag}
+                    alt={reward[language]}
+                    style={{
+                      width: 40,
+                      height: 40,
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+
+                {shield && (
+                  <img
+                    src={shield}
+                    alt={reward[language]}
+                    style={{ width: 40, height: 40, objectFit: "cover" }}
+                  />
+                )}
+
+                {sword && (
+                  <img
+                    src={sword}
                     alt={reward[language]}
                     style={{ width: 40, height: 40, objectFit: "cover" }}
                   />

@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import bgMusicFile from "/sound/sky-lark-sound-birds.mp3";
 import moriningForsetBg from "/sound/moriningForsetBg_out.mp3";
 import wallBg from "./assets/choosTestBg.webp";
+import BackBtn from "./components/BackBtn";
 
 const ChooseTestPage = () => {
   const { t, i18n } = useTranslation();
@@ -236,6 +237,7 @@ const ChooseTestPage = () => {
           ))}
         </div>
       </div>
+      <BackBtn />
     </div>
   );
 };

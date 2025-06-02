@@ -12,6 +12,7 @@ import CurrentReward from "./components/CurrentReward";
 import { useTranslation } from "react-i18next";
 import { useSound } from "./contexts/SoundContext";
 import NextRewardProgress from "./components/NextRewardProgress";
+import BackBtn from "./components/BackBtn";
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -92,7 +93,9 @@ const Profile = () => {
         <NextRewardProgress totalScore={totalScore} />
         <RewardsList rewards={unlockedRewards} />
       </div>
-      <Link
+
+      <BackBtn/>
+      {/* <Link
         to="/"
         style={{
           background: "#4CAF50",
@@ -116,7 +119,7 @@ const Profile = () => {
         >
           {t("back")}
         </button>
-      </Link>
+      </Link> */}
     </div>
   );
 };

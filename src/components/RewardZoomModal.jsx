@@ -28,7 +28,7 @@ const RewardZoomModal = ({ imageSrc, altText, onClose, type = "image" }) => {
           alt={altText || "reward enlarged"}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
           style={{
             maxWidth: "80vw",
             maxHeight: "80vh",
@@ -38,11 +38,10 @@ const RewardZoomModal = ({ imageSrc, altText, onClose, type = "image" }) => {
         <motion.span
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
           style={{
             fontSize: "150px",
             color: "#fff",
-            textShadow: "0 0 10px gold",
           }}
         >
           {imageSrc}

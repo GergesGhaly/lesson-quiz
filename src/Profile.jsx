@@ -65,14 +65,15 @@ const Profile = () => {
         flexDirection: "column",
         alignItems: "center",
         textAlign: "center",
-        justifyContent: "space-between",
+        justifyContent: "start",
 
         width: "100%",
+        gap: "25px",
       }}
     >
       <div
         style={{
-          marginBottom: "20px",
+          // marginBottom: "20px",
           fontSize: "24px",
           fontWeight: "bold",
           textAlign: "center",
@@ -86,7 +87,7 @@ const Profile = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "20px",
+          gap: "25px",
         }}
       >
         <CurrentReward imageSize={isMobile ? 90 : 135} fontSize={90} />
@@ -94,7 +95,7 @@ const Profile = () => {
         <RewardsList rewards={unlockedRewards} />
       </div>
 
-      <BackBtn/>
+      <BackBtn />
       {/* <Link
         to="/"
         style={{

@@ -15,20 +15,44 @@ export default function RewardsList({ rewards }) {
         alignItems: "center",
         justifyContent: "start",
         height: "300px",
-        gap: "10px",
+        gap: "12px",
         width: "100%",
       }}
     >
+      {/* Scrollbar styles */}
+      <style>
+        {`
+          ul.child-scroll::-webkit-scrollbar {
+            width: 12px;
+          }
+
+          ul.child-scroll::-webkit-scrollbar-track {
+            background: #f3f0ff52;
+            border-radius: 10px;
+          }
+
+          ul.child-scroll::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #ffd700, #ff9900);
+            border-radius: 10px;
+            border: 2px solid white;
+          }
+
+          ul.child-scroll::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #ffeb3b, #ff9800);
+          }
+        `}
+      </style>
       <h3>🏆 {t("unlocked_rewards")}</h3>
       {rewards.length === 0 ? (
         <p> {t("no_rewards")} </p>
       ) : (
         <ul
+          className="child-scroll"
           style={{
             listStyle: "none",
             padding: 0,
             overflow: "auto",
-            maxHeight: "300px",
+            maxHeight: "100%",
           }}
         >
           {rewards
@@ -39,63 +63,70 @@ export default function RewardsList({ rewards }) {
                 key={key}
                 style={{
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: "12px",
+                  alignItems: "center", // هذا يجعل الصور والاسم في نفس الخط العمودي
+                  gap: "4px",
                   width: "100%",
                   marginBottom: "12px",
                   background: "#ffffff22",
-                  padding: "10px 20px",
+                  padding: "10px 15px",
                   borderRadius: "12px",
                   direction: language === "ar" ? "rtl" : "ltr",
                 }}
               >
-                {/* صورة المكافأة أو الأيقونة */}
-                {image ? (
-                  <img
-                    src={image}
-                    alt={reward[language]}
-                    style={{
-                      width: 40,
-                      height: 40,
-                      objectFit: "contain",
-                    }}
-                  />
-                ) : (
-                  <span style={{ fontSize: 32 }}>{icon}</span>
-                )}
+                {/* الصور والأيقونات معًا في صف */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    minWidth: "70px", // لتوحيد المساحة
+                  }}
+                >
+                  {image ? (
+                    <img
+                      src={image}
+                      alt={reward[language]}
+                      style={{ width: 40, height: 40, objectFit: "contain" }}
+                    />
+                  ) : (
+                    <span style={{ fontSize: 32 }}>{icon}</span>
+                  )}
 
-                {/* إذا كان هناك flag نعرض صورته فقط */}
-                {flag && (
-                  <img
-                    src={flag}
-                    alt={reward[language]}
-                    style={{
-                      width: 40,
-                      height: 40,
-                      objectFit: "cover",
-                    }}
-                  />
-                )}
+                  {flag && (
+                    <img
+                      src={flag}
+                      alt={reward[language]}
+                      style={{ width: 40, height: 40, objectFit: "cover" }}
+                    />
+                  )}
 
-                {shield && (
-                  <img
-                    src={shield}
-                    alt={reward[language]}
-                    style={{ width: 40, height: 40, objectFit: "cover" }}
-                  />
-                )}
+                  {shield && (
+                    <img
+                      src={shield}
+                      alt={reward[language]}
+                      style={{ width: 40, height: 40, objectFit: "cover" }}
+                    />
+                  )}
 
-                {sword && (
-                  <img
-                    src={sword}
-                    alt={reward[language]}
-                    style={{ width: 40, height: 40, objectFit: "cover" }}
-                  />
-                )}
+                  {sword && (
+                    <img
+                      src={sword}
+                      alt={reward[language]}
+                      style={{ width: 40, height: 40, objectFit: "cover" }}
+                    />
+                  )}
+                </div>
 
                 {/* اسم المكافأة */}
-                <span style={{ fontSize: "18px", fontWeight: "500" }}>
+                <span
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: "500",
+                    flex: 1,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
                   {reward[language]}
                 </span>
               </li>

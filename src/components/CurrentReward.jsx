@@ -12,6 +12,8 @@ const CurrentReward = ({ imageSize, fontSize }) => {
   const [lastReward, setLastReward] = useState(null);
   // حالة لإظهار المودال مع الصورة المختارة
   const [modalImage, setModalImage] = useState(null);
+  const [modalType, setModalType] = useState("image");
+
   useEffect(() => {
     const rewardsKeys = getUnlockedRewards();
     const fullRewards = getRewardsDisplay(rewardsKeys);
@@ -119,7 +121,10 @@ const CurrentReward = ({ imageSize, fontSize }) => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5 }}
-                onClick={() => setModalImage(flag.flag)}
+                onClick={() => {
+                  setModalImage(flag.flag);
+                  setModalType("image");
+                }}
               />
             )}
 
@@ -131,7 +136,10 @@ const CurrentReward = ({ imageSize, fontSize }) => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5 }}
-                onClick={() => setModalImage(shield.shield)}
+                onClick={() => {
+                  setModalImage(shield.shield);
+                  setModalType("image");
+                }}
               />
             )}
 
@@ -143,7 +151,10 @@ const CurrentReward = ({ imageSize, fontSize }) => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5 }}
-                onClick={() => setModalImage(sword.sword)}
+                onClick={() => {
+                  setModalImage(sword.sword);
+                  setModalType("image");
+                }}
               />
             )}
 
@@ -155,7 +166,10 @@ const CurrentReward = ({ imageSize, fontSize }) => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5 }}
-                onClick={() => setModalImage(visual.image)}
+                onClick={() => {
+                  setModalImage(visual.image);
+                  setModalType("image");
+                }}
               />
             ) : (
               <motion.span
@@ -163,7 +177,10 @@ const CurrentReward = ({ imageSize, fontSize }) => {
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5 }}
                 style={{ fontSize: fontSize, cursor: "pointer" }}
-                onClick={() => setModalImage(visual.icon)}
+                onClick={() => {
+                  setModalImage(visual.icon);
+                  setModalType("icon");
+                }}
               >
                 {visual?.icon}
               </motion.span>
@@ -181,6 +198,7 @@ const CurrentReward = ({ imageSize, fontSize }) => {
         imageSrc={modalImage}
         altText="reward enlarged"
         onClose={() => setModalImage(null)}
+        type={modalType}
       />
     </div>
   );

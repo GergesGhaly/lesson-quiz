@@ -1,7 +1,8 @@
 // components/ImageModal.js
 import React from "react";
+import { motion } from "framer-motion";
 
-const RewardZoomModal = ({ imageSrc, altText, onClose }) => {
+const RewardZoomModal = ({ imageSrc, altText, onClose, type = "image" }) => {
   if (!imageSrc) return null;
 
   return (
@@ -21,14 +22,32 @@ const RewardZoomModal = ({ imageSrc, altText, onClose }) => {
         cursor: "pointer",
       }}
     >
-      <img
-        src={imageSrc}
-        alt={altText || "reward enlarged"}
-        style={{
-          maxWidth: "90vw",
-          maxHeight: "90vh",
-        }}
-      />
+      {type === "image" ? (
+        <motion.img
+          src={imageSrc}
+          alt={altText || "reward enlarged"}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5 }}
+          style={{
+            maxWidth: "80vw",
+            maxHeight: "80vh",
+          }}
+        />
+      ) : (
+        <motion.span
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5 }}
+          style={{
+            fontSize: "150px",
+            color: "#fff",
+            textShadow: "0 0 10px gold",
+          }}
+        >
+          {imageSrc}
+        </motion.span>
+      )}
     </div>
   );
 };

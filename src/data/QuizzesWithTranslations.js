@@ -1131,4 +1131,124 @@ export const quizzes = [
       },
     ],
   },
+
+  {
+    id: 9,
+    title: {
+      ar: "من القائل؟ - مستوى 2",
+      en: "Who said this? - Level 2",
+    },
+    questions: [
+      {
+        question: {
+          ar: "من القائل: أتريد أن تبرأ؟",
+          en: "Who said: 'Do you want to be made well?'",
+        },
+        answers: {
+          ar: ["بطرس", "يسوع", "بولس", "يوحنا"],
+          en: ["Peter", "Jesus", "Paul", "John"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من القائل: لا أطلقك إن لم تباركني؟",
+          en: "Who said: 'I will not let you go unless you bless me'?",
+        },
+        answers: {
+          ar: ["يعقوب", "إسحاق", "موسى", "داود"],
+          en: ["Jacob", "Isaac", "Moses", "David"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من القائل: أنتم قصدتم لي شرا، أما الله فقصد به خيرا؟",
+          en: "Who said: 'You meant evil against me; but God meant it for good'?",
+        },
+        answers: {
+          ar: ["موسى", "يوسف", "داود", "أشعياء"],
+          en: ["Moses", "Joseph", "David", "Isaiah"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من القائل: سمعت صوتك في الجنة فخشيت، لأني عريان فاختبأت؟",
+          en: "Who said: 'I heard Your voice in the garden, and I was afraid because I was naked; and I hid myself'?",
+        },
+        answers: {
+          ar: ["آدم", "قايين", "نوح", "إبراهيم"],
+          en: ["Adam", "Cain", "Noah", "Abraham"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من القائل: ينبغي أن ذلك يزيد وأني أنا أنقص؟",
+          en: "Who said: 'He must increase, but I must decrease'?",
+        },
+        answers: {
+          ar: ["بطرس", "بولس", "يوحنا المعمدان", "يعقوب"],
+          en: ["Peter", "Paul", "John the Baptist", "James"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من القائل: اذكرني يا رب متى جئت في ملكوتك؟",
+          en: "Who said: 'Lord, remember me when You come into Your kingdom'?",
+        },
+        answers: {
+          ar: ["اللص اليمين", "بطرس", "مرثا", "توما"],
+          en: ["The thief on the right", "Peter", "Martha", "Thomas"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من القائل: أيها الرب يسوع اقبل روحي؟",
+          en: "Who said: 'Lord Jesus, receive my spirit'?",
+        },
+        answers: {
+          ar: ["استفانوس", "بولس", "يوحنا", "بطرس"],
+          en: ["Stephen", "Paul", "John", "Peter"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من القائل: أنا أعمدكم بماء، ولكن يأتي من هو أقوى مني، الذي لست أهلا أن أحل سيور حذائه؟",
+          en: "Who said: 'I indeed baptize you with water; but One mightier than I is coming, whose sandal strap I am not worthy to loose'?",
+        },
+        answers: {
+          ar: ["يسوع", "بطرس", "يوحنا المعمدان", "إيليا"],
+          en: ["Jesus", "Peter", "John the Baptist", "Elijah"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من القائل: الرب راعيّ فلا يعوزني شيء؟",
+          en: "Who said: 'The Lord is my shepherd; I shall not want'?",
+        },
+        answers: {
+          ar: ["سليمان", "موسى", "داود", "إشعياء"],
+          en: ["Solomon", "Moses", "David", "Isaiah"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من القائل: المجد لله في الأعالي، وعلى الأرض السلام، وبالناس المسرة؟",
+          en: "Who said: 'Glory to God in the highest, and on earth peace, goodwill toward men'?",
+        },
+        answers: {
+          ar: ["الملائكة", "يوحنا المعمدان", "يسوع", "بطرس"],
+          en: ["The angels", "John the Baptist", "Jesus", "Peter"],
+        },
+        correct: 0,
+      },
+    ],
+  },
 ];

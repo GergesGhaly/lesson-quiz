@@ -12,8 +12,7 @@ const RewardPopup = ({ reward, onClose }) => {
 
   useEffect(() => {
     if (reward && isSoundOn) {
-      // تأكد من أن threshold رقم
-      // const threshold = Number(reward.threshold);
+     
       console.log("Threshold:", reward.threshold);
 
       let audioSrc;

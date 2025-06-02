@@ -1,7 +1,4 @@
 import { useTranslation } from "react-i18next";
-import cup from "../assets/winMessage/cup.avif";
-import celebrate from "../assets/winMessage/celebrate.avif";
-import crown from "../assets/winMessage/crown.avif";
 import TotalScoreIcon from "./TotalScoreIcon";
 import NextLevelBtn from "./NextLevelBtn";
 

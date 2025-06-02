@@ -3,7 +3,6 @@ import Quiz from "./components/Quiz";
 import Results from "./components/Results";
 import ConfettiOverlay from "./components/ConfettiOverlay";
 import RewardPopup from "./components/RewardPopup";
-import FinalIconOverlay from "./components/FinalIconOverlay";
 import { motion } from "framer-motion";
 
 import {
@@ -17,10 +16,6 @@ import { checkAndGrantRewards, getRewardsDisplay } from "./utils/rewardUtils";
 import { quizzes } from "./data/QuizzesWithTranslations";
 import { useParams } from "react-router-dom";
 import wall from "./assets/mainWall.webp";
-import cup from "./assets/winMessage/cup.avif";
-import celebrate from "./assets/winMessage/celebrate.avif";
-import crown from "./assets/winMessage/crown.avif";
-import lamp from "./assets/winMessage/lamp.avif";
 import QuizNavBar from "./components/QuizNavBar";
 
 function Home() {

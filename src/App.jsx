@@ -6,10 +6,11 @@ import Profile from "./Profile";
 import ChooseTestPage from "./ChooseTestPage";
 import StartPage from "./StartPage";
 import StartMatch from "./StartMatch";
+import PlayerDataUi from "./PlayerDataUi";
 
 function AnimatedRoutes() {
   const location = useLocation();
-
+  const playerName = localStorage.getItem("playerName");
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
@@ -17,7 +18,7 @@ function AnimatedRoutes() {
           path="/"
           element={
             <PageWrapper>
-              <StartPage  />
+              <StartPage />
             </PageWrapper>
           }
         />
@@ -49,9 +50,15 @@ function AnimatedRoutes() {
         <Route
           path="/competition"
           element={
-            <PageWrapper>
-              <StartMatch />
-            </PageWrapper>
+            playerName ? (
+              <PageWrapper>
+                <StartMatch />
+              </PageWrapper>
+            ) : (
+              <PageWrapper>
+                <PlayerDataUi />
+              </PageWrapper>
+            )
           }
         />
       </Routes>

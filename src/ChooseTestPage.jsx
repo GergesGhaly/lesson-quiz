@@ -212,29 +212,31 @@ const ChooseTestPage = () => {
             gap: isMobile ? 13 : 20,
           }}
         >
-          {quizzes.map((quiz) => (
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              key={quiz.id}
-              onClick={() => handleStartQuiz(quiz.id)}
-              style={{
-                fontSize: isMobile ? 20 : 30,
-                border: "none",
-                backgroundColor: "transparent",
-                color: "#fff",
-                cursor: "pointer",
-                backgroundImage: `url(${btnWall})`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                height: 100,
-                width: isMobile ? 270 : 350,
-                textShadow: "0px 3px 4px rgba(0, 0, 0, 0.836)",
-              }}
-            >
-              {quiz.title[language]}
-            </motion.button>
-          ))}
+          {quizzes
+            .filter((quiz) => quiz.type !== "match")
+            .map((quiz) => (
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                key={quiz.id}
+                onClick={() => handleStartQuiz(quiz.id)}
+                style={{
+                  fontSize: isMobile ? 20 : 30,
+                  border: "none",
+                  backgroundColor: "transparent",
+                  color: "#fff",
+                  cursor: "pointer",
+                  backgroundImage: `url(${btnWall})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  height: 100,
+                  width: isMobile ? 270 : 350,
+                  textShadow: "0px 3px 4px rgba(0, 0, 0, 0.836)",
+                }}
+              >
+                {quiz.title[language]}
+              </motion.button>
+            ))}
         </div>
       </div>
       <BackBtn />

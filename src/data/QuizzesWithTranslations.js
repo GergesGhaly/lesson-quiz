@@ -1253,6 +1253,7 @@ export const quizzes = [
   },
   {
     id: 101,
+    type: "match",   
     title: {
       ar: "مسابقة 1",
       en: "Quiz 1",

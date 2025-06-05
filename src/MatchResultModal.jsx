@@ -1,65 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { motion, animate } from "framer-motion";
-import { ref, onValue } from "firebase/database";
-import { db } from "./utils/firebase"; // تأكد من مسار ملف تهيئة Firebase لديك
 import vectory from "./assets/vectort.png";
 import defeat from "./assets/defeat.png";
 import coinsEffect from "/sound/coin-spill.mp3";
 import lose from "/sound/marimba-lose.mp3";
 import win from "/sound/violin-win.mp3";
 import x2 from "/sound/X2.mp3";
-import { Link } from "react-router-dom";
 import { useSound } from "./contexts/SoundContext";
+import ConfettiOverlay from "./components/ConfettiOverlay";
 
-const MatchResultModal = ({ roomId, playerId }) => {
+const MatchResultModal = ({ score, isWin, readyToShow, roomId }) => {
   const { isSoundOn } = useSound();
 
   const [displayScore, setDisplayScore] = useState(0);
   const [showX2, setShowX2] = useState(false);
   const [finalScore, setFinalScore] = useState(null);
-  const [isWin, setIsWin] = useState(false);
-  const [score, setScore] = useState(0);
 
   useEffect(() => {
-    if (!roomId || !playerId) return;
+    if (!readyToShow) return;
 
-    const pointsRef = ref(db, `rooms/${roomId}/playerPoints`);
-
-    const unsubscribe = onValue(pointsRef, (snapshot) => {
-      const pointsData = snapshot.val();
-      console.log(roomId, playerId, pointsData);
-
-      if (!pointsData) {
-        setScore(0);
-        setIsWin(false);
-        return;
-      }
-
-      // نقاط اللاعب الحالي
-      const playerScore = pointsData[playerId] || 0;
-
-      // نقاط اللاعبين الآخرين (للمقارنة)
-      // نجلب أول لاعب ليس هو اللاعب الحالي (مثال: player1 أو player2)
-      const otherPlayerId = Object.keys(pointsData).find(
-        (id) => id !== playerId
-      );
-      const otherScore = otherPlayerId ? pointsData[otherPlayerId] : 0;
-
-      setScore(playerScore);
-      setIsWin(playerScore > otherScore);
-    });
-
-    console.log("from modal");
-    return () => unsubscribe();
-  }, [roomId, playerId]);
-
-  useEffect(() => {
     const winSound = new Audio(win);
     const loseSound = new Audio(lose);
     const coinSound = new Audio(coinsEffect);
     const x2Sound = new Audio(x2);
-
-    if (score === 0) return; // تأكد أن النقاط ليست صفر قبل تشغيل الصوت والأنيميشن
 
     if (isSoundOn) {
       if (isWin) {
@@ -67,7 +30,10 @@ const MatchResultModal = ({ roomId, playerId }) => {
       } else {
         loseSound.play();
       }
-      coinSound.play();
+
+      setTimeout(() => {
+        coinSound.play();
+      }, 500); // تشغيل صوت العملات بعد التأثير الأول
     }
 
     const controls = animate(0, score, {
@@ -81,14 +47,14 @@ const MatchResultModal = ({ roomId, playerId }) => {
 
         if (isWin) {
           setShowX2(true);
-          if (isSoundOn) {
-            x2Sound.play();
-          }
+          if (isSoundOn) x2Sound.play();
           setTimeout(() => {
             setFinalScore(score * 2);
           }, 1000);
         } else {
-          setFinalScore(score);
+          setTimeout(() => {
+            setFinalScore(score);
+          }, 500); // delay بسيط لتحسين المظهر
         }
       },
     });
@@ -97,7 +63,9 @@ const MatchResultModal = ({ roomId, playerId }) => {
       controls.stop();
       coinSound.pause();
     };
-  }, [score, isWin, isSoundOn]);
+  }, [score, isWin, isSoundOn, readyToShow, roomId]);
+
+  if (!readyToShow) return null; // لا تظهر شيئًا حتى تتوفر النتائج
 
   return (
     <div
@@ -157,6 +125,7 @@ const MatchResultModal = ({ roomId, playerId }) => {
             Final Score: {finalScore}
           </motion.div>
         )}
+
         <a href="/" style={{ textDecoration: "none", color: "white" }}>
           <button
             style={{
@@ -175,6 +144,7 @@ const MatchResultModal = ({ roomId, playerId }) => {
           </button>
         </a>
       </motion.div>
+      <ConfettiOverlay show={isWin} isMatch={true} />
     </div>
   );
 };

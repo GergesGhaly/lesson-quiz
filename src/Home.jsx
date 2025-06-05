@@ -19,8 +19,14 @@ import { useParams } from "react-router-dom";
 import wall from "./assets/mainWall.webp";
 import matchBg from "./assets/matchBg.jpg";
 import QuizNavBar from "./components/QuizNavBar";
+import { useSound } from "./contexts/SoundContext";
+import wrong from "./assets/wrong.avif";
+import soundOn from "./assets/buttons/soundOn.png";
+import soundOf from "./assets/buttons/soundOf.png";
 
-function Home({ match, playerId, roomId }) {
+function Home({ match, playerId, roomId, countdown }) {
+  const { isSoundOn, setIsSoundOn } = useSound();
+
   const { quizId } = useParams();
   const quiz = !match
     ? quizzes.find((q) => q.id === Number(quizId))
@@ -28,10 +34,10 @@ function Home({ match, playerId, roomId }) {
 
   const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
+
   const [showResult, setShowResult] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
-  // const [showFinalIcon, setShowFinalIcon] = useState(false);
   const [unlockedRewards, setUnlockedRewards] = useState([]);
   const [rewardPopup, setRewardPopup] = useState(null);
 
@@ -60,10 +66,39 @@ function Home({ match, playerId, roomId }) {
     }
   };
 
+  const updateLocalResults = (newScore) => {
+    const existingResults = getQuizResults();
+    const updatedResults = [...existingResults, newScore];
+    saveQuizResults(updatedResults);
+
+    const total = updatedResults.reduce((sum, val) => sum + val, 0);
+    setTotalScore(total);
+
+    const unlocked = getUnlockedRewards();
+    const newlyUnlocked = checkAndGrantRewards(total, unlocked);
+
+    const updatedUnlockedKeys = [
+      ...unlocked,
+      ...newlyUnlocked.map((r) => r.key),
+    ];
+
+    if (newlyUnlocked.length > 0) {
+      saveUnlockedRewards(updatedUnlockedKeys);
+      setUnlockedRewards(getRewardsDisplay(updatedUnlockedKeys));
+
+      setRewardPopup(newlyUnlocked[0]);
+      setPendingConfetti(true);
+      setPendingFinalIcon(true);
+    } else {
+      if ((newScore / quiz.questions.length) * 100 >= 50) {
+        setShowConfetti(true);
+      }
+    }
+  };
+
   const handleAnswer = async (index) => {
     const isCorrect = index === quiz.questions[current].correct;
     const newScore = isCorrect ? score + 1 : score;
-    console.log("from nadel answer from home", match, playerId, roomId, score);
 
     if (current + 1 < quiz.questions.length) {
       setScore(newScore);
@@ -71,54 +106,54 @@ function Home({ match, playerId, roomId }) {
     } else {
       setScore(newScore);
       setShowResult(true);
-      const percentageFinal = (newScore / quiz.questions.length) * 100;
 
-      if (percentageFinal >= 50) {
+      if ((newScore / quiz.questions.length) * 100 >= 50 && !match) {
         setPendingConfetti(true);
         setPendingFinalIcon(true);
       }
 
-      const existingResults = getQuizResults();
-      const updatedResults = [...existingResults, newScore];
-      saveQuizResults(updatedResults);
-
-      const total = updatedResults.reduce((sum, val) => sum + val, 0);
-      setTotalScore(total);
-
-      const unlocked = getUnlockedRewards();
-      const newlyUnlocked = checkAndGrantRewards(total, unlocked);
-
-      const updatedUnlockedKeys = [
-        ...unlocked,
-        ...newlyUnlocked.map((r) => r.key),
-      ];
-
-      if (newlyUnlocked.length > 0) {
-        saveUnlockedRewards(updatedUnlockedKeys);
-        setUnlockedRewards(getRewardsDisplay(updatedUnlockedKeys));
-
-        // ❗ أوقف المؤثرات مؤقتًا وانتظر إغلاق RewardPopup
-        setRewardPopup(newlyUnlocked[0]);
-        setPendingConfetti(true);
-        setPendingFinalIcon(true);
-      } else {
-        // ✅ لا يوجد Popup → أظهر المؤثرات مباشرة إذا كان التأهل >= 50%
-        if (percentageFinal >= 50) {
-          setShowConfetti(true);
-        }
+      // ✅ في حالة غير مباراة، أرسل النتيجة إلى local
+      if (!match) {
+        updateLocalResults(newScore);
       }
     }
-    // ✅ حفظ النقاط في Firebase إذا كانت مباراة جماعية
+
     if (match && playerId && roomId) {
       await savePlayerScoreToFirebase(playerId, roomId, newScore);
-      console.log(
-        "from nadel answer from savePlayerScoreToFirebase function  ",
-        playerId,
-        roomId,
-        newScore
-      );
     }
   };
+
+  // const handleAnswer = async (index) => {
+  //   const isCorrect = index === quiz.questions[current].correct;
+  //   const newScore = isCorrect ? score + 1 : score;
+  //   console.log("from nadel answer from home", match, playerId, roomId, score);
+  //   // setFinalMatchScore((prev) => prev + 1);
+
+  //   if (current + 1 < quiz.questions.length && !match) {
+  //     setScore(newScore);
+  //     setCurrent(current + 1);
+  //   } else {
+  //     setScore(newScore);
+  //     setShowResult(true);
+  //     const percentageFinal = (newScore / quiz.questions.length) * 100;
+
+  //     if (percentageFinal >= 50 && !match) {
+  //       setPendingConfetti(true);
+  //       setPendingFinalIcon(true);
+  //     }
+  //   }
+  //   const isGameEnded =
+  //     (match && countdown <= 0) || current + 1 === quiz.questions.length;
+
+  //   if (isGameEnded) {
+  //     console.log(newScore);
+
+  //     updateLocalResults(newScore);
+  //   }
+  //   if (match && playerId && roomId) {
+  //     await savePlayerScoreToFirebase(playerId, roomId, newScore);
+  //   }
+  // };
 
   const handleCloseRewardPopup = () => {
     setRewardPopup(null);
@@ -165,8 +200,8 @@ function Home({ match, playerId, roomId }) {
       }}
     >
       {!match && <QuizNavBar quiz={quiz} totalScore={totalScore} />}
-      {!match && <ConfettiOverlay show={showConfetti && percentage >= 50} />}
-        
+      <ConfettiOverlay show={showConfetti && percentage >= 50} />
+
       <RewardPopup
         reward={rewardPopup}
         onClose={handleCloseRewardPopup}
@@ -187,6 +222,26 @@ function Home({ match, playerId, roomId }) {
           onAnswer={handleAnswer}
         />
       )}
+      <motion.button
+        onClick={() => setIsSoundOn((prev) => !prev)}
+        whileTap={{ scale: 0.9 }}
+        style={{
+          backgroundColor: "transparent",
+          border: "none",
+          outline: "none",
+          cursor: "pointer",
+          position: "absolute",
+
+          bottom: "10px",
+          right: "10px",
+        }}
+      >
+        <img
+          src={isSoundOn ? soundOn : soundOf}
+          alt="sound"
+          style={{ width: "40px", height: "40px", objectFit: "contain" }}
+        />
+      </motion.button>
     </div>
   );
 }

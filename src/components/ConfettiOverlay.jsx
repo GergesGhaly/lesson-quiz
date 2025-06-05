@@ -4,10 +4,10 @@ import NextLevelBtn from "./NextLevelBtn";
 import { useSound } from "../contexts/SoundContext";
 import TotalScoreIcon from "./TotalScoreIcon";
 
-export default function ConfettiOverlay({ show }) {
+export default function ConfettiOverlay({ show ,isMatch}) {
   const { isSoundOn } = useSound();
   useEffect(() => {
-    if (show && isSoundOn) {
+    if (show && isSoundOn && !isMatch) {
       const audio = new Audio("/sound/win.mp3");
       audio.play().catch((err) => {
         console.warn("فشل تشغيل الصوت:", err);
@@ -19,8 +19,6 @@ export default function ConfettiOverlay({ show }) {
   return (
     <>
       <Confetti />
-      {/* <NextLevelBtn /> */}
-      {/* <TotalScoreIcon width={200} /> */}
     </>
   );
 }

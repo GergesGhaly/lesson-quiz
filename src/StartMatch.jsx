@@ -17,6 +17,7 @@ import WatingRoom from "./WatingRoom";
 import { useNavigate } from "react-router-dom";
 import MatchResultModal from "./MatchResultModal";
 import Home from "./Home";
+import CountdownCircle from "./components/CountdownCircle";
 
 const StartMatch = () => {
   const playerName = localStorage.getItem("playerName");
@@ -29,7 +30,10 @@ const StartMatch = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [countdown, setCountdown] = useState(null);
   const [showResult, setShowResult] = useState(false);
-  const [matchResult, setMatchResult] = useState({ isWin: false, score: 0 });
+  // const [matchResult, setMatchResult] = useState({ isWin: false, score: 0 });
+  const [isWin, setIsWin] = useState(false);
+  const [score, setScore] = useState(0);
+  const [readyToShow, setReadyToShow] = useState(false);
 
   let roomRefCleanup = null;
 
@@ -51,14 +55,16 @@ const StartMatch = () => {
       const currentPlayerPoints =
         playerId === room.player1Id ? player1Points : player2Points;
 
-      const isWin =
+      const didWin =
         (playerId === room.player1Id && player1Points > player2Points) ||
         (playerId === room.player2Id && player2Points > player1Points);
 
-      setMatchResult({ isWin, score: currentPlayerPoints });
+      setIsWin(didWin);
+      setScore(currentPlayerPoints);
     } catch (err) {
       console.error("خطأ في جلب النقاط:", err);
-      setMatchResult({ isWin: false, score: 0 });
+      setIsWin(false);
+      setScore(0);
     } finally {
       setShowResult(true);
     }
@@ -228,11 +234,25 @@ const StartMatch = () => {
       window.removeEventListener("beforeunload", handleUnload);
       if (typeof unlisten === "function") unlisten();
     };
-  }, [playerName, playerId]);
+  }, [playerName, playerId, navigate]);
 
   useEffect(() => {
     if (gameStarted && room?.id) {
       setCountdown(60);
+
+      // 🟢 إعداد النقاط الأولية لكل لاعب = 0
+      const pointsRef = ref(db, `rooms/${room.id}/playerPoints`);
+      get(pointsRef).then((snapshot) => {
+        const points = snapshot.val() || {};
+        const updates = {};
+        if (!(room.player1Id in points)) updates[room.player1Id] = 0;
+        if (!(room.player2Id in points)) updates[room.player2Id] = 0;
+
+        if (Object.keys(updates).length > 0) {
+          update(pointsRef, updates).catch(console.error);
+        }
+      });
+
       const interval = setInterval(() => {
         setCountdown((prev) => {
           if (prev === 1) {
@@ -245,6 +265,35 @@ const StartMatch = () => {
       return () => clearInterval(interval);
     }
   }, [gameStarted, room?.id]);
+
+  useEffect(() => {
+    if (!room?.id || !playerId) return;
+
+    const pointsRef = ref(db, `rooms/${room?.id}/playerPoints`);
+
+    const unsubscribe = onValue(pointsRef, (snapshot) => {
+      const pointsData = snapshot.val();
+      if (!pointsData) return;
+
+      const playerScore = pointsData[playerId] || 0;
+      const otherPlayerId = Object.keys(pointsData).find(
+        (id) => id !== playerId
+      );
+
+      // انتظر إلى أن تكون بيانات الخصم متوفرة
+      if (!otherPlayerId || !(otherPlayerId in pointsData)) return;
+
+      const otherScore = pointsData[otherPlayerId];
+
+      setScore(playerScore);
+      setIsWin(playerScore > otherScore);
+      setTimeout(() => {
+        setReadyToShow(true); // ← ثم إظهار المودال بعد وقت قصير
+      }, 300); // أعطه وقتًا لتهيئة isWin
+    });
+
+    return () => unsubscribe();
+  }, [room?.id, playerId]);
 
   if (loading || !room || room.status === "waiting") {
     return (
@@ -265,37 +314,68 @@ const StartMatch = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "20px",
+        padding: "0px 20px",
       }}
     >
-      <div
-        style={{
-          display: "flex ",
-          justifyContent: "space-between",
-          width: "100%",
-          alignItems: "center",
-        }}
-      >
-        <p>Player 1: {room.player1}</p>
-        {gameStarted && countdown !== null && (
-          <div style={{ color: "blue", fontSize: 24 }}>
-            Game ends in: {countdown}s
+      {gameStarted && countdown !== null && (
+        <div
+          style={{
+            display: "flex ",
+            justifyContent: "space-between",
+            width: "100%",
+            alignItems: "center",
+            position: "absolute",
+            top: "0px",
+            left: "0px",
+            padding: "5px 20px",
+            zIndex: "9999",
+            backgroundColor: "#0000003e",
+            color: "white",
+            fontWeight: "bold",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <p>Player 1</p>
+            <p> {room.player1}</p>
           </div>
-        )}
-        <p>Player 2: {room.player2 || "Waiting for player 2..."}</p>
-      </div>
+
+          <CountdownCircle totalTime={countdown} />
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <p>Player 2</p>
+            <p> {room.player2 || "Waiting for player 2..."}</p>
+          </div>
+        </div>
+      )}
 
       {gameStarted && (
-        <div style={{ marginTop: 20, color: "green", fontWeight: "bold" }}>
-          <Home match={true} playerId={playerId} roomId={room.id} />
+        <div style={{ color: "green", fontWeight: "bold" }}>
+          <Home match={true} playerId={playerId} roomId={room.id} countdown={countdown} />
         </div>
       )}
 
       {showResult && (
         <MatchResultModal
-          matchResult={matchResult}
+          // matchResult={matchResult}
           roomId={room.id}
-          playerId={playerId}
+          // playerId={playerId}
+          isWin={isWin}
+          score={score}
+          readyToShow={readyToShow}
         />
       )}
     </div>

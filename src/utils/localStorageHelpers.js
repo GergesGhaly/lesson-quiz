@@ -13,3 +13,6 @@ export const getUnlockedRewards = () => {
 export const saveUnlockedRewards = (rewards) => {
   localStorage.setItem("unlockedRewards", JSON.stringify(rewards));
 };
+
+
+// utils/localResultsHelpers.ts

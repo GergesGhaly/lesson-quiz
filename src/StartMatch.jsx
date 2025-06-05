@@ -38,13 +38,18 @@ const StartMatch = () => {
     await update(roomRef, { status: "closed" });
 
     try {
-      const playerPointsSnap = await get(ref(db, `rooms/${room.id}/playerPoints`));
-      const playerPoints = playerPointsSnap.exists() ? playerPointsSnap.val() : {};
+      const playerPointsSnap = await get(
+        ref(db, `rooms/${room.id}/playerPoints`)
+      );
+      const playerPoints = playerPointsSnap.exists()
+        ? playerPointsSnap.val()
+        : {};
 
       const player1Points = playerPoints[room.player1Id] || 0;
       const player2Points = playerPoints[room.player2Id] || 0;
 
-      const currentPlayerPoints = playerId === room.player1Id ? player1Points : player2Points;
+      const currentPlayerPoints =
+        playerId === room.player1Id ? player1Points : player2Points;
 
       const isWin =
         (playerId === room.player1Id && player1Points > player2Points) ||
@@ -87,7 +92,10 @@ const StartMatch = () => {
       if (allRoomsSnapshot.exists()) {
         const rooms = allRoomsSnapshot.val();
         for (const [key, roomData] of Object.entries(rooms)) {
-          if (roomData.player1Id === playerId || roomData.player2Id === playerId) {
+          if (
+            roomData.player1Id === playerId ||
+            roomData.player2Id === playerId
+          ) {
             joinedRoom = { id: key, ...roomData };
             break;
           }
@@ -95,7 +103,11 @@ const StartMatch = () => {
       }
 
       if (!joinedRoom) {
-        const waitingRoomsQuery = query(roomsRef, orderByChild("status"), equalTo("waiting"));
+        const waitingRoomsQuery = query(
+          roomsRef,
+          orderByChild("status"),
+          equalTo("waiting")
+        );
         const waitingSnapshot = await get(waitingRoomsQuery);
 
         if (!waitingSnapshot.exists()) {
@@ -117,7 +129,8 @@ const StartMatch = () => {
           for (const [key, roomData] of Object.entries(waitingRooms)) {
             const player2Exists = roomData.player2 && roomData.player2 !== "";
             const isSamePlayerTryingToJoin =
-              roomData.player1Id === playerId || roomData.player2Id === playerId;
+              roomData.player1Id === playerId ||
+              roomData.player2Id === playerId;
 
             if (!player2Exists && !isSamePlayerTryingToJoin) {
               const roomRef = ref(db, `rooms/${key}`);
@@ -170,7 +183,11 @@ const StartMatch = () => {
           return;
         }
 
-        if (updatedRoom.status === "closed" && room && room.status !== "closed") {
+        if (
+          updatedRoom.status === "closed" &&
+          room &&
+          room.status !== "closed"
+        ) {
           alert("اللاعب الآخر قام بالخروج");
           navigate("/");
           return;
@@ -215,7 +232,7 @@ const StartMatch = () => {
 
   useEffect(() => {
     if (gameStarted && room?.id) {
-      setCountdown(6);
+      setCountdown(60);
       const interval = setInterval(() => {
         setCountdown((prev) => {
           if (prev === 1) {
@@ -242,11 +259,28 @@ const StartMatch = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px" }}>
-      <div style={{ display: "flex ", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex ",
+          justifyContent: "space-between",
+          width: "100%",
+          alignItems: "center",
+        }}
+      >
         <p>Player 1: {room.player1}</p>
         {gameStarted && countdown !== null && (
-          <div style={{ color: "blue", fontSize: 24 }}>Game ends in: {countdown}s</div>
+          <div style={{ color: "blue", fontSize: 24 }}>
+            Game ends in: {countdown}s
+          </div>
         )}
         <p>Player 2: {room.player2 || "Waiting for player 2..."}</p>
       </div>
@@ -258,7 +292,11 @@ const StartMatch = () => {
       )}
 
       {showResult && (
-        <MatchResultModal matchResult={matchResult} roomId={room.id} playerId={playerId} />
+        <MatchResultModal
+          matchResult={matchResult}
+          roomId={room.id}
+          playerId={playerId}
+        />
       )}
     </div>
   );

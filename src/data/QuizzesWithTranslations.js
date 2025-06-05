@@ -1251,4 +1251,343 @@ export const quizzes = [
       },
     ],
   },
+  {
+    id: 101,
+    title: {
+      ar: "مسابقة 1",
+      en: "Quiz 1",
+    },
+    questions: [
+      {
+        question: {
+          ar: "من هو النبي الذي تحدى أنبياء البعل؟",
+          en: "Which prophet challenged the prophets of Baal?",
+        },
+        answers: {
+          ar: ["إيليا", "إشعياء", "إرميا", "حزقيال"],
+          en: ["Elijah", "Isaiah", "Jeremiah", "Ezekiel"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من هو النبي الذي صعد إلى السماء في مركبة نارية؟",
+          en: "Which prophet ascended to heaven in a chariot of fire?",
+        },
+        answers: {
+          ar: ["إيليا", "إليشع", "إرميا", "حزقيال"],
+          en: ["Elijah", "Elisha", "Jeremiah", "Ezekiel"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من القائل: أنت تأتي إلي بسيف وبرمح وبترس، وأنا آتي إليك باسم رب الجنود؟",
+          en: "Who said: 'You come to me with a sword, a spear, and a javelin, but I come to you in the name of the Lord of hosts'?",
+        },
+        answers: {
+          ar: ["صموئيل", "داود", "شاول", "يشوع"],
+          en: ["Samuel", "David", "Saul", "Joshua"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من هو النبي الذي أنقذ من جب الأسود؟",
+          en: "Which prophet was saved from the lion's den?",
+        },
+        answers: {
+          ar: ["دانيال", "نحميا", "عزرا", "صموئيل"],
+          en: ["Daniel", "Nehemiah", "Ezra", "Samuel"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من شقّ البحر بعصاه؟",
+          en: "Who parted the sea with his staff?",
+        },
+        answers: {
+          ar: ["داود", "موسى", "إيليا", "يشوع"],
+          en: ["David", "Moses", "Elijah", "Joshua"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من بنى الفلك لينقذ عائلته من الطوفان؟",
+          en: "Who built the ark to save his family from the flood?",
+        },
+        answers: {
+          ar: ["إبراهيم", "نوح", "موسى", "يوسف"],
+          en: ["Abraham", "Noah", "Moses", "Joseph"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من هو أول إنسان خلقه الله؟",
+          en: "Who was the first human created by God?",
+        },
+        answers: {
+          ar: ["نوح", "إبراهيم", "آدم", "يعقوب"],
+          en: ["Noah", "Abraham", "Adam", "Jacob"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من القائل: خذوني واطرحوني في البحر فيسكن البحر عنكم؟",
+          en: "Who said: 'Pick me up and throw me into the sea, and it will become calm for you'?",
+        },
+        answers: {
+          ar: ["يونان", "بولس", "موسى", "نوح"],
+          en: ["Jonah", "Paul", "Moses", "Noah"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من عاش في بطن الحوت ثلاثة أيام؟",
+          en: "Who lived in the belly of a whale for three days?",
+        },
+        answers: {
+          ar: ["يونان", "موسى", "يعقوب", "يوحنا"],
+          en: ["Jonah", "Moses", "Jacob", "John"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من هو النبي الذي مسح داود ملكًا؟",
+          en: "Which prophet anointed David as king?",
+        },
+        answers: {
+          ar: ["شمعون", "صموئيل", "ناثان", "إيليا"],
+          en: ["Simon", "Samuel", "Nathan", "Elijah"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من قاد شعب إسرائيل بعد موسى؟",
+          en: "Who led the Israelites after Moses?",
+        },
+        answers: {
+          ar: ["هارون", "داود", "يشوع", "صموئيل"],
+          en: ["Aaron", "David", "Joshua", "Samuel"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من القائل: هوذا النار والحطب، ولكن أين الخروف للمحرقة؟",
+          en: "Who said: 'Look, the fire and the wood, but where is the lamb for a burnt offering?'",
+        },
+        answers: {
+          ar: ["شاول", "يعقوب", "إسحاق", "موسى"],
+          en: ["Saul", "Jacob", "Isaac", "Moses"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من هو التلميذ الذي كتب سفر الرؤيا؟",
+          en: "Which disciple wrote the Book of Revelation?",
+        },
+        answers: {
+          ar: ["موسى", "إشعياء", "يوحنا", "حزقيال"],
+          en: ["Moses", "Isaiah", "John", "Ezekiel"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من هو الملك الذي حلم بالبقرات السبع؟",
+          en: "Which king dreamed of seven cows?",
+        },
+        answers: {
+          ar: ["فرعون", "نبوخذنصر", "شاول", "أخاب"],
+          en: ["Pharaoh", "Nebuchadnezzar", "Saul", "Ahab"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من هو النبي الذي تنبأ عن العذراء التي تلد؟",
+          en: "Which prophet prophesied about the virgin who would give birth?",
+        },
+        answers: {
+          ar: ["إشعياء", "إرميا", "حزقيال", "هوشع"],
+          en: ["Isaiah", "Jeremiah", "Ezekiel", "Hosea"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من القائل: هوذا حمل الله الذي يرفع خطية العالم؟",
+          en: "Who said: 'Behold! The Lamb of God who takes away the sin of the world'?",
+        },
+        answers: {
+          ar: ["بولس", "يوحنا المعمدان", "بطرس", "يسوع"],
+          en: ["Paul", "John the Baptist", "Peter", "Jesus"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من هو النبي الذي كتب الأمثال؟",
+          en: "Which wise prophet wrote the Proverbs?",
+        },
+        answers: {
+          ar: ["داود", "سليمان", "موسى", "يشوع"],
+          en: ["David", "Solomon", "Moses", "Joshua"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "ما اسم الجبل الذي أعطى الله عليه الوصايا العشر؟",
+          en: "What is the name of the mountain where God gave the Ten Commandments?",
+        },
+        answers: {
+          ar: ["جبل الكرمل", "جبل الزيتون", "جبل سيناء", "جبل تابور"],
+          en: ["Mount Carmel", "Mount of Olives", "Mount Sinai", "Mount Tabor"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من القائل: إن لم أبصر في يديه أثر المسامير لا أؤمن؟",
+          en: "Who said: 'Unless I see in His hands the print of the nails, I will not believe'?",
+        },
+        answers: {
+          ar: ["بطرس", "توما", "يوحنا", "فيلبس"],
+          en: ["Peter", "Thomas", "John", "Philip"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من القائل: حقا قال الله لا تأكلا من كل شجر الجنة؟",
+          en: "Who said: 'Has God indeed said, “You shall not eat of every tree of the garden”?'",
+        },
+        answers: {
+          ar: ["الحية", "حواء", "قايين", "آدم"],
+          en: ["The serpent", "Eve", "Cain", "Adam"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من هو أول من بنى مذبحًا للرب بعد الطوفان؟",
+          en: "Who was the first to build an altar to the Lord after the flood?",
+        },
+        answers: {
+          ar: ["نوح", "إبراهيم", "موسى", "يعقوب"],
+          en: ["Noah", "Abraham", "Moses", "Jacob"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من هو الأخ الذي باع أخاه مقابل ثلاثين من الفضة؟",
+          en: "Who betrayed his brother for thirty pieces of silver?",
+        },
+        answers: {
+          ar: ["قايين", "يهوذا", "راؤبين", "شمعون"],
+          en: ["Cain", "Judas", "Reuben", "Simeon"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من هو القائد الذي أسقط أسوار أريحا؟",
+          en: "Who was the leader that caused the walls of Jericho to fall?",
+        },
+        answers: {
+          ar: ["يشوع", "موسى", "داود", "صموئيل"],
+          en: ["Joshua", "Moses", "David", "Samuel"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من هو الملك الذي سأل الله حكمة بدلًا من الغنى؟",
+          en: "Which king asked God for wisdom instead of riches?",
+        },
+        answers: {
+          ar: ["داود", "شاول", "سليمان", "حزقيا"],
+          en: ["David", "Saul", "Solomon", "Hezekiah"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من هو الشاب الذي قتل جليات؟",
+          en: "Who was the young man who killed Goliath?",
+        },
+        answers: {
+          ar: ["صموئيل", "شاول", "داود", "يوناثان"],
+          en: ["Samuel", "Saul", "David", "Jonathan"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "من هو أول شهيد في العهد الجديد؟",
+          en: "Who was the first martyr in the New Testament?",
+        },
+        answers: {
+          ar: ["يعقوب", "إستفانوس", "بطرس", "بولس"],
+          en: ["James", "Stephen", "Peter", "Paul"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من هو التلميذ الذي أنكر المسيح ثلاث مرات؟",
+          en: "Which disciple denied Christ three times?",
+        },
+        answers: {
+          ar: ["يوحنا", "توما", "بطرس", "يعقوب"],
+          en: ["John", "Thomas", "Peter", "James"],
+        },
+        correct: 2,
+      },
+      {
+        question: {
+          ar: "في أي نهر اعتمد يسوع؟",
+          en: "In which river was Jesus baptized?",
+        },
+        answers: {
+          ar: ["النيل", "الأردن", "الفرات", "الخابور"],
+          en: ["Nile", "Jordan", "Euphrates", "Khabur"],
+        },
+        correct: 1,
+      },
+      {
+        question: {
+          ar: "من هو الذي أقامه يسوع من الموت بعد أربعة أيام؟",
+          en: "Who did Jesus raise from the dead after four days?",
+        },
+        answers: {
+          ar: ["اليعازر", "المفلوج", "الابن الوحيد", "ناعوم"],
+          en: ["Lazarus", "The paralytic", "The only son", "Naomi"],
+        },
+        correct: 0,
+      },
+      {
+        question: {
+          ar: "من هو التلميذ الذي كتب إنجيله بلغة غير يهودية؟",
+          en: "Which disciple wrote his Gospel in a Gentile context?",
+        },
+        answers: {
+          ar: ["مرقس", "لوقا", "يوحنا", "متى"],
+          en: ["Mark", "Luke", "John", "Matthew"],
+        },
+        correct: 1,
+      },
+    ],
+  },
 ];

@@ -22,12 +22,13 @@ export default function Quiz({ questions, current, onAnswer }) {
   );
 
   // أرقام الكمبونت اللي تظهر عندها الرسالة
-  const comboTriggers = [3, 6, 9];
+  const comboTriggers = [
+    3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60
+  ];
 
   useEffect(() => {
     correctSoundRef.current = new Audio("/sound/correct.mp3");
     wrongSoundRef.current = new Audio("/sound/wrong.mp3");
-
   }, []);
 
   const handleAnswer = (index) => {
@@ -103,7 +104,6 @@ export default function Quiz({ questions, current, onAnswer }) {
         {questions[current].question[language]}
       </h3>
 
-    
       {/* عرض الإجابات بحسب اللغة */}
       {questions[current].answers[language].map((answer, index) => (
         <button
@@ -121,7 +121,6 @@ export default function Quiz({ questions, current, onAnswer }) {
           {answer}
         </button>
       ))}
-   
 
       <CoinAnimation visible={showCoin} />
     </div>

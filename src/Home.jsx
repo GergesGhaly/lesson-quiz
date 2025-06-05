@@ -4,6 +4,7 @@ import Results from "./components/Results";
 import ConfettiOverlay from "./components/ConfettiOverlay";
 import RewardPopup from "./components/RewardPopup";
 import { motion } from "framer-motion";
+import { db, ref, set, update } from "./utils/firebase"; // عدّل المسار حسب ملفك
 
 import {
   getQuizResults,
@@ -16,11 +17,14 @@ import { checkAndGrantRewards, getRewardsDisplay } from "./utils/rewardUtils";
 import { quizzes } from "./data/QuizzesWithTranslations";
 import { useParams } from "react-router-dom";
 import wall from "./assets/mainWall.webp";
+import matchBg from "./assets/matchBg.jpg";
 import QuizNavBar from "./components/QuizNavBar";
 
-function Home() {
+function Home({ match, playerId, roomId }) {
   const { quizId } = useParams();
-  const quiz = quizzes.find((q) => q.id === Number(quizId));
+  const quiz = !match
+    ? quizzes.find((q) => q.id === Number(quizId))
+    : quizzes.find((q) => q.id === 101);
 
   const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
@@ -33,16 +37,6 @@ function Home() {
 
   const [pendingConfetti, setPendingConfetti] = useState(false);
   const [pendingFinalIcon, setPendingFinalIcon] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 600);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     const savedResults = getQuizResults();
@@ -53,9 +47,23 @@ function Home() {
     setUnlockedRewards(getRewardsDisplay(rewardsKeys));
   }, []);
 
-  const handleAnswer = (index) => {
+  const savePlayerScoreToFirebase = async (playerId, roomId, score) => {
+    try {
+      await set(ref(db, `players/${playerId}/points`), score);
+      await update(ref(db, `rooms/${roomId}/playerPoints`), {
+        [playerId]: score,
+      });
+
+      console.log("تم حفظ النقاط في Firebase");
+    } catch (error) {
+      console.error("خطأ في حفظ النقاط:", error);
+    }
+  };
+
+  const handleAnswer = async (index) => {
     const isCorrect = index === quiz.questions[current].correct;
     const newScore = isCorrect ? score + 1 : score;
+    console.log("from nadel answer from home", match, playerId, roomId, score);
 
     if (current + 1 < quiz.questions.length) {
       setScore(newScore);
@@ -97,20 +105,25 @@ function Home() {
         // ✅ لا يوجد Popup → أظهر المؤثرات مباشرة إذا كان التأهل >= 50%
         if (percentageFinal >= 50) {
           setShowConfetti(true);
-          // setShowFinalIcon(true);
-          // setTimeout(() => setShowFinalIcon(false), 6000);
         }
       }
+    }
+    // ✅ حفظ النقاط في Firebase إذا كانت مباراة جماعية
+    if (match && playerId && roomId) {
+      await savePlayerScoreToFirebase(playerId, roomId, newScore);
+      console.log(
+        "from nadel answer from savePlayerScoreToFirebase function  ",
+        playerId,
+        roomId,
+        newScore
+      );
     }
   };
 
   const handleCloseRewardPopup = () => {
     setRewardPopup(null);
     if (pendingConfetti) setShowConfetti(true);
-    if (pendingFinalIcon) {
-      // setShowFinalIcon(true);
-      // setTimeout(() => setShowFinalIcon(false), 10000);
-    }
+
     setPendingConfetti(false);
     setPendingFinalIcon(false);
   };
@@ -127,7 +140,6 @@ function Home() {
     setCurrent(0);
     setShowResult(false);
     setShowConfetti(false);
-    // setShowFinalIcon(false);
     setRewardPopup(null);
   };
 
@@ -139,18 +151,22 @@ function Home() {
         padding: 20,
         fontFamily: "Arial",
         direction: "rtl",
-        backgroundImage: `url(${wall})`,
+        backgroundImage: `url(${match ? matchBg : wall})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
         width: "100vw",
         overflow: "hidden",
+        display: match && "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <QuizNavBar quiz={quiz} totalScore={totalScore} />
-
-      <ConfettiOverlay show={showConfetti && percentage >= 50} />
+      {!match && <QuizNavBar quiz={quiz} totalScore={totalScore} />}
+      {!match && <ConfettiOverlay show={showConfetti && percentage >= 50} />}
+        
       <RewardPopup
         reward={rewardPopup}
         onClose={handleCloseRewardPopup}

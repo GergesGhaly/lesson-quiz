@@ -8,6 +8,7 @@ const ProgressDots = ({ total, answersStatus }) => {
         justifyContent: "center",
         marginBottom: "20px",
         gap: "8px",
+        flexWrap: "wrap",
       }}
     >
       {Array.from({ length: total }).map((_, index) => {

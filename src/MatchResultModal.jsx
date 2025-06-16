@@ -8,8 +8,11 @@ import win from "/sound/violin-win.mp3";
 import x2 from "/sound/X2.mp3";
 import { useSound } from "./contexts/SoundContext";
 import ConfettiOverlay from "./components/ConfettiOverlay";
+import { useNavigate } from "react-router-dom";
 
 const MatchResultModal = ({ score, isWin, readyToShow, roomId }) => {
+  const navigate = useNavigate();
+
   const { isSoundOn } = useSound();
 
   const [displayScore, setDisplayScore] = useState(0);
@@ -126,23 +129,24 @@ const MatchResultModal = ({ score, isWin, readyToShow, roomId }) => {
           </motion.div>
         )}
 
-        <a href="/" style={{ textDecoration: "none", color: "white" }}>
-          <button
-            style={{
-              marginTop: 25,
-              background: "#4CAF50",
-              color: "white",
-              padding: "10px 20px",
-              fontSize: "18px",
-              borderRadius: "12px",
-              border: "none",
-              cursor: "pointer",
-              boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-            }}
-          >
-            Home
-          </button>
-        </a>
+        {/* <a href="/" style={{ textDecoration: "none", color: "white" }}> */}
+        <button
+          onClick={() => navigate("/")}
+          style={{
+            marginTop: 25,
+            background: "#4CAF50",
+            color: "white",
+            padding: "10px 20px",
+            fontSize: "18px",
+            borderRadius: "12px",
+            border: "none",
+            cursor: "pointer",
+            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+          }}
+        >
+          Home
+        </button>
+        {/* </a> */}
       </motion.div>
       <ConfettiOverlay show={isWin} isMatch={true} />
     </div>

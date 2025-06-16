@@ -48,6 +48,7 @@ const StartMatch = () => {
       }
       if (updatedRoom.status === "ended") {
         endGame(); // سيتم استدعاؤها مرة واحدة لكل لاعب عند تحديث الحالة إلى "ended"
+        return;
       }
 
       setRoom({ id: roomId, ...updatedRoom });
@@ -98,7 +99,9 @@ const StartMatch = () => {
     const myScore = points[playerId] || 0;
     const opponentId = Object.keys(points).find((id) => id !== playerId);
     const win = myScore > (points[opponentId] || 0);
-    setResult({ show: true, isWin: win, score: myScore });
+    setTimeout(() => {
+      setResult({ show: true, isWin: win, score: myScore });
+    }, 500);
   };
 
   useEffect(() => {
@@ -156,7 +159,7 @@ const StartMatch = () => {
         />
       )}
 
-      {result.show && (
+      {gameEnded && result.show && (
         <MatchResultModal
           roomId={room.id}
           isWin={result.isWin}

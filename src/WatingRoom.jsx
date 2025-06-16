@@ -6,6 +6,7 @@ import StartMatchButton from "./components/StartMatchButton";
 
 const WatingRoom = ({ player1, player2, roomId, playerName }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+  const [showStartButton, setShowStartButton] = useState(false);
 
   const isHost = playerName === player1;
 
@@ -16,6 +17,20 @@ const WatingRoom = ({ player1, player2, roomId, playerName }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // ✨ تأخير عرض زر البدء ثانية واحدة بعد تحقق الشروط
+  useEffect(() => {
+    let timeout;
+    if (roomId && playerName && player2 && isHost) {
+      timeout = setTimeout(() => {
+        setShowStartButton(true);
+      }, 1000); // تأخير 1 ثانية
+    } else {
+      setShowStartButton(false); // إعادة الإخفاء إن تغيّرت الشروط
+    }
+
+    return () => clearTimeout(timeout);
+  }, [roomId, playerName, player2, isHost]);
 
   const dotTransition = {
     duration: 1,
@@ -107,9 +122,7 @@ const WatingRoom = ({ player1, player2, roomId, playerName }) => {
         )}
       </div>
 
-      {roomId && playerName && player2 && isHost && (
-        <StartMatchButton roomId={roomId} />
-      )}
+      {showStartButton && <StartMatchButton roomId={roomId} />}
     </div>
   );
 };

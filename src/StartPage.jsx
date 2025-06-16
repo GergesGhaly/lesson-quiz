@@ -34,7 +34,7 @@ const StartPage = () => {
     },
     {
       title: " البطولة",
-      link: "/competition",
+      link: "/ChoosMatchMood",
       image: battel,
     },
   ]);

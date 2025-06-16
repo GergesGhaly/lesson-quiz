@@ -1,21 +1,26 @@
-import React from "react";
-import falg from "../assets/rewardsFlags/8.avif";
+import React, { useState, useEffect } from "react";
 import CurrentReward from "./CurrentReward";
-const UserCard = React.memo( ({
-  totalPoints = 240,
-  currentReward = {},
-  pastRewards = [],
-  playerName,
-}) => {
+
+const UserCard = React.memo(({ totalPoints = 240, playerName, avatar }) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div
       style={{
         position: "relative",
         backgroundColor: "#e4d4b892",
         borderRadius: "12px",
-        padding: "15px",
-        width: "220px",
-        // height: "350px",
+        padding: isMobile ? "5px" : "15px",
+        maxWidth: "220px",
         fontFamily: "serif",
         boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
         textAlign: "center",
@@ -23,59 +28,54 @@ const UserCard = React.memo( ({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "start",
-        gap: "10px",
+        gap: isMobile ? "3px" : "10px",
       }}
     >
-      <h4>🏆 Total Points: {totalPoints}</h4>
-      <div>
-        {/* <img src={falg} style={{ width: "80%", objectFit: "cover" }} alt="" /> */}
-        {/* <div
-          style={{
-            position: "absolute",
-
-            top: "60px",
-            left: "20px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            // width: "100%",
-            zIndex: 9999,
-          }}
-        >
-          <ul
-            style={{
-              textAlign: "left",
-            }}
-          >
-            {pastRewards.map((reward, index) => (
-              <li key={index}>✅</li>
-            ))}
-          </ul>
-        </div> */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "5px",
+          // flexDirection: "column",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        <div>
+          <img
+            style={{ width: 50, height: 50, borderRadius: "50%" }}
+            src={avatar}
+            alt=""
+          />
+        </div>
+        <div style={{ textAlign: "start" }}>
+          <h4>{playerName}</h4>
+          <h5>{totalPoints} 💰</h5>
+        </div>
       </div>
 
       <div
         style={{
-          marginTop: "10px",
+          // marginTop: "10px",
           zIndex: 9999,
-
-          bottom: "15px",
+          // bottom: "15px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: "5px",
+          // gap: "5px",
         }}
       >
-        {/* <h1 style={{ fontSize: "40px", zIndex: 9999 }}>🏆</h1> */}
         <div>
-          {/* <h5>{currentReward.name}</h5> */}
-          <CurrentReward imageSize={100} fontSize={50} />
-          <h5>{playerName}</h5>
+          <CurrentReward
+            imageSize={isMobile ? 50 : 100}
+            fontSize={isMobile ? 30 : 50}
+            title={false}
+          />
         </div>
       </div>
     </div>
   );
-})
+});
 
 export default UserCard;

@@ -6,7 +6,7 @@ import { getRewardsDisplay } from "../utils/rewardUtils";
 import { useTranslation } from "react-i18next";
 import RewardZoomModal from "./RewardZoomModal";
 
-const CurrentReward = ({ imageSize, fontSize }) => {
+const CurrentReward = ({ imageSize, fontSize, title }) => {
   const { t, i18n } = useTranslation();
   const language = i18n.language || "ar";
   const [lastReward, setLastReward] = useState(null);
@@ -83,7 +83,8 @@ const CurrentReward = ({ imageSize, fontSize }) => {
         justifyContent: "center",
       }}
     >
-      <h3>🏆 {t("current_reward")}</h3>
+      {title && <h3>🏆 {t("current_reward")}</h3>}
+      {/* <h3>🏆 {t("current_reward")}</h3> */}
 
       {visual && (
         <motion.div

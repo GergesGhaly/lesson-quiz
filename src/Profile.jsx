@@ -96,31 +96,7 @@ const Profile = () => {
       </div>
 
       <BackBtn />
-      {/* <Link
-        to="/"
-        style={{
-          background: "#4CAF50",
-          width: "100%",
-          maxWidth: "300px",
-          color: "white",
-          padding: "10px 20px",
-          fontSize: "18px",
-          marginTop: "20px",
-          borderRadius: "12px",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
-        <button
-          style={{
-            background: "transparent",
-            color: "white",
-            border: "none",
-          }}
-        >
-          {t("back")}
-        </button>
-      </Link> */}
+     
     </div>
   );
 };

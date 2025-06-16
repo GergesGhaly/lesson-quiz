@@ -123,37 +123,6 @@ function Home({ match, playerId, roomId, countdown }) {
     }
   };
 
-  // const handleAnswer = async (index) => {
-  //   const isCorrect = index === quiz.questions[current].correct;
-  //   const newScore = isCorrect ? score + 1 : score;
-  //   console.log("from nadel answer from home", match, playerId, roomId, score);
-  //   // setFinalMatchScore((prev) => prev + 1);
-
-  //   if (current + 1 < quiz.questions.length && !match) {
-  //     setScore(newScore);
-  //     setCurrent(current + 1);
-  //   } else {
-  //     setScore(newScore);
-  //     setShowResult(true);
-  //     const percentageFinal = (newScore / quiz.questions.length) * 100;
-
-  //     if (percentageFinal >= 50 && !match) {
-  //       setPendingConfetti(true);
-  //       setPendingFinalIcon(true);
-  //     }
-  //   }
-  //   const isGameEnded =
-  //     (match && countdown <= 0) || current + 1 === quiz.questions.length;
-
-  //   if (isGameEnded) {
-  //     console.log(newScore);
-
-  //     updateLocalResults(newScore);
-  //   }
-  //   if (match && playerId && roomId) {
-  //     await savePlayerScoreToFirebase(playerId, roomId, newScore);
-  //   }
-  // };
 
   const handleCloseRewardPopup = () => {
     setRewardPopup(null);

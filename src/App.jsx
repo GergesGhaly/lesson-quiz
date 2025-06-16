@@ -7,6 +7,9 @@ import ChooseTestPage from "./ChooseTestPage";
 import StartPage from "./StartPage";
 import StartMatch from "./StartMatch";
 import PlayerDataUi from "./PlayerDataUi";
+import EnterRoomCodePage from "./EnterRoomCodePage";
+import ChoosMatchMood from "./ChoosMatchMood";
+import WatingRoom from "./WatingRoom";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -47,12 +50,28 @@ function AnimatedRoutes() {
             </PageWrapper>
           }
         />
+        {/* <Route path="/waitingRoom" element={<WatingRoom />} /> */}
+        <Route path="/EnterRoomCodePage" element={<EnterRoomCodePage />} />
         <Route
           path="/competition"
           element={
             playerName ? (
               <PageWrapper>
                 <StartMatch />
+              </PageWrapper>
+            ) : (
+              <PageWrapper>
+                <PlayerDataUi />
+              </PageWrapper>
+            )
+          }
+        />
+        <Route
+          path="/ChoosMatchMood"
+          element={
+            playerName ? (
+              <PageWrapper>
+                <ChoosMatchMood />
               </PageWrapper>
             ) : (
               <PageWrapper>

@@ -19,6 +19,7 @@ import Logo from "./components/Logo";
 import FlyinLeafs from "./components/FlyinLeafs";
 import bgMusic from "/sound/gameBackground.mp3";
 import { useRef } from "react";
+import { p } from "framer-motion/client";
 
 const StartPage = () => {
   const audioRef = useRef(null);
@@ -36,6 +37,7 @@ const StartPage = () => {
       title: " البطولة",
       link: "/ChoosMatchMood",
       image: battel,
+      message: "⚠️",
     },
   ]);
 
@@ -120,6 +122,7 @@ const StartPage = () => {
             whileTap={{ scale: 0.9 }}
             sty
           >
+            {btn?.message && <p title="under devopment">{btn.message}</p>}
             <Link to={btn.link} key={btn.title}>
               <img src={btn.image} alt={btn.title} />
             </Link>

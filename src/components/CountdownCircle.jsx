@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useSound } from "../contexts/SoundContext";
 
 const CountdownCircle = ({ totalTime, onComplete }) => {
+  const { isSoundOn, setIsSoundOn } = useSound();
+
   const radius = 25;
   const circumference = 2 * Math.PI * radius;
 
@@ -29,7 +32,7 @@ const CountdownCircle = ({ totalTime, onComplete }) => {
   }, []);
 
   useEffect(() => {
-    if (countdown <= 4 && countdown > 0) {
+    if (countdown <= 4 && countdown > 0 && isSoundOn) {
       beepRef.current.play().catch(() => {});
     }
   }, [countdown]);

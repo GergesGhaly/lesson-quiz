@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db, onValue, ref } from "./utils/firebase";
 import {
@@ -16,6 +16,9 @@ import Home from "./Home";
 import useCountdown from "./hooks/useCountdown";
 import useRoom from "./hooks/useRoom";
 import LoadingScreen from "./LoadingScreen";
+import usePlayerPoints from "./hooks/usePlayerPoints";
+import GlowingScore from "./components/GlowingScore";
+import PlayersHeader from "./components/PlayersHeader";
 
 const StartMatch = () => {
   const playerName = localStorage.getItem("playerName");
@@ -35,6 +38,15 @@ const StartMatch = () => {
     playerId,
     navigate
   );
+
+  const playerPoints = usePlayerPoints(room?.id);
+  const player1Id = room?.player1Id;
+  const player2Id = room?.player2Id;
+
+  const player1Points = playerPoints?.[player1Id] || 0;
+  const player2Points = playerPoints?.[player2Id] || 0;
+  const isDraw = player1Points === player2Points;
+
   const countdown = useCountdown(gameStarted, () => endGame());
 
   const watchRoom = (roomId) => {
@@ -67,7 +79,12 @@ const StartMatch = () => {
     });
   };
 
+  const hasStarted = useRef(false);
+
   const startGameFlow = async () => {
+    if (hasStarted.current) return;
+    hasStarted.current = true;
+
     setLoading(true);
     try {
       let joinedRoom;
@@ -122,7 +139,8 @@ const StartMatch = () => {
           textAlign: "center",
         }}
       >
-        لم يتم العثور على الغرفة
+        <h5> لم يتم العثور على الغرفة</h5>
+        <Link to="/">الرئيسيه</Link>
       </div>
     );
 
@@ -140,26 +158,12 @@ const StartMatch = () => {
   return (
     <div>
       {gameStarted && countdown !== null && (
-        <div
-          style={{
-            display: "flex ",
-            justifyContent: "space-between",
-            width: "100%",
-            alignItems: "center",
-            position: "absolute",
-            top: "0px",
-            left: "0px",
-            padding: "5px 20px",
-            zIndex: "9999",
-            backgroundColor: "#0000003e",
-            color: "white",
-            fontWeight: "bold",
-          }}
-        >
-          <div>Player 1: {room.player1}</div>
-          <CountdownCircle totalTime={countdown} />
-          <div>Player 2: {room.player2 || "Waiting..."}</div>
-        </div>
+        <PlayersHeader
+          room={room}
+          player1Points={player1Points}
+          player2Points={player2Points}
+          countdown={countdown}
+        />
       )}
 
       {gameStarted && (

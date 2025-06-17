@@ -182,9 +182,9 @@ const RootApp = () => {
 
   return (
     <StrictMode>
-      <SoundProvider>
-        <App />
-      </SoundProvider>
+    <SoundProvider>
+      <App />
+    </SoundProvider>
     </StrictMode>
   );
 };

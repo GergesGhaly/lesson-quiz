@@ -6,6 +6,7 @@ import {
   joinAvailableRoom,
   finalizeRoom,
   getPlayerPoints,
+  evaluateMatchResult,
 } from "./utils/multiplayerHelpers";
 
 import WatingRoom from "./WatingRoom";
@@ -14,6 +15,7 @@ import CountdownCircle from "./components/CountdownCircle";
 import Home from "./Home";
 import useCountdown from "./hooks/useCountdown";
 import useRoom from "./hooks/useRoom";
+import LoadingScreen from "./LoadingScreen";
 
 const StartMatch = () => {
   const playerName = localStorage.getItem("playerName");
@@ -94,14 +96,9 @@ const StartMatch = () => {
     if (gameEnded) return; // لا تكرر التنفيذ
     setGameEnded(true);
 
-    await finalizeRoom(room.id);
     const points = await getPlayerPoints(room.id);
-    const myScore = points[playerId] || 0;
-    const opponentId = Object.keys(points).find((id) => id !== playerId);
-    const win = myScore > (points[opponentId] || 0);
-    setTimeout(() => {
-      setResult({ show: true, isWin: win, score: myScore });
-    }, 500);
+    const resultData = evaluateMatchResult(points, playerId);
+    setResult({ show: true, ...resultData });
   };
 
   useEffect(() => {
@@ -110,9 +107,24 @@ const StartMatch = () => {
     return () => window.removeEventListener("beforeunload", handleUnload);
   }, []);
 
-  if (loading) return <div>جاري التحميل...</div>;
+  if (loading) return <LoadingScreen progress={loading} />;
 
-  if (!room) return <div>لم يتم العثور على الغرفة</div>;
+  if (!room)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          fontSize: "20px",
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        لم يتم العثور على الغرفة
+      </div>
+    );
 
   if (!gameStarted) {
     return (

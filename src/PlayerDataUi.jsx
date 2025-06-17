@@ -43,7 +43,7 @@ const PlayerDataUi = () => {
       localStorage.setItem("playerId", playerId);
     }
 
-    navigate("/competition");
+    navigate("/ChoosMatchMood");
   };
 
   return (

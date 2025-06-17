@@ -81,6 +81,12 @@ export const joinAvailableRoom = async (
 //   await update(roomRef, { status: "closed" });
 // };
 
+export const evaluateMatchResult = (points, playerId) => {
+  const myScore = points[playerId] || 0;
+  const opponentId = Object.keys(points).find((id) => id !== playerId);
+  const win = myScore > (points[opponentId] || 0);
+  return { score: myScore, isWin: win };
+};
 
 export const finalizeRoom = async (roomId) => {
   const roomRef = ref(db, `rooms/${roomId}`);

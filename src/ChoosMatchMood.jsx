@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const MotionLink = motion(Link); // دمج Link مع motion
 
 const ChoosMatchMood = () => {
+  const { t } = useTranslation();
+
   const SlectGameMode = (matchType) => {
     localStorage.setItem("matchType", matchType);
   };
@@ -58,7 +61,7 @@ const ChoosMatchMood = () => {
       }}
     >
       <h5 style={{ marginBottom: "20px", fontSize: "18px" }}>
-        Choose Your Match Mood
+        {t("Choose_Match_Mood")}
       </h5>
 
       <div
@@ -77,7 +80,7 @@ const ChoosMatchMood = () => {
           whileHover={{ scale: 1.03 }}
           style={{ ...cardStyle, backgroundColor: "#4CAF50", color: "white" }}
         >
-          Create Room
+          {t("Create_Room")}
         </MotionLink>
 
         <MotionLink
@@ -87,7 +90,7 @@ const ChoosMatchMood = () => {
           whileHover={{ scale: 1.03 }}
           style={{ ...cardStyle, backgroundColor: "#2196F3", color: "white" }}
         >
-          Join Room with Friend
+          {t("Join_with_Friend")}
         </MotionLink>
 
         <MotionLink
@@ -97,7 +100,7 @@ const ChoosMatchMood = () => {
           whileHover={{ scale: 1.03 }}
           style={{ ...cardStyle, backgroundColor: "#f39121", color: "white" }}
         >
-          Join Random room
+          {t("Join_Random_room")}
         </MotionLink>
       </div>
     </div>

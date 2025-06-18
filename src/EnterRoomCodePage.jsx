@@ -2,10 +2,13 @@ import { get, onDisconnect, ref, update } from "firebase/database";
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "./utils/firebase";
+import { useTranslation } from "react-i18next";
 
-const CODE_LENGTH = 6; // عدد خانات الكود
+const CODE_LENGTH = 5; // عدد خانات الكود
 
 const EnterRoomCodePage = () => {
+  const { t } = useTranslation();
+
   const [codeArray, setCodeArray] = useState(Array(CODE_LENGTH).fill(""));
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -49,51 +52,10 @@ const EnterRoomCodePage = () => {
     inputsRef.current[nextIndex]?.focus();
   };
 
-  const fullCode = codeArray.join("").trim();
+  const fullCode = codeArray.join("").trim().toLowerCase();
 
   const playerName = localStorage.getItem("playerName");
   const playerId = localStorage.getItem("playerId");
-
-  // const handleJoinRoom = async () => {
-  //   setError("");
-
-  //   if (!fullCode.trim()) {
-  //     setError("يرجى إدخال رمز الغرفة");
-  //     return;
-  //   }
-
-  //   try {
-  //     const roomRef = ref(db, `rooms/${fullCode}`);
-  //     const snapshot = await get(roomRef);
-
-  //     if (!snapshot.exists()) {
-  //       setError("الغرفة غير موجودة");
-  //       return;
-  //     }
-
-  //     const roomData = snapshot.val();
-
-  //     if (roomData.status === "closed") {
-  //       setError("الغرفة مغلقة");
-  //       return;
-  //     }
-
-  //     if (roomData.player2Id && roomData.player2Id !== "") {
-  //       setError("الغرفة ممتلئة بالفعل");
-  //       return;
-  //     }
-
-  //     // نحفظ roomId ونوع اللعب
-  //     localStorage.setItem("roomId", fullCode);
-  //     localStorage.setItem("gameType", "join_friend");
-
-  //     // الانتقال إلى صفحة StartMatch
-  //     navigate("/competition");
-  //   } catch (err) {
-  //     console.error(err);
-  //     setError("حدث خطأ أثناء التحقق من الغرفة");
-  //   }
-  // };
 
   const handleJoinRoom = async () => {
     setError("");
@@ -139,7 +101,11 @@ const EnterRoomCodePage = () => {
       });
 
       // الذهاب إلى صفحة StartMatch مع roomId
+      localStorage.setItem("roomId", fullCode);
+      localStorage.setItem("matchType", "join_friend");
+
       navigate(`/competition`);
+      // localStorage.removeItem("roomId");
     } catch (err) {
       console.error(err);
       setError("حدث خطأ أثناء الانضمام إلى الغرفة");
@@ -159,12 +125,14 @@ const EnterRoomCodePage = () => {
         textAlign: "center",
       }}
     >
-      <h3 style={{ marginBottom: "20px" }}>Enter Room Code</h3>
+      <h3 style={{ marginBottom: "20px", fontSize: "18px" }}>
+        {t("Enter_Room_Code")}
+      </h3>
 
       <div
         style={{
           display: "flex",
-          gap: "6px",
+          gap: "15px",
           flexWrap: "wrap",
           justifyContent: "center",
         }}
@@ -180,8 +148,8 @@ const EnterRoomCodePage = () => {
             onKeyDown={(e) => handleKeyDown(e, index)}
             maxLength={1}
             style={{
-              width: "32px",
-              height: "40px",
+              width: "45px",
+              height: "50px",
               fontSize: "20px",
               textAlign: "center",
               borderRadius: "6px",
@@ -196,13 +164,19 @@ const EnterRoomCodePage = () => {
       <button
         onClick={handleJoinRoom}
         style={{
+          background: "#4CAF50",
+          // width: "100%",
+          // maxWidth: "300px",
+          color: "white",
           padding: "10px 20px",
-          fontSize: "16px",
+          fontSize: "18px",
           marginTop: "20px",
+          borderRadius: "8px",
+          border: "none",
           cursor: "pointer",
         }}
       >
-        Join Room
+        {t("Join_Room")}
       </button>
     </div>
   );

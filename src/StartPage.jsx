@@ -112,6 +112,7 @@ const StartPage = () => {
       >
         {buttons.map((btn) => (
           <motion.button
+            key={btn.title}
             style={{
               backgroundColor: "transparent",
               border: "none",

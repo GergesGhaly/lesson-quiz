@@ -1,5 +1,6 @@
 {
   "start_game": "Start Game",
+  "home": "Home",
   "about": "About",
   "settings": "Settings",
   "choose_test": "Choose Test",
@@ -19,6 +20,14 @@
   "Next challenge at": "Next challenge at",
   "all_rewards_unlocked": " You've earned all rewards!",
   "point": "point",
+  "ready_for_battle": "ready for battle",
+  "Choose_Match_Mood": "Select Match Mood",
+  "Create_Room": "Create Room",
+  "Join_with_Friend": "Join Room with Friend",
+  "Join_Random_room": " Join Random room",
+  "Join_Room": "Join",
+  "Enter_Room_Code": "Enter Room Code",
+  "Room_not_found":"Room not found",
 
   "reward": {
     "beginner": "Beginner Medal",

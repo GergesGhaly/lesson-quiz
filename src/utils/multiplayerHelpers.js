@@ -1,15 +1,10 @@
-import {
-  ref,
-  get,
-  set,
-  update,
-  onDisconnect,
-} from "firebase/database";
+import { ref, get, set, update, onDisconnect } from "firebase/database";
 import { db } from "./firebase";
 
-export const generateRoomId = (length = 6) => {
+export const generateRoomId = () => {
+  const length = 5;
   const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    "abcdefghijklmnopqrstuvwxyz0123456789";
   return Array.from(
     { length },
     () => chars[Math.floor(Math.random() * chars.length)]
@@ -76,11 +71,6 @@ export const joinAvailableRoom = async (
   return null;
 };
 
-// export const finalizeRoom = async (roomId) => {
-//   const roomRef = ref(db, `rooms/${roomId}`);
-//   await update(roomRef, { status: "closed" });
-// };
-
 export const evaluateMatchResult = (points, playerId) => {
   const myScore = points[playerId] || 0;
   const opponentId = Object.keys(points).find((id) => id !== playerId);
@@ -98,7 +88,6 @@ export const finalizeRoom = async (roomId) => {
 
   await update(roomRef, { status: "ended" });
 };
-
 
 export const getPlayerPoints = async (roomId) => {
   const pointsSnap = await get(ref(db, `rooms/${roomId}/playerPoints`));

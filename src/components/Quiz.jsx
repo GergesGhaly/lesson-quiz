@@ -87,7 +87,7 @@ export default function Quiz({ questions, current, onAnswer }) {
     >
       {/* ✅ النقاط أعلى الكويز */}
       {/* ✅ dots */}
-      <ProgressDots
+      <ProgressDots 
         total={questions.length}
         current={current}
         answersStatus={answersStatus}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { db, onValue, ref } from "./utils/firebase";
 import {
   createRoom,
@@ -19,19 +19,30 @@ import LoadingScreen from "./LoadingScreen";
 import usePlayerPoints from "./hooks/usePlayerPoints";
 import GlowingScore from "./components/GlowingScore";
 import PlayersHeader from "./components/PlayersHeader";
+import { get, update } from "firebase/database";
+import CountdownTimerBeforeMatchStart from "./components/CountdownTimerBeforeMatchStart";
+import { useTranslation } from "react-i18next";
 
 const StartMatch = () => {
+  const { t } = useTranslation();
+
   const playerName = localStorage.getItem("playerName");
   const playerId = localStorage.getItem("playerId");
   const playerAvatar = localStorage.getItem("playerAvatar");
   const gameType = localStorage.getItem("matchType");
 
   const navigate = useNavigate();
+  const [showCountdown, setShowCountdown] = useState(false);
+
   const [gameEnded, setGameEnded] = useState(false);
 
   const [result, setResult] = useState({ show: false, isWin: false, score: 0 });
   const [loading, setLoading] = useState(true);
-  const [roomId, setRoomId] = useState(null);
+  // const [roomId, setRoomId] = useState(null);
+  const [roomId, setRoomId] = useState(() => {
+    const storedRoomId = localStorage.getItem("roomId");
+    return storedRoomId || null;
+  });
 
   const { room, setRoom, gameStarted, setGameStarted, handleUnload } = useRoom(
     roomId,
@@ -45,7 +56,7 @@ const StartMatch = () => {
 
   const player1Points = playerPoints?.[player1Id] || 0;
   const player2Points = playerPoints?.[player2Id] || 0;
-  const isDraw = player1Points === player2Points;
+  // const isDraw = player1Points === player2Points;
 
   const countdown = useCountdown(gameStarted, () => endGame());
 
@@ -60,6 +71,11 @@ const StartMatch = () => {
 
         return;
       }
+
+      if (updatedRoom.status === "countdown") {
+        setShowCountdown(true);
+      }
+
       if (updatedRoom.status === "ended") {
         endGame(); // سيتم استدعاؤها مرة واحدة لكل لاعب عند تحديث الحالة إلى "ended"
         return;
@@ -75,6 +91,7 @@ const StartMatch = () => {
         updatedRoom.player1Id !== updatedRoom.player2Id
       ) {
         setGameStarted(true);
+        setShowCountdown(false); // تأكيد إضافي لإخفاء شاشة العداد
       }
     });
   };
@@ -88,16 +105,27 @@ const StartMatch = () => {
     setLoading(true);
     try {
       let joinedRoom;
-      if (gameType === "create")
+
+      if (gameType === "create") {
         joinedRoom = await createRoom(playerName, playerId, playerAvatar);
-      else
+      } else if (gameType === "join_friend") {
+        const roomRef = ref(db, `rooms/${roomId}`);
+        const snapshot = await get(roomRef);
+        if (snapshot.exists()) {
+          const roomData = snapshot.val();
+          joinedRoom = { id: roomId, ...roomData };
+        } else {
+          throw new Error("Room not found");
+        }
+      } else {
         joinedRoom = await joinAvailableRoom(
           playerName,
           playerId,
           playerAvatar
         );
+      }
 
-      if (!joinedRoom) return navigate("/");
+      if (!joinedRoom) return;
       setRoom(joinedRoom);
       setRoomId(joinedRoom.id);
       watchRoom(joinedRoom.id);
@@ -124,6 +152,17 @@ const StartMatch = () => {
     return () => window.removeEventListener("beforeunload", handleUnload);
   }, []);
 
+  const handleCountdownComplete = async () => {
+    try {
+      await update(ref(db, `rooms/${room.id}`), {
+        status: "started",
+      });
+      setShowCountdown(false); // إخفاء واجهة العداد بعد انتهاءه
+    } catch (error) {
+      console.error("Error starting match:", error);
+    }
+  };
+
   if (loading) return <LoadingScreen progress={loading} />;
 
   if (!room)
@@ -132,17 +171,28 @@ const StartMatch = () => {
         style={{
           display: "flex",
           justifyContent: "center",
+          flexDirection: "column",
           alignItems: "center",
           height: "100vh",
           fontSize: "20px",
           width: "100%",
           textAlign: "center",
+          gap: "10px",
         }}
       >
-        <h5> لم يتم العثور على الغرفة</h5>
-        <Link to="/">الرئيسيه</Link>
+        <h5>{t("Room_not_found")}</h5>
+        <Link to="/">{t("home")}</Link>
       </div>
     );
+
+  if (showCountdown && !gameStarted) {
+    return (
+      <CountdownTimerBeforeMatchStart
+        totalTime={5}
+        onComplete={handleCountdownComplete}
+      />
+    );
+  }
 
   if (!gameStarted) {
     return (

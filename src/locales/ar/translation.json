@@ -1,5 +1,6 @@
 {
   "start_game": "ابدأ اللعبة",
+  "home": "الصفحة الرئيسية",
   "about": "حول",
   "settings": "الإعدادات",
   "choose_test": "اختر اختبارًا للبدء",
@@ -19,6 +20,14 @@
   "Next challenge at": "التحدي التالي عند",
   "all_rewards_unlocked": "لقد حصلت على جميع المكافآت!",
   "point": "نقطة",
+  "ready_for_battle": "الاستعداد للمباراة",
+  "Choose_Match_Mood": "اختر حالة المباراة",
+  "Create_Room": "انشاء غرفة",
+  "Join_with_Friend": "الانضمام الى  صديق",
+  "Join_Random_room": "الانضمام لغرفة عشوائية",
+  "Join_Room": "انضمام",
+  "Enter_Room_Code": "ادخل كود الغرفة",
+  "Room_not_found": "لم يتم العثور على غرفة",
   "reward": {
     "beginner": "وسام البدايات",
     "effort": "وسام الاجتهاد",

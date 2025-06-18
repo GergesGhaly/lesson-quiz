@@ -13,7 +13,7 @@ const StartMatchButton = ({ roomId }) => {
     // فقط player1 يمكنه بدء اللعبة
     if (roomData.player1Id === playerId) {
       await update(ref(db, `rooms/${roomId}`), {
-        status: "started",
+        status: "countdown",
       });
     } else {
       alert("فقط من أنشأ الغرفة يمكنه بدء المباراة.");

@@ -181,11 +181,11 @@ const RootApp = () => {
   if (!ready) return <LoadingScreen progress={progress} />;
 
   return (
-    <StrictMode>
+    // <StrictMode>
     <SoundProvider>
       <App />
     </SoundProvider>
-    </StrictMode>
+    // </StrictMode>
   );
 };
 

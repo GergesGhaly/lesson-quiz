@@ -114,15 +114,19 @@ function Home({ match, playerId, roomId, countdown }) {
 
       // ✅ في حالة غير مباراة، أرسل النتيجة إلى local
       if (!match) {
-        updateLocalResults(newScore);
+      updateLocalResults(newScore);
       }
     }
 
     if (match && playerId && roomId) {
       await savePlayerScoreToFirebase(playerId, roomId, newScore);
+      // updateLocalResults(newScore);
     }
-  };
 
+    // if(match && countdown) {
+    //   // set scor to local storage 
+    // }
+  };
 
   const handleCloseRewardPopup = () => {
     setRewardPopup(null);

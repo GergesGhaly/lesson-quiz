@@ -22,6 +22,7 @@ import PlayersHeader from "./components/PlayersHeader";
 import { get, update } from "firebase/database";
 import CountdownTimerBeforeMatchStart from "./components/CountdownTimerBeforeMatchStart";
 import { useTranslation } from "react-i18next";
+import { getQuizResults, saveQuizResults } from "./utils/localStorageHelpers";
 
 const StartMatch = () => {
   const { t } = useTranslation();
@@ -144,6 +145,21 @@ const StartMatch = () => {
     const points = await getPlayerPoints(room.id);
     const resultData = evaluateMatchResult(points, playerId);
     setResult({ show: true, ...resultData });
+
+
+
+      // حساب النقاط الجديدة بناءً على الفوز أو الخسارة
+  const finalScore = resultData.isWin ? resultData.score * 2 : resultData.score;
+
+    const existingResults = getQuizResults();
+    const updatedResults = [...existingResults, finalScore];
+    saveQuizResults(updatedResults);
+
+    // if (result.isWin) {
+    //   // updateLocalResults(newScore)*2;
+    // } else {
+    //   // updateLocalResults(newScore);
+    // }
   };
 
   useEffect(() => {

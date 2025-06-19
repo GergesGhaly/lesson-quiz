@@ -3,8 +3,7 @@ import { db } from "./firebase";
 
 export const generateRoomId = () => {
   const length = 5;
-  const chars =
-    "abcdefghijklmnopqrstuvwxyz0123456789";
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
   return Array.from(
     { length },
     () => chars[Math.floor(Math.random() * chars.length)]
@@ -49,7 +48,11 @@ export const joinAvailableRoom = async (
 
   for (const id in rooms) {
     const room = rooms[id];
-    if (room.status === "waiting" && !room.player2Id) {
+    if (
+      room.status === "waiting" &&
+      !room.player2Id &&
+      room.player1Id !== playerId
+    ) {
       const roomRef = ref(db, `rooms/${id}`);
       await update(roomRef, {
         player2: playerName,

@@ -20,6 +20,7 @@ import { get, update } from "firebase/database";
 import CountdownTimerBeforeMatchStart from "./components/CountdownTimerBeforeMatchStart";
 import { useTranslation } from "react-i18next";
 import { getQuizResults, saveQuizResults } from "./utils/localStorageHelpers";
+import RoomNotFound from "./RoomNotFound";
 
 const StartMatch = () => {
   const { t } = useTranslation();
@@ -176,25 +177,7 @@ const StartMatch = () => {
 
   if (loading) return <LoadingScreen progress={loading} />;
 
-  if (!room)
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          alignItems: "center",
-          height: "100vh",
-          fontSize: "20px",
-          width: "100%",
-          textAlign: "center",
-          gap: "10px",
-        }}
-      >
-        <h5>{t("Room_not_found")}</h5>
-        <Link to="/">{t("home")}</Link>
-      </div>
-    );
+  if (!room) return <RoomNotFound />;
 
   if (showCountdown && !gameStarted) {
     return (

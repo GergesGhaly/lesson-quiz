@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "./utils/firebase";
 import { useTranslation } from "react-i18next";
+import bg from "../src/assets/enterCodeBg.jpg";
 
 const CODE_LENGTH = 5; // عدد خانات الكود
 
@@ -115,6 +116,10 @@ const EnterRoomCodePage = () => {
   return (
     <div
       style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         height: "100vh",
         width: "100%",
         display: "flex",
@@ -174,6 +179,8 @@ const EnterRoomCodePage = () => {
           borderRadius: "8px",
           border: "none",
           cursor: "pointer",
+          boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+          // transition: "background-color 0.3s ease",
         }}
       >
         {t("Join_Room")}

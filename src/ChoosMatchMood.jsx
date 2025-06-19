@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import bg from "../src/assets/selectModeBg.jpg";
 
 const MotionLink = motion(Link); // دمج Link مع motion
 
@@ -49,6 +50,10 @@ const ChoosMatchMood = () => {
   return (
     <div
       style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         width: "100%",
         minHeight: "100vh",
         display: "flex",
@@ -58,9 +63,17 @@ const ChoosMatchMood = () => {
         padding: "20px",
         backgroundColor: "#fafafa",
         gap: isMobile ? "10px" : "40px",
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
       }}
     >
-      <h5 style={{ marginBottom: "20px", fontSize: "18px" }}>
+      <h5
+        style={{
+          marginBottom: "20px",
+          fontSize: "18px",
+          color: "white",
+          textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
+        }}
+      >
         {t("Choose_Match_Mood")}
       </h5>
 
@@ -78,7 +91,12 @@ const ChoosMatchMood = () => {
           to="/competition"
           whileTap={{ scale: 1.1 }}
           whileHover={{ scale: 1.03 }}
-          style={{ ...cardStyle, backgroundColor: "#4CAF50", color: "white" }}
+          style={{
+            ...cardStyle,
+            backgroundColor: "#4CAF50",
+            color: "white",
+            textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
+          }}
         >
           {t("Create_Room")}
         </MotionLink>
@@ -88,7 +106,12 @@ const ChoosMatchMood = () => {
           to="/EnterRoomCodePage"
           whileTap={{ scale: 1.1 }}
           whileHover={{ scale: 1.03 }}
-          style={{ ...cardStyle, backgroundColor: "#2196F3", color: "white" }}
+          style={{
+            ...cardStyle,
+            backgroundColor: "#2196F3",
+            color: "white",
+            textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
+          }}
         >
           {t("Join_with_Friend")}
         </MotionLink>
@@ -98,7 +121,12 @@ const ChoosMatchMood = () => {
           to="/competition"
           whileTap={{ scale: 1.1 }}
           whileHover={{ scale: 1.03 }}
-          style={{ ...cardStyle, backgroundColor: "#f39121", color: "white" }}
+          style={{
+            ...cardStyle,
+            backgroundColor: "#f39121",
+            color: "white",
+            textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
+          }}
         >
           {t("Join_Random_room")}
         </MotionLink>

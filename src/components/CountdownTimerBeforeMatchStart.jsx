@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import bg from "../assets/timerBg.jpg";
 
 const CountdownTimerBeforeMatchStart = ({ totalTime = 5, onComplete }) => {
   const [timeLeft, setTimeLeft] = useState(totalTime);
@@ -34,14 +35,18 @@ const CountdownTimerBeforeMatchStart = ({ totalTime = 5, onComplete }) => {
   return (
     <div
       style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        padding: "50px 20px",
         textAlign: "center",
-        marginTop: "100px",
+        // marginTop: "100px",
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "start",
         alignItems: "center",
         flexDirection: "column",
         gap: "10px",
-        // height: "100dvh",
+        minHeight: "100dvh",
       }}
     >
       <svg width={circleSize} height={circleSize}>

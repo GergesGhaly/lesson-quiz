@@ -20,6 +20,7 @@ import FlyinLeafs from "./components/FlyinLeafs";
 import bgMusic from "/sound/gameBackground.mp3";
 import { useRef } from "react";
 import { p } from "framer-motion/client";
+import { useUser } from "./hooks/useUser";
 
 const StartPage = () => {
   const audioRef = useRef(null);
@@ -41,6 +42,10 @@ const StartPage = () => {
     },
   ]);
 
+  // const { user, setUser } = useUser();
+  // useEffect(() => {
+  //   console.log("user", user);
+  // });
   useEffect(() => {
     setSelectedLang(i18n.language);
   }, [i18n.language]);

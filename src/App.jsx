@@ -12,8 +12,12 @@ import ChoosMatchMood from "./ChoosMatchMood";
 import WatingRoom from "./WatingRoom";
 
 function AnimatedRoutes() {
+
+
+
   const location = useLocation();
   const playerName = localStorage.getItem("playerName");
+  const playerAvatar = localStorage.getItem("playerAvatar");
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
@@ -55,7 +59,7 @@ function AnimatedRoutes() {
         <Route
           path="/competition"
           element={
-            playerName ? (
+            playerName && playerAvatar ? (
               <PageWrapper>
                 <StartMatch />
               </PageWrapper>
@@ -69,7 +73,7 @@ function AnimatedRoutes() {
         <Route
           path="/ChoosMatchMood"
           element={
-            playerName ? (
+            playerName && playerAvatar ? (
               <PageWrapper>
                 <ChoosMatchMood />
               </PageWrapper>

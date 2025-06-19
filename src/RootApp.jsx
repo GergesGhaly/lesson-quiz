@@ -60,6 +60,8 @@ import moriningForsetBg from "/sound/moriningForsetBg_out.mp3";
 import bgMusic from "/sound/gameBackground.mp3";
 import combo from "/sound/combo.mp3";
 import win from "/sound/win.mp3";
+import { UserProvider } from "./contexts/UserContext.jsx";
+import { useUser } from "./hooks/useUser.js";
 
 const RootApp = () => {
   const [ready, setReady] = useState(false);
@@ -167,6 +169,7 @@ const RootApp = () => {
           })
       )
     );
+
   useEffect(() => {
     console.log("Start preloading assets...");
     Promise.all([
@@ -182,9 +185,11 @@ const RootApp = () => {
 
   return (
     // <StrictMode>
-    <SoundProvider>
-      <App />
-    </SoundProvider>
+    <UserProvider>
+      <SoundProvider>
+        <App />
+      </SoundProvider>
+    </UserProvider>
     // </StrictMode>
   );
 };

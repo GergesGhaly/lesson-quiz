@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion"; // ✅ استيراد framer-motion
+import { useUser } from "./hooks/useUser";
 
 const generatePlayerId = () => {
   return "player_" + Math.random().toString(36).substr(2, 9);
@@ -16,7 +17,11 @@ const avatarOptions = [
 ];
 
 const PlayerDataUi = () => {
-  const [playerName, setPlayerName] = useState("");
+  const { setUser } = useUser();
+
+  const [playerName, setPlayerName] = useState(
+    localStorage.getItem("playerName") || ""
+  );
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -42,6 +47,14 @@ const PlayerDataUi = () => {
       playerId = generatePlayerId();
       localStorage.setItem("playerId", playerId);
     }
+
+    // ✅ تحديث بيانات المستخدم في السياق
+    setUser({
+      userId: playerId,
+      name: playerName,
+      avatar: selectedAvatar,
+      // points: 0, // يمكنك تحميل النقاط من localStorage لاحقًا إن أردت
+    });
 
     navigate("/ChoosMatchMood");
   };

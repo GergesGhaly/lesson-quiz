@@ -4,20 +4,17 @@ import { db, onValue, ref } from "./utils/firebase";
 import {
   createRoom,
   joinAvailableRoom,
-  finalizeRoom,
   getPlayerPoints,
   evaluateMatchResult,
 } from "./utils/multiplayerHelpers";
 
 import WatingRoom from "./WatingRoom";
 import MatchResultModal from "./MatchResultModal";
-import CountdownCircle from "./components/CountdownCircle";
 import Home from "./Home";
 import useCountdown from "./hooks/useCountdown";
 import useRoom from "./hooks/useRoom";
 import LoadingScreen from "./LoadingScreen";
 import usePlayerPoints from "./hooks/usePlayerPoints";
-import GlowingScore from "./components/GlowingScore";
 import PlayersHeader from "./components/PlayersHeader";
 import { get, update } from "firebase/database";
 import CountdownTimerBeforeMatchStart from "./components/CountdownTimerBeforeMatchStart";
@@ -51,13 +48,17 @@ const StartMatch = () => {
     navigate
   );
 
+  // const savedResults = getQuizResults();
+  // const totalPoints = savedResults.reduce((sum, val) => sum + (val || 0), 0);
+
   const playerPoints = usePlayerPoints(room?.id);
   const player1Id = room?.player1Id;
   const player2Id = room?.player2Id;
+  const player1Avatar = room?.player1Avatar || "";
+  const player2Avatar = room?.player2Avatar || "";
 
   const player1Points = playerPoints?.[player1Id] || 0;
   const player2Points = playerPoints?.[player2Id] || 0;
-  // const isDraw = player1Points === player2Points;
 
   const countdown = useCountdown(gameStarted, () => endGame());
 
@@ -146,20 +147,14 @@ const StartMatch = () => {
     const resultData = evaluateMatchResult(points, playerId);
     setResult({ show: true, ...resultData });
 
-
-
-      // حساب النقاط الجديدة بناءً على الفوز أو الخسارة
-  const finalScore = resultData.isWin ? resultData.score * 2 : resultData.score;
+    // حساب النقاط الجديدة بناءً على الفوز أو الخسارة
+    const finalScore = resultData.isWin
+      ? resultData.score * 2
+      : resultData.score;
 
     const existingResults = getQuizResults();
     const updatedResults = [...existingResults, finalScore];
     saveQuizResults(updatedResults);
-
-    // if (result.isWin) {
-    //   // updateLocalResults(newScore)*2;
-    // } else {
-    //   // updateLocalResults(newScore);
-    // }
   };
 
   useEffect(() => {
@@ -216,6 +211,8 @@ const StartMatch = () => {
         {...room}
         playerName={playerName}
         roomId={roomId}
+        avatar1={player1Avatar}
+        avatar2={player2Avatar}
         // setGameStarted={setGameStarted}
       />
     );

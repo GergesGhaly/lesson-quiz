@@ -35,7 +35,7 @@ const UserCard = React.memo(({ totalPoints = 240, playerName, avatar }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "5px",
+          gap: "10px",
           // flexDirection: "column",
           justifyContent: "center",
           width: "100%",
@@ -54,7 +54,7 @@ const UserCard = React.memo(({ totalPoints = 240, playerName, avatar }) => {
         </div>
       </div>
 
-      <div
+      {/* <div
         style={{
           // marginTop: "10px",
           zIndex: 9999,
@@ -73,7 +73,7 @@ const UserCard = React.memo(({ totalPoints = 240, playerName, avatar }) => {
             title={false}
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 });

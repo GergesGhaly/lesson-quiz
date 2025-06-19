@@ -4,7 +4,14 @@ import vs from "./assets/vs.avif";
 import { motion } from "framer-motion";
 import StartMatchButton from "./components/StartMatchButton";
 
-const WatingRoom = ({ player1, player2, roomId, playerName }) => {
+const WatingRoom = ({
+  player1,
+  player2,
+  roomId,
+  playerName,
+  avatar1,
+  avatar2,
+}) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   const [showStartButton, setShowStartButton] = useState(false);
 
@@ -45,7 +52,7 @@ const WatingRoom = ({ player1, player2, roomId, playerName }) => {
         padding: "20px",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: isMobile ? "space-between" : "",
+        justifyContent: "center",
         minHeight: "100vh",
         width: "100%",
         gap: isMobile ? "10px" : "20px",
@@ -68,7 +75,7 @@ const WatingRoom = ({ player1, player2, roomId, playerName }) => {
         }}
       >
         {/* الكرت الأول للاعب الذي أنشأ الغرفة */}
-        <UserCard playerName={player1} />
+        <UserCard playerName={player1} avatar={avatar1} />
 
         {/* صورة VS */}
         <div style={{ width: isMobile ? "80px" : "100px" }}>
@@ -77,12 +84,15 @@ const WatingRoom = ({ player1, player2, roomId, playerName }) => {
 
         {/* الكرت الثاني: لاعب آخر أو أنيميشن انتظار */}
         {player2 ? (
-          <UserCard playerName={player2} />
+          <UserCard playerName={player2} avatar={avatar2} />
         ) : (
           <div
             style={{
-              width: "200px",
-              height: "150px",
+              // width: "200px",
+              // height: "150px",
+              width: "130px",
+              height: "80px",
+
               borderRadius: "12px",
               border: "2px dashed #888",
               display: "flex",

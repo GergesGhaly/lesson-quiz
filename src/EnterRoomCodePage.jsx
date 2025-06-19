@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "./utils/firebase";
 import { useTranslation } from "react-i18next";
-import bg from "../src/assets/enterCodeBg.jpg";
+import bg from "../src/assets/enterCodeBg.webp";
 
 const CODE_LENGTH = 5; // عدد خانات الكود
 

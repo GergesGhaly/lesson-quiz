@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import bg from "../src/assets/selectModeBg.jpg";
+import bg from "../src/assets/selectModeBg.webp";
 
 const MotionLink = motion(Link); // دمج Link مع motion
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import bg from "./assets/room not found.jpg";
+import bg from "./assets/room not found.webp";
 
 const RoomNotFound = () => {
   const { t } = useTranslation();

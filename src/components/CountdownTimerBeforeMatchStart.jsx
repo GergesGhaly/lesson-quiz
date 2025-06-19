@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import bg from "../assets/timerBg.jpg";
+import bg from "../assets/timerBg.webp";
 
 const CountdownTimerBeforeMatchStart = ({ totalTime = 5, onComplete }) => {
   const [timeLeft, setTimeLeft] = useState(totalTime);

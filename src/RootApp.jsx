@@ -3,6 +3,11 @@ import App from "./App.jsx";
 import { SoundProvider } from "./contexts/SoundContext";
 import LoadingScreen from "./LoadingScreen.jsx";
 
+//bG
+import selectModeBg from "./assets/selectModeBg.webp";
+import notfound from "./assets/room not found.webp";
+import timerBg from "./assets/timerBg.webp";
+import enterCodeBg from "./assets/enterCodeBg.webp";
 // Images
 import aleafs from "./assets/aleafs.avif";
 import btnWall from "./assets/btnWall.avif";
@@ -68,6 +73,11 @@ const RootApp = () => {
   const [progress, setProgress] = useState(0);
 
   const imagesToPreload = [
+    selectModeBg,
+    notfound,
+    timerBg,
+    enterCodeBg,
+
     aleafs,
     btnWall,
     butterfly,

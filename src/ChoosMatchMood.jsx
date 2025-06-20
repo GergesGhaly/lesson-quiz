@@ -85,9 +85,10 @@ const ChoosMatchMood = () => {
           // marginBottom: "18px",
           color: "white",
           textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
+          textAlign: "center",
         }}
       >
-        Tap the froggy to get a shiny coin!
+        Watch out! This frog is tricky!
       </h3>
 
       <h5

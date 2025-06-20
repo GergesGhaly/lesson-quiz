@@ -34,43 +34,41 @@ const HeartVerse = ({ visible }) => {
           animate={{ opacity: 0, y: -350, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{
-            y: { duration: 3, ease: "easeOut" },
-            opacity: { duration: 2.5, ease: "easeOut", delay: 1 },
-            scale: { duration: 3 },
+            y: { duration: 2, ease: "easeOut" },
+            opacity: { duration: 1.7, ease: "easeOut", delay: 0.3 },
+            scale: { duration: 2 },
           }}
           style={{
-            padding: "8px",
             position: "fixed",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "100vw",
-            maxWidth: "450px",
-            height: "300px",
+            width: isMobile ? "250px" : "350px", // جعل العرض أكبر
+            height: isMobile ? "160px" : "200px",
             background: "linear-gradient(135deg, #ff2626, #ff353f)",
-            clipPath:
-              "path('M225 290 C-60 120, 225 -40, 225 80 C225 -40, 510 120, 225 290 Z')",
+            clipPath: isMobile
+              ? "path('M125 160 C-40 60, 125 -20, 125 44 C125 -20, 290 60, 125 160 Z')" // أعرض للموبايل
+              : "path('M175 200 C-60 90, 175 -40, 175 60 C175 -40, 410 90, 175 200 Z')", // أعرض للديسكتوب
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             color: "white",
-            fontSize: "20px",
+            fontSize: isMobile ? "12px" : "16px",
             fontWeight: "bold",
             textAlign: "center",
-            padding: "20px",
+            padding: "14px",
             zIndex: 999,
             pointerEvents: "none",
             overflow: "hidden",
           }}
         >
-          {/* لمعان باستخدام Framer Motion */}
+          {/* تأثير اللمعان */}
           <motion.div
             initial={{ x: "-100%" }}
             animate={{ x: "100%" }}
             transition={{
               duration: 1.2,
               ease: "easeInOut",
-              //   repeat: Infinity,
             }}
             style={{
               position: "absolute",
@@ -84,7 +82,17 @@ const HeartVerse = ({ visible }) => {
               zIndex: 1,
             }}
           />
-          <div style={{ position: "relative", zIndex: 2 }}>{verse}</div>
+          <div
+            style={{
+              position: "relative",
+              zIndex: 2,
+              width: "100%",
+              textAlign: "center",
+              lineHeight: "1.2",
+            }}
+          >
+            {verse}
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

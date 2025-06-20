@@ -4,11 +4,14 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import bg from "../src/assets/selectModeBg.webp";
 import FrogSurprise from "./components/FrogSurprise";
+import { useSound } from "./contexts/SoundContext";
 
 const MotionLink = motion(Link); // دمج Link مع motion
 
 const ChoosMatchMood = () => {
   const { t } = useTranslation();
+
+  const { isSoundOn } = useSound();
 
   const SlectGameMode = (matchType) => {
     localStorage.setItem("matchType", matchType);
@@ -23,9 +26,19 @@ const ChoosMatchMood = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const JoinRoomWithId = () => {};
+  useEffect(() => {
+    if (isSoundOn) {
+      const bgSound = new Audio("/sound/frogsBg.mp3");
+      bgSound.loop = true;
+      bgSound.volume = 0.3;
+      bgSound.play();
 
-  const JoinRoundomRoom = () => {};
+      return () => {
+        bgSound.pause();
+        bgSound.currentTime = 0;
+      };
+    }
+  }, [isSoundOn]);
 
   const cardStyle = {
     width: isMobile ? "150px" : "200px",

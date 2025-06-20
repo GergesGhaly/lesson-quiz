@@ -54,7 +54,7 @@ const WatingRoom = ({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "100vh",
+        minHeight: "100dvh",
         width: "100%",
         gap: isMobile ? "10px" : "20px",
       }}

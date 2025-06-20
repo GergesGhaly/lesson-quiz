@@ -1,54 +1,88 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import CoinAnimation from "./CoinAnimation";
 import frog from "../assets/theFrog.png";
+import HeartParticles from "./HeartParticles";
+import { useSound } from "../contexts/SoundContext";
 
 const FrogSurprise = () => {
+  const { isSoundOn } = useSound();
+
   const [visible, setVisible] = useState(false);
   const [randomLeft, setRandomLeft] = useState("50%");
   const [key, setKey] = useState(0);
+  const [showHeart, setShowHeart] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+  const [disappearDuration, setDisappearDuration] = useState(1500);
+  const [message, setMessage] = useState("");
 
-  const [showCoin, setShowCoin] = useState(false);
+  const intervalRef = useRef();
+  const disappearDurationRef = useRef(disappearDuration);
 
   const generateRandomLeft = () => {
-    const random = Math.floor(Math.random() * 80); // 0% to 80%
+    const random = Math.floor(Math.random() * 80);
     setRandomLeft(`${random}%`);
   };
 
-  // ظهور أولي للضفدع مع بداية التطبيق
+  const getFrogMessage = (speed) => {
+    if (speed > 1200) return "Catch me if you can!";
+    if (speed > 800) return "I'm getting faster!";
+    if (speed > 500) return "Too quick for you!";
+    return "Ribbit! I'm lightning!";
+  };
+
+  // تشغيل صوت الرسالة
+  useEffect(() => {
+    disappearDurationRef.current = disappearDuration;
+    const newMsg = getFrogMessage(disappearDuration);
+    setMessage(newMsg);
+
+    if (isSoundOn && newMsg) {
+      const msgSound = new Audio("/sound/frogMessage6.mp3");
+      msgSound.play();
+    }
+  }, [disappearDuration, isSoundOn]);
+
+  // ظهور الضفدع بشكل دوري
   useEffect(() => {
     generateRandomLeft();
     setVisible(true);
-
-    // بعد ثانية، اختفِ
     setTimeout(() => {
       setVisible(false);
-    }, 1000);
+    }, disappearDurationRef.current);
 
-    // بعد ثانية ونص، ابدأ التكرار كل 2 ثانية
-    const initialDelay = setTimeout(() => {
-      const interval = setInterval(() => {
-        setVisible(true);
-        generateRandomLeft();
-        setKey((prev) => prev + 1);
+    intervalRef.current = setInterval(() => {
+      generateRandomLeft();
+      setKey((prev) => prev + 1);
+      setVisible(true);
+      setTimeout(() => {
+        setVisible(false);
+      }, disappearDurationRef.current);
+    }, 2000);
 
-        setTimeout(() => {
-          setVisible(false);
-        }, 1000);
-      }, 2000);
-
-      // تنظيف
-      return () => clearInterval(interval);
-    }, 1500);
-
-    return () => clearTimeout(initialDelay);
+    return () => clearInterval(intervalRef.current);
   }, []);
 
   const handleClick = () => {
-    setShowCoin(true);
-    setTimeout(() => {
-      setShowCoin(false);
-    }, 1000);
+    if (isSoundOn) {
+      const clickSound = new Audio("/sound/frogClick.mp3");
+      clickSound.play();
+    }
+
+    setClickCount((prev) => {
+      const newCount = prev + 1;
+      if (newCount % 3 === 0 && disappearDurationRef.current > 400) {
+        const newDuration = Math.max(disappearDurationRef.current - 200, 400);
+        setDisappearDuration(newDuration);
+      }
+      return newCount;
+    });
+
+    if (!showHeart) {
+      setShowHeart(true);
+      setTimeout(() => {
+        setShowHeart(false);
+      }, 1000);
+    }
   };
 
   return (
@@ -61,8 +95,96 @@ const FrogSurprise = () => {
         pointerEvents: "none",
       }}
     >
+      {/* معلومات الضغط */}
+      <div
+        style={{
+          position: "absolute",
+          top: 20,
+          left: 20,
+          background: "#ffffffcc",
+          padding: "10px 15px",
+          borderRadius: "10px",
+          fontSize: "14px",
+          fontWeight: "bold",
+          zIndex: 20,
+          boxShadow: "0 0 5px rgba(0,0,0,0.2)",
+          pointerEvents: "none",
+        }}
+      >
+        <div>Clicks: {clickCount}</div>
+        <div>Speed: {(disappearDuration / 1000).toFixed(1)}s</div>
+      </div>
+
+      {/* رسالة الضفدع */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={message}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.4 }}
+          style={{
+            position: "absolute",
+            top: 85,
+            left: 20,
+            maxWidth: "220px",
+            background: "#53c957",
+            padding: "10px 14px",
+            borderRadius: "12px",
+            fontSize: "13px",
+            fontWeight: "bold",
+            zIndex: 20,
+            boxShadow: "0 0 5px rgba(0,0,0,0.1)",
+            pointerEvents: "none",
+          }}
+        >
+          {message}
+          <div
+            style={{
+              position: "absolute",
+              left: "-9px",
+              top: "15px",
+              width: 0,
+              height: 0,
+              borderTop: "6px solid transparent",
+              borderBottom: "6px solid transparent",
+              borderRight: "10px solid #53c957",
+            }}
+          ></div>
+        </motion.div>
+      </AnimatePresence>
+
+      {showHeart && <HeartParticles trigger={showHeart} />}
+
+      {/* عرض "I am here" لو السرعة وصلت لأقصى حد */}
+      {visible && disappearDuration <= 500 && (
+        <motion.div
+          key="iamhere"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5 }}
+          style={{
+            position: "absolute",
+            bottom: "140px",
+            left: randomLeft,
+            transform: "translateX(-50%)",
+            background: "#35fd56",
+            color: "#000000",
+            padding: "8px 12px",
+            borderRadius: "8px",
+            fontWeight: "medium",
+            fontSize: "12px",
+            zIndex: 15,
+            pointerEvents: "none",
+          }}
+        >
+          I am here!
+        </motion.div>
+      )}
+
+      {/* الضفدع */}
       <AnimatePresence>
-        {showCoin && <CoinAnimation visible={showCoin} />}
         {visible && (
           <motion.img
             key={key}

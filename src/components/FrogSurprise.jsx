@@ -95,64 +95,69 @@ const FrogSurprise = () => {
         pointerEvents: "none",
       }}
     >
-      {/* معلومات الضغط */}
-      <div
-        style={{
-          position: "absolute",
-          top: 20,
-          left: 20,
-          background: "#ffffffcc",
-          padding: "10px 15px",
-          borderRadius: "10px",
-          fontSize: "14px",
-          fontWeight: "bold",
-          zIndex: 20,
-          boxShadow: "0 0 5px rgba(0,0,0,0.2)",
-          pointerEvents: "none",
-        }}
-      >
-        <div>Clicks: {clickCount}</div>
-        <div>Speed: {(disappearDuration / 1000).toFixed(1)}s</div>
-      </div>
+      {clickCount > 0 &&
+        (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                top: 20,
+                left: 20,
+                background: "#ffffffcc",
+                padding: "10px 15px",
+                borderRadius: "10px",
+                fontSize: "14px",
+                fontWeight: "bold",
+                zIndex: 20,
+                boxShadow: "0 0 5px rgba(0,0,0,0.2)",
+                pointerEvents: "none",
+              }}
+            >
+              <div>Clicks: {clickCount}</div>
+              <div>Speed: {(disappearDuration / 1000).toFixed(1)}s</div>
+            </div>
 
-      {/* رسالة الضفدع */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={message}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.4 }}
-          style={{
-            position: "absolute",
-            top: 85,
-            left: 20,
-            maxWidth: "220px",
-            background: "#53c957",
-            padding: "10px 14px",
-            borderRadius: "12px",
-            fontSize: "13px",
-            fontWeight: "bold",
-            zIndex: 20,
-            boxShadow: "0 0 5px rgba(0,0,0,0.1)",
-            pointerEvents: "none",
-          }}
-        >
-          {message}
-          <div
-            style={{
-              position: "absolute",
-              left: "-9px",
-              top: "15px",
-              width: 0,
-              height: 0,
-              borderTop: "6px solid transparent",
-              borderBottom: "6px solid transparent",
-              borderRight: "10px solid #53c957",
-            }}
-          ></div>
-        </motion.div>
-      </AnimatePresence>
+            {/* رسالة الضفدع */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={message}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4 }}
+                style={{
+                  position: "absolute",
+                  top: 85,
+                  left: 20,
+                  maxWidth: "220px",
+                  background: "#53c957",
+                  padding: "10px 14px",
+                  borderRadius: "12px",
+                  fontSize: "13px",
+                  fontWeight: "bold",
+                  zIndex: 20,
+                  boxShadow: "0 0 5px rgba(0,0,0,0.1)",
+                  pointerEvents: "none",
+                }}
+              >
+                {message}
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "-9px",
+                    top: "15px",
+                    width: 0,
+                    height: 0,
+                    borderTop: "6px solid transparent",
+                    borderBottom: "6px solid transparent",
+                    borderRight: "10px solid #53c957",
+                  }}
+                ></div>
+              </motion.div>
+            </AnimatePresence>
+          </>
+        )}
+      {/* معلومات الضغط */}
 
       {showHeart && <HeartParticles trigger={showHeart} />}
 

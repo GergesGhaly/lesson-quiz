@@ -191,7 +191,7 @@ const RootApp = () => {
     });
   }, []);
 
-  if (ready) return <LoadingScreen progress={progress} />;
+  if (!ready) return <LoadingScreen progress={progress} />;
 
   return (
     // <StrictMode>

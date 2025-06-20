@@ -3,6 +3,7 @@ import UserCard from "./components/UserCard";
 import vs from "./assets/vs.avif";
 import { motion } from "framer-motion";
 import StartMatchButton from "./components/StartMatchButton";
+import AnimatedInfoDisplay from "./components/AnimatedInfoDisplay";
 
 const WatingRoom = ({
   player1,
@@ -59,7 +60,7 @@ const WatingRoom = ({
       }}
     >
       {isHost && (
-        <h4 style={{ fontSize: isMobile ? "17px" : "19px" }}>
+        <h4 style={{ fontSize: isMobile ? "17px" : "19px",marginBottom:"8px" }}>
           Room ID: {roomId}
         </h4>
       )}
@@ -133,6 +134,9 @@ const WatingRoom = ({
       </div>
 
       {showStartButton && <StartMatchButton roomId={roomId} />}
+
+      <AnimatedInfoDisplay/>
+
     </div>
   );
 };

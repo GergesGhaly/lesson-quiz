@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import bg from "../src/assets/selectModeBg.webp";
+import FrogSurprise from "./components/FrogSurprise";
 
 const MotionLink = motion(Link); // دمج Link مع motion
 
@@ -55,7 +56,7 @@ const ChoosMatchMood = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         width: "100%",
-        minHeight: "100vh",
+        minHeight: "100dvh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -66,6 +67,16 @@ const ChoosMatchMood = () => {
         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
       }}
     >
+      <h3
+        style={{
+          // marginBottom: "18px",
+          color: "white",
+          textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
+        }}
+      >
+        Tap the froggy to get a shiny coin!
+      </h3>
+
       <h5
         style={{
           marginBottom: "20px",
@@ -131,6 +142,7 @@ const ChoosMatchMood = () => {
           {t("Join_Random_room")}
         </MotionLink>
       </div>
+      <FrogSurprise />
     </div>
   );
 };

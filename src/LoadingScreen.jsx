@@ -15,9 +15,6 @@ const LoadingScreen = ({ progress }) => {
         background: "#f0f0f0",
       }}
     >
-      <h3 style={{ marginBottom: "20px" }}>
-        Tap the froggy to get a shiny coin!
-      </h3>
       <p style={{ marginBottom: "20px", fontSize: "20px"}}>
         Loading fun stuff... 🎈🎉
       </p>
@@ -42,7 +39,7 @@ const LoadingScreen = ({ progress }) => {
         />
       </div>
       <p style={{ marginTop: "10px" }}>{Math.round(progress)}%</p>
-      <FrogSurprise />
+     
     </div>
   );
 };

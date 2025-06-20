@@ -65,6 +65,10 @@ import moriningForsetBg from "/sound/moriningForsetBg_out.mp3";
 import bgMusic from "/sound/gameBackground.mp3";
 import combo from "/sound/combo.mp3";
 import win from "/sound/win.mp3";
+import ChoosMatchMoodbgSound from "/sound/frogsBg.mp3";
+import frogMessage from "/sound/frogMessage6.mp3";
+import frogClick from "/sound/frogClick.mp3";
+
 import { UserProvider } from "./contexts/UserContext.jsx";
 import { useUser } from "./hooks/useUser.js";
 
@@ -132,6 +136,9 @@ const RootApp = () => {
     bgMusic,
     combo,
     win,
+    ChoosMatchMoodbgSound,
+    frogMessage,
+    frogClick,
   ];
 
   const totalAssets = imagesToPreload.length + soundsToPreload.length;

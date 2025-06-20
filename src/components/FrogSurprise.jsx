@@ -4,42 +4,48 @@ import CoinAnimation from "./CoinAnimation";
 import frog from "../assets/theFrog.png";
 
 const FrogSurprise = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [randomLeft, setRandomLeft] = useState("50%");
   const [key, setKey] = useState(0);
 
   const [showCoin, setShowCoin] = useState(false);
-  const [coinPosition, setCoinPosition] = useState({ x: 0, y: 0 });
 
   const generateRandomLeft = () => {
     const random = Math.floor(Math.random() * 80); // 0% to 80%
     setRandomLeft(`${random}%`);
   };
 
+  // ظهور أولي للضفدع مع بداية التطبيق
   useEffect(() => {
     generateRandomLeft();
+    setVisible(true);
 
-    const interval = setInterval(() => {
-      setVisible(true);
-      generateRandomLeft();
-      setKey((prev) => prev + 1);
+    // بعد ثانية، اختفِ
+    setTimeout(() => {
+      setVisible(false);
+    }, 1000);
 
-      setTimeout(() => {
-        setVisible(false);
-      }, 1000);
-    }, 2500);
+    // بعد ثانية ونص، ابدأ التكرار كل 2 ثانية
+    const initialDelay = setTimeout(() => {
+      const interval = setInterval(() => {
+        setVisible(true);
+        generateRandomLeft();
+        setKey((prev) => prev + 1);
 
-    return () => clearInterval(interval);
+        setTimeout(() => {
+          setVisible(false);
+        }, 1000);
+      }, 2000);
+
+      // تنظيف
+      return () => clearInterval(interval);
+    }, 1500);
+
+    return () => clearTimeout(initialDelay);
   }, []);
 
-  const handleClick = (e) => {
-    // const rect = e.target.getBoundingClientRect();
-    // setCoinPosition({
-    //   x: rect.left + rect.width / 2,
-    //   y: rect.top + rect.height / 2,
-    // });
+  const handleClick = () => {
     setShowCoin(true);
-
     setTimeout(() => {
       setShowCoin(false);
     }, 1000);

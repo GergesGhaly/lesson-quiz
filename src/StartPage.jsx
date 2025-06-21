@@ -21,12 +21,15 @@ import bgMusic from "/sound/gameBackground.mp3";
 import { useRef } from "react";
 import { p } from "framer-motion/client";
 import { useUser } from "./hooks/useUser";
+import RewardToast from "./components/RewardToast";
+import { getAndClearNewRewardToast } from "./utils/localStorageHelpers";
 
 const StartPage = () => {
   const audioRef = useRef(null);
   const { isSoundOn, setIsSoundOn } = useSound();
   const [selectedLang, setSelectedLang] = useState("ar"); // الحالة الافتراضية عربية
   const [showAbout, setShowAbout] = useState(false);
+  const [newReward, setNewReward] = useState(false);
   const { i18n } = useTranslation();
   const [buttons] = useState([
     {
@@ -42,10 +45,23 @@ const StartPage = () => {
     },
   ]);
 
-  // const { user, setUser } = useUser();
-  // useEffect(() => {
-  //   console.log("user", user);
-  // });
+  useEffect(() => {
+    const reward = getAndClearNewRewardToast();
+    if (reward) {
+      setNewReward(reward);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!newReward) return;
+
+    const timeout = setTimeout(() => {
+      setNewReward(null);
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [newReward]);
+
   useEffect(() => {
     setSelectedLang(i18n.language);
   }, [i18n.language]);
@@ -289,7 +305,9 @@ const StartPage = () => {
       >
         <StartPageNav setShowAbout={setShowAbout} />
       </div>
+
       <AboutMoadal isOpen={showAbout} onClose={() => setShowAbout(false)} />
+      {newReward && <RewardToast reward={newReward} isOpen={!!newReward} />}
     </div>
   );
 };

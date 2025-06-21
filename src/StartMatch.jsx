@@ -19,8 +19,15 @@ import PlayersHeader from "./components/PlayersHeader";
 import { get, update } from "firebase/database";
 import CountdownTimerBeforeMatchStart from "./components/CountdownTimerBeforeMatchStart";
 import { useTranslation } from "react-i18next";
-import { getQuizResults, saveQuizResults } from "./utils/localStorageHelpers";
+import {
+  getQuizResults,
+  getUnlockedRewards,
+  saveQuizResults,
+  saveUnlockedRewards,
+  storeNewRewardToast,
+} from "./utils/localStorageHelpers";
 import RoomNotFound from "./RoomNotFound";
+import { checkAndGrantRewards } from "./utils/rewardUtils";
 
 const StartMatch = () => {
   const { t } = useTranslation();
@@ -140,6 +147,24 @@ const StartMatch = () => {
     }
   };
 
+  const updateLocalResults = (newScore) => {
+    const existingResults = getQuizResults();
+    const updatedResults = [...existingResults, newScore];
+    saveQuizResults(updatedResults);
+    const total = updatedResults.reduce((sum, val) => sum + val, 0);
+    const unlocked = getUnlockedRewards();
+    const newlyUnlocked = checkAndGrantRewards(total, unlocked);
+    const updatedUnlockedKeys = [
+      ...unlocked,
+      ...newlyUnlocked.map((r) => r.key),
+    ];
+
+    if (newlyUnlocked.length > 0) {
+      saveUnlockedRewards(updatedUnlockedKeys);
+      storeNewRewardToast(newlyUnlocked[0]);
+    }
+  };
+
   const endGame = async () => {
     if (gameEnded) return; // لا تكرر التنفيذ
     setGameEnded(true);
@@ -153,9 +178,10 @@ const StartMatch = () => {
       ? resultData.score * 2
       : resultData.score;
 
-    const existingResults = getQuizResults();
-    const updatedResults = [...existingResults, finalScore];
-    saveQuizResults(updatedResults);
+    // const existingResults = getQuizResults();
+    // const updatedResults = [...existingResults, finalScore];
+    // saveQuizResults(updatedResults);
+    updateLocalResults(finalScore);
   };
 
   useEffect(() => {

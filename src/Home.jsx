@@ -20,11 +20,10 @@ import wall from "./assets/mainWall.webp";
 import matchBg from "./assets/matchBg.jpg";
 import QuizNavBar from "./components/QuizNavBar";
 import { useSound } from "./contexts/SoundContext";
-import wrong from "./assets/wrong.avif";
 import soundOn from "./assets/buttons/soundOn.png";
 import soundOf from "./assets/buttons/soundOf.png";
 
-function Home({ match, playerId, roomId, countdown }) {
+function Home({ match, playerId, roomId }) {
   const { isSoundOn, setIsSoundOn } = useSound();
 
   const { quizId } = useParams();
@@ -87,6 +86,8 @@ function Home({ match, playerId, roomId, countdown }) {
       setUnlockedRewards(getRewardsDisplay(updatedUnlockedKeys));
 
       setRewardPopup(newlyUnlocked[0]);
+      // storeNewRewardToast(newlyUnlocked[0]);
+
       setPendingConfetti(true);
       setPendingFinalIcon(true);
     } else {
@@ -114,7 +115,7 @@ function Home({ match, playerId, roomId, countdown }) {
 
       // ✅ في حالة غير مباراة، أرسل النتيجة إلى local
       if (!match) {
-      updateLocalResults(newScore);
+        updateLocalResults(newScore);
       }
     }
 
@@ -124,7 +125,7 @@ function Home({ match, playerId, roomId, countdown }) {
     }
 
     // if(match && countdown) {
-    //   // set scor to local storage 
+    //   // set scor to local storage
     // }
   };
 

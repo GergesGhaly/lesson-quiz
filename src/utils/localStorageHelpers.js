@@ -15,4 +15,31 @@ export const saveUnlockedRewards = (rewards) => {
 };
 
 
+export function storeNewRewardToast(reward) {
+  if (!reward) return;
+
+  try {
+    localStorage.setItem("newRewardToast", JSON.stringify(reward));
+  } catch (err) {
+    console.error("فشل في تخزين المكافأة الجديدة:", err);
+  }
+}
+
+
+export function getAndClearNewRewardToast() {
+  const rewardStr = localStorage.getItem("newRewardToast");
+  if (!rewardStr) return null;
+
+  localStorage.removeItem("newRewardToast");
+
+  try {
+    return JSON.parse(rewardStr);
+  } catch (err) {
+    console.warn("خطأ في قراءة المكافأة:", err);
+    return null;
+  }
+}
+
+
+
 // utils/localResultsHelpers.ts

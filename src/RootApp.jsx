@@ -202,11 +202,11 @@ const RootApp = () => {
 
   return (
     // <StrictMode>
-    <UserProvider>
-      <SoundProvider>
-        <App />
-      </SoundProvider>
-    </UserProvider>
+      <UserProvider>
+        <SoundProvider>
+          <App />
+        </SoundProvider>
+      </UserProvider>
     // </StrictMode>
   );
 };

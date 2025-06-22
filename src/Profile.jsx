@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 import { useSound } from "./contexts/SoundContext";
 import NextRewardProgress from "./components/NextRewardProgress";
 import BackBtn from "./components/BackBtn";
-import ChickenGame from "./components/chickenGame";
 
 const Profile = () => {
   const { t } = useTranslation();

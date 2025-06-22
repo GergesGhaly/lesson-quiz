@@ -10,6 +10,7 @@ import bgMusicFile from "/sound/sky-lark-sound-birds.mp3";
 import moriningForsetBg from "/sound/moriningForsetBg_out.mp3";
 import wallBg from "./assets/choosTestBg.webp";
 import BackBtn from "./components/BackBtn";
+import ChickenGame from "./components/chickenGame";
 
 const ChooseTestPage = () => {
   const { t, i18n } = useTranslation();
@@ -90,23 +91,24 @@ const ChooseTestPage = () => {
   }, [isNight]);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        minHeight: "100vh",
-        overflow: "hidden",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "start",
-        backgroundImage: `url(${wallBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* 💧 تضمين تحريك قطرات المطر */}
-      <style>
-        {`
+    <>
+      <div
+        style={{
+          position: "relative",
+          minHeight: "100vh",
+          overflow: "hidden",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "start",
+          backgroundImage: `url(${wallBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        {/* 💧 تضمين تحريك قطرات المطر */}
+        <style>
+          {`
           @keyframes fall {
             0% {
               transform: translateY(-100px);
@@ -121,126 +123,128 @@ const ChooseTestPage = () => {
             }
           }
         `}
-      </style>
+        </style>
 
-      {/* ☀️ الشمس (تظهر فقط في النهار) */}
-      {!isNight && (
-        <motion.div
-          initial={{ rotate: 0 }}
-          animate={{ rotate: 360 }}
-          transition={{
-            repeat: Infinity,
-            duration: 40,
-            ease: "linear",
-          }}
-          style={{
-            position: "absolute",
-            top: "-100px",
-            left: "-100px",
-            width: 400,
-            height: 400,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(255,240,150,0.85), rgba(255,223,0,0.2))",
-            filter: "blur(50px)",
-            zIndex: 0,
-            pointerEvents: "none",
-          }}
-        />
-      )}
+        {/* ☀️ الشمس (تظهر فقط في النهار) */}
+        {!isNight && (
+          <motion.div
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 360 }}
+            transition={{
+              repeat: Infinity,
+              duration: 40,
+              ease: "linear",
+            }}
+            style={{
+              position: "absolute",
+              top: "-100px",
+              left: "-100px",
+              width: 400,
+              height: 400,
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle, rgba(255,240,150,0.85), rgba(255,223,0,0.2))",
+              filter: "blur(50px)",
+              zIndex: 0,
+              pointerEvents: "none",
+            }}
+          />
+        )}
 
-      {/* 🌙 طبقة شفافة ليلية */}
-      {isNight && (
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.3)",
-            zIndex: 0,
-          }}
-        ></div>
-      )}
-
-      {/* 💧 قطرات المطر */}
-      {isNight &&
-        rainDrops.map((drop) => (
+        {/* 🌙 طبقة شفافة ليلية */}
+        {isNight && (
           <div
-            key={drop.id}
             style={{
               position: "absolute",
               top: 0,
-              left: `${drop.left}%`,
-              width: 1.5,
-              height: drop.height,
-              backgroundColor: "rgba(255, 255, 255, 0.6)",
-              animation: `fall ${drop.duration}s linear infinite`,
-              animationDelay: `${drop.delay}s`,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundColor: "rgba(0, 0, 0, 0.3)",
               zIndex: 0,
             }}
-          />
-        ))}
+          ></div>
+        )}
 
-      {/* المحتوى */}
-      <div
-        style={{
-          padding: 40,
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 30,
-          zIndex: 1,
-          color: "#fff",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: isMobile ? 20 : 30,
-            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.678)",
-          }}
-        >
-          {t("choose_test")}
-        </h2>
+        {/* 💧 قطرات المطر */}
+        {isNight &&
+          rainDrops.map((drop) => (
+            <div
+              key={drop.id}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: `${drop.left}%`,
+                width: 1.5,
+                height: drop.height,
+                backgroundColor: "rgba(255, 255, 255, 0.6)",
+                animation: `fall ${drop.duration}s linear infinite`,
+                animationDelay: `${drop.delay}s`,
+                zIndex: 0,
+              }}
+            />
+          ))}
+
+        {/* المحتوى */}
         <div
           style={{
+            padding: 40,
+            textAlign: "center",
             display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: isMobile ? 13 : 20,
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 30,
+            zIndex: 1,
+            color: "#fff",
           }}
         >
-          {quizzes
-            .filter((quiz) => quiz.type !== "match")
-            .map((quiz) => (
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                key={quiz.id}
-                onClick={() => handleStartQuiz(quiz.id)}
-                style={{
-                  fontSize: isMobile ? 20 : 30,
-                  border: "none",
-                  backgroundColor: "transparent",
-                  color: "#fff",
-                  cursor: "pointer",
-                  backgroundImage: `url(${btnWall})`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  height: 100,
-                  width: isMobile ? 270 : 350,
-                  textShadow: "0px 3px 4px rgba(0, 0, 0, 0.836)",
-                }}
-              >
-                {quiz.title[language]}
-              </motion.button>
-            ))}
+          <h2
+            style={{
+              fontSize: isMobile ? 20 : 30,
+              textShadow: "0px 4px 4px rgba(0, 0, 0, 0.678)",
+            }}
+          >
+            {t("choose_test")}
+          </h2>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: isMobile ? 13 : 20,
+            }}
+          >
+            {quizzes
+              .filter((quiz) => quiz.type !== "match")
+              .map((quiz) => (
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  key={quiz.id}
+                  onClick={() => handleStartQuiz(quiz.id)}
+                  style={{
+                    fontSize: isMobile ? 20 : 30,
+                    border: "none",
+                    backgroundColor: "transparent",
+                    color: "#fff",
+                    cursor: "pointer",
+                    backgroundImage: `url(${btnWall})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    height: 100,
+                    width: isMobile ? 270 : 350,
+                    textShadow: "0px 3px 4px rgba(0, 0, 0, 0.836)",
+                  }}
+                >
+                  {quiz.title[language]}
+                </motion.button>
+              ))}
+          </div>
         </div>
+        <BackBtn />
+        {!isNight && <ChickenGame />}
       </div>
-      <BackBtn />
-    </div>
+    </>
   );
 };
 

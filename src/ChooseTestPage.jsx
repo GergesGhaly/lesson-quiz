@@ -10,7 +10,7 @@ import bgMusicFile from "/sound/sky-lark-sound-birds.mp3";
 import moriningForsetBg from "/sound/moriningForsetBg_out.mp3";
 import wallBg from "./assets/choosTestBg.webp";
 import BackBtn from "./components/BackBtn";
-import ChickenGame from "./components/chickenGame";
+import ChickenGame from "./components/ChickenGame";
 
 const ChooseTestPage = () => {
   const { t, i18n } = useTranslation();

@@ -51,7 +51,7 @@ export const joinAvailableRoom = async (playerName, playerId, avatar) => {
     const players = room.players || {};
 
     if (
-      room.status === "waiting" &&
+      (room.status === "waiting" || room.status === "ready") &&
       !players[playerId] &&
       Object.keys(players).length < 4
     ) {

@@ -16,7 +16,7 @@ import useRoom from "./hooks/useRoom";
 import LoadingScreen from "./LoadingScreen";
 import usePlayerPoints from "./hooks/usePlayerPoints";
 import PlayersHeader from "./components/PlayersHeader";
-import { get, update } from "firebase/database";
+import { get, remove, update } from "firebase/database";
 import CountdownTimerBeforeMatchStart from "./components/CountdownTimerBeforeMatchStart";
 import { useTranslation } from "react-i18next";
 import {
@@ -162,11 +162,12 @@ const StartMatch = () => {
 
     updateLocalResults(finalScore);
 
-      // ✅ تحديث حالة الغرفة إلى ended بعد انتهاء اللعبة
-  // await update(ref(db, `rooms/${room.id}`), {
-  //   status: "ended",
-  // });
+    // await remove(ref(db, `rooms/${room.id}`));
 
+    // ✅ تحديث حالة الغرفة إلى ended بعد انتهاء اللعبة
+    // await update(ref(db, `rooms/${room.id}`), {
+    //   status: "ended",
+    // });
   };
 
   useEffect(() => {

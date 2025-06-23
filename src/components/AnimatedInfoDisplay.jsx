@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
-const AnimatedInfoDisplay = ({ interval = 4000 }) => {
+const AnimatedInfoDisplay = ({ interval = 3500 }) => {
   const { t, i18n } = useTranslation();
   const [shuffledItems, setShuffledItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -44,7 +44,7 @@ const AnimatedInfoDisplay = ({ interval = 4000 }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -30, scale: 0.98 }}
             transition={{
-              duration: 0.6,
+              duration: 0.4,
               ease: "easeInOut",
             }}
             style={{

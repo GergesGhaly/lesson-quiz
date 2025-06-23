@@ -196,26 +196,29 @@ function Home({ match, playerId, roomId }) {
           onAnswer={handleAnswer}
         />
       )}
-      <motion.button
-        onClick={() => setIsSoundOn((prev) => !prev)}
-        whileTap={{ scale: 0.9 }}
-        style={{
-          backgroundColor: "transparent",
-          border: "none",
-          outline: "none",
-          cursor: "pointer",
-          position: "absolute",
 
-          bottom: "10px",
-          right: "10px",
-        }}
-      >
-        <img
-          src={isSoundOn ? soundOn : soundOf}
-          alt="sound"
-          style={{ width: "40px", height: "40px", objectFit: "contain" }}
-        />
-      </motion.button>
+      {!match && (
+        <motion.button
+          onClick={() => setIsSoundOn((prev) => !prev)}
+          whileTap={{ scale: 0.9 }}
+          style={{
+            backgroundColor: "transparent",
+            border: "none",
+            outline: "none",
+            cursor: "pointer",
+            position: "absolute",
+
+            bottom: "10px",
+            right: "10px",
+          }}
+        >
+          <img
+            src={isSoundOn ? soundOn : soundOf}
+            alt="sound"
+            style={{ width: "40px", height: "40px", objectFit: "contain" }}
+          />
+        </motion.button>
+      )}
     </div>
   );
 }

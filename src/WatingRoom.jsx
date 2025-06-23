@@ -5,18 +5,20 @@ import { motion } from "framer-motion";
 import StartMatchButton from "./components/StartMatchButton";
 import AnimatedInfoDisplay from "./components/AnimatedInfoDisplay";
 
-const WatingRoom = ({
-  player1,
-  player2,
-  roomId,
-  playerName,
-  avatar1,
-  avatar2,
-}) => {
+const MAX_PLAYERS = 4;
+
+const WatingRoom = ({ players = {}, roomId, playerName }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   const [showStartButton, setShowStartButton] = useState(false);
 
-  const isHost = playerName === player1;
+  const playerEntries = Object.entries(players);
+  const playerCount = playerEntries.length;
+
+  // المضيف هو أول من دخل (أول مفتاح في كائن اللاعبين)
+  // const hostId = playerEntries[0]?.[0];
+  const isHost = playerEntries.some(
+    ([_, player]) => player.name === playerName && player.isCreator === true
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,19 +28,18 @@ const WatingRoom = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ✨ تأخير عرض زر البدء ثانية واحدة بعد تحقق الشروط
   useEffect(() => {
     let timeout;
-    if (roomId && playerName && player2 && isHost) {
+    if (roomId && playerName && playerCount > 1 && isHost) {
       timeout = setTimeout(() => {
         setShowStartButton(true);
-      }, 1000); // تأخير 1 ثانية
+      }, 1000);
     } else {
-      setShowStartButton(false); // إعادة الإخفاء إن تغيّرت الشروط
+      setShowStartButton(false);
     }
 
     return () => clearTimeout(timeout);
-  }, [roomId, playerName, player2, isHost]);
+  }, [roomId, playerName, playerCount, isHost]);
 
   const dotTransition = {
     duration: 1,
@@ -60,40 +61,35 @@ const WatingRoom = ({
       }}
     >
       {isHost && (
-        <h4 style={{ fontSize: isMobile ? "17px" : "19px",marginBottom:"8px" }}>
+        <h4
+          style={{ fontSize: isMobile ? "17px" : "19px", marginBottom: "8px" }}
+        >
           Room ID: {roomId}
         </h4>
       )}
+
       <div
         style={{
-          // width: "100%",
-          // height: "80vh",
           display: "flex",
-          flexDirection: isMobile ? "column" : "row",
+          flexWrap: "wrap",
+          // flexDirection: isMobile ? "column" : "row",
           justifyContent: "center",
           alignItems: "center",
-          gap: isMobile ? "10px" : "20px",
+          gap: "20px",
         }}
       >
-        {/* الكرت الأول للاعب الذي أنشأ الغرفة */}
-        <UserCard playerName={player1} avatar={avatar1} />
+        {/* عرض كل اللاعبين الحاليين */}
+        {playerEntries.map(([id, player]) => (
+          <UserCard key={id} playerName={player.name} avatar={player.avatar} />
+        ))}
 
-        {/* صورة VS */}
-        <div style={{ width: isMobile ? "80px" : "100px" }}>
-          <img src={vs} style={{ width: "100%" }} alt="vs" />
-        </div>
-
-        {/* الكرت الثاني: لاعب آخر أو أنيميشن انتظار */}
-        {player2 ? (
-          <UserCard playerName={player2} avatar={avatar2} />
-        ) : (
+        {/* عرض خانات انتظار حتى يتم الوصول لـ MAX_PLAYERS */}
+        {Array.from({ length: MAX_PLAYERS - playerCount }).map((_, index) => (
           <div
+            key={index}
             style={{
-              // width: "200px",
-              // height: "150px",
               width: "130px",
               height: "80px",
-
               borderRadius: "12px",
               border: "2px dashed #888",
               display: "flex",
@@ -104,7 +100,7 @@ const WatingRoom = ({
               backgroundColor: "#f9f9f9",
               fontSize: "18px",
               color: "#555",
-              padding: "10px",
+              padding: "12px",
             }}
           >
             في انتظار لاعب
@@ -130,13 +126,12 @@ const WatingRoom = ({
               ))}
             </motion.div>
           </div>
-        )}
+        ))}
       </div>
 
-      {showStartButton && <StartMatchButton roomId={roomId} />}
+      {showStartButton && <StartMatchButton roomId={roomId}  isHost={isHost}/>}
 
-      <AnimatedInfoDisplay/>
-
+      <AnimatedInfoDisplay />
     </div>
   );
 };

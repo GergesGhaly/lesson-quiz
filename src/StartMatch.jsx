@@ -44,7 +44,6 @@ const StartMatch = () => {
 
   const [result, setResult] = useState({ show: false, isWin: false, score: 0 });
   const [loading, setLoading] = useState(true);
-  // const [roomId, setRoomId] = useState(null);
   const [roomId, setRoomId] = useState(() => {
     const storedRoomId = localStorage.getItem("roomId");
     return storedRoomId || null;
@@ -56,17 +55,8 @@ const StartMatch = () => {
     navigate
   );
 
-  // const savedResults = getQuizResults();
-  // const totalPoints = savedResults.reduce((sum, val) => sum + (val || 0), 0);
-
   const playerPoints = usePlayerPoints(room?.id);
-  const player1Id = room?.player1Id;
-  const player2Id = room?.player2Id;
-  const player1Avatar = room?.player1Avatar || "";
-  const player2Avatar = room?.player2Avatar || "";
-
-  const player1Points = playerPoints?.[player1Id] || 0;
-  const player2Points = playerPoints?.[player2Id] || 0;
+  const players = room?.players || {};
 
   const countdown = useCountdown(gameStarted, () => endGame());
 
@@ -75,12 +65,6 @@ const StartMatch = () => {
     return onValue(roomRef, (snap) => {
       const updatedRoom = snap.val();
       if (!updatedRoom) return setRoom(null);
-      if (updatedRoom.status === "closed") {
-        // alert("تم إغلاق الغرفة");
-        // navigate("/");
-
-        return;
-      }
 
       if (updatedRoom.status === "countdown") {
         setShowCountdown(true);
@@ -96,12 +80,10 @@ const StartMatch = () => {
       // الحل هنا: تحديث gameStarted إذا بدأت المباراة
       if (
         updatedRoom.status === "started" &&
-        updatedRoom.player1 &&
-        updatedRoom.player2 &&
-        updatedRoom.player1Id !== updatedRoom.player2Id
+        Object.keys(updatedRoom.players || {}).length > 1
       ) {
         setGameStarted(true);
-        setShowCountdown(false); // تأكيد إضافي لإخفاء شاشة العداد
+        setShowCountdown(false);
       }
     });
   };
@@ -178,10 +160,13 @@ const StartMatch = () => {
       ? resultData.score * 2
       : resultData.score;
 
-    // const existingResults = getQuizResults();
-    // const updatedResults = [...existingResults, finalScore];
-    // saveQuizResults(updatedResults);
     updateLocalResults(finalScore);
+
+      // ✅ تحديث حالة الغرفة إلى ended بعد انتهاء اللعبة
+  // await update(ref(db, `rooms/${room.id}`), {
+  //   status: "ended",
+  // });
+
   };
 
   useEffect(() => {
@@ -216,36 +201,37 @@ const StartMatch = () => {
 
   if (!gameStarted) {
     return (
-      <WatingRoom
-        {...room}
-        playerName={playerName}
-        roomId={roomId}
-        avatar1={player1Avatar}
-        avatar2={player2Avatar}
-        // setGameStarted={setGameStarted}
-      />
+      <WatingRoom roomId={roomId} playerName={playerName} players={players} />
     );
   }
 
   return (
     <div>
       {gameStarted && countdown !== null && (
-        <PlayersHeader
-          room={room}
-          player1Points={player1Points}
-          player2Points={player2Points}
-          countdown={countdown}
-        />
+        <>
+          <PlayersHeader
+            room={room}
+            players={players}
+            countdown={countdown}
+            playerPoints={playerPoints} // ✅ تمرير النقاط هنا
+          />
+          <Home
+            match={true}
+            playerId={playerId}
+            roomId={room.id}
+            countdown={countdown}
+          />
+        </>
       )}
 
-      {gameStarted && (
+      {/* {gameStarted && (
         <Home
           match={true}
           playerId={playerId}
           roomId={room.id}
           countdown={countdown}
         />
-      )}
+      )} */}
 
       {gameEnded && result.show && (
         <MatchResultModal

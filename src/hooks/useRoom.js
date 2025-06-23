@@ -4,7 +4,6 @@ import { db, onValue, ref, remove, update } from "../utils/firebase";
 const useRoom = (roomId, playerId, navigate) => {
   const [room, setRoom] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
-  //   const [result, setResult] = useState({ show: false, isWin: false, score: 0 });
 
   useEffect(() => {
     if (!roomId) return;
@@ -14,16 +13,14 @@ const useRoom = (roomId, playerId, navigate) => {
       const data = snap.val();
       if (!data) return setRoom(null);
       if (data.status === "closed") {
-        // alert("تم إغلاق الغرفة");
-        // navigate("/");
+        // navigate("/") أو أي إجراء آخر
       }
+
       setRoom({ id: roomId, ...data });
 
-      const readyToStart =
-        data.status === "started" &&
-        data.player1 &&
-        data.player2 &&
-        data.player1Id !== data.player2Id;
+      // ✅ تحديث منطق بدء اللعبة بناءً على عدد اللاعبين
+      const playersCount = Object.keys(data.players || {}).length;
+      const readyToStart = data.status === "started" && playersCount > 1;
       setGameStarted(readyToStart);
     });
 
@@ -31,10 +28,27 @@ const useRoom = (roomId, playerId, navigate) => {
   }, [roomId]);
 
   const handleUnload = () => {
-    if (!roomId) return;
+    if (!roomId || !playerId) return;
+
     const roomRef = ref(db, `rooms/${roomId}`);
-    if (room?.player1Id === playerId) remove(roomRef);
-    else update(roomRef, { player2: null, player2Id: null, status: "waiting" });
+
+    // إذا كان المستخدم داخل قائمة اللاعبين، نحذفه منها
+    if (room?.players?.[playerId]) {
+      const updatedPlayers = { ...room.players };
+      delete updatedPlayers[playerId];
+
+      const playersCount = Object.keys(updatedPlayers).length;
+      const newStatus = playersCount > 1 ? "ready" : "waiting";
+
+      if (playersCount === 0) {
+        remove(roomRef);
+      } else {
+        update(roomRef, {
+          [`players/${playerId}`]: null,
+          status: newStatus,
+        });
+      }
+    }
   };
 
   return { room, setRoom, gameStarted, setGameStarted, handleUnload };

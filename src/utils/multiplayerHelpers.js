@@ -20,59 +20,125 @@ export const createUniqueRoomId = async () => {
   return id;
 };
 
-export const createRoom = async (playerName, playerId, player1Avatar) => {
+export const createRoom = async (playerName, playerId, avatar) => {
   const roomId = await createUniqueRoomId();
   const roomRef = ref(db, `rooms/${roomId}`);
   const newRoom = {
-    player1: playerName,
-    player1Avatar: player1Avatar,
-    player1Id: playerId,
-    player2: null,
-    player2Id: null,
     status: "waiting",
     createdAt: Date.now(),
+    players: {
+      [playerId]: {
+        name: playerName,
+        points: 0,
+        isCreator: true,
+        avatar,
+      },
+    },
   };
+
   await set(roomRef, newRoom);
-  onDisconnect(roomRef).remove();
-  return { id: roomId, ...newRoom, player1Avatar };
+  onDisconnect(ref(db, `rooms/${roomId}/players/${playerId}`)).remove();
+  return { id: roomId, ...newRoom };
 };
 
-export const joinAvailableRoom = async (
-  playerName,
-  playerId,
-  player2Avatar
-) => {
+export const joinAvailableRoom = async (playerName, playerId, avatar) => {
   const roomsRef = ref(db, "rooms");
   const snapshot = await get(roomsRef);
   const rooms = snapshot.val();
 
   for (const id in rooms) {
     const room = rooms[id];
+    const players = room.players || {};
+
     if (
       room.status === "waiting" &&
-      !room.player2Id &&
-      room.player1Id !== playerId
+      !players[playerId] &&
+      Object.keys(players).length < 4
     ) {
       const roomRef = ref(db, `rooms/${id}`);
+      const updatedPlayers = {
+        ...players,
+        [playerId]: {
+          name: playerName,
+          avatar,
+        },
+      };
+
+      const newStatus =
+        Object.keys(updatedPlayers).length > 1 ? "ready" : "waiting";
+
       await update(roomRef, {
-        player2: playerName,
-        player2Id: playerId,
-        player2Avatar: player2Avatar,
-        status: "ready",
+        players: updatedPlayers,
+        status: newStatus,
       });
-      onDisconnect(roomRef).remove();
+
+      onDisconnect(ref(db, `rooms/${id}/players/${playerId}`)).remove();
+
       return {
         id,
-        ...room,
-        player2: playerName,
-        player2Id: playerId,
-        player2Avatar,
+        players: updatedPlayers,
+        status: newStatus,
+        createdAt: room.createdAt,
       };
     }
   }
 
   return null;
 };
+
+// export const createRoom = async (playerName, playerId, player1Avatar) => {
+//   const roomId = await createUniqueRoomId();
+//   const roomRef = ref(db, `rooms/${roomId}`);
+//   const newRoom = {
+//     player1: playerName,
+//     player1Avatar: player1Avatar,
+//     player1Id: playerId,
+//     player2: null,
+//     player2Id: null,
+//     status: "waiting",
+//     createdAt: Date.now(),
+//   };
+//   await set(roomRef, newRoom);
+//   onDisconnect(roomRef).remove();
+//   return { id: roomId, ...newRoom, player1Avatar };
+// };
+
+// export const joinAvailableRoom = async (
+//   playerName,
+//   playerId,
+//   player2Avatar
+// ) => {
+//   const roomsRef = ref(db, "rooms");
+//   const snapshot = await get(roomsRef);
+//   const rooms = snapshot.val();
+
+//   for (const id in rooms) {
+//     const room = rooms[id];
+//     if (
+//       room.status === "waiting" &&
+//       !room.player2Id &&
+//       room.player1Id !== playerId
+//     ) {
+//       const roomRef = ref(db, `rooms/${id}`);
+//       await update(roomRef, {
+//         player2: playerName,
+//         player2Id: playerId,
+//         player2Avatar: player2Avatar,
+//         status: "ready",
+//       });
+//       onDisconnect(roomRef).remove();
+//       return {
+//         id,
+//         ...room,
+//         player2: playerName,
+//         player2Id: playerId,
+//         player2Avatar,
+//       };
+//     }
+//   }
+
+//   return null;
+// };
 
 export const evaluateMatchResult = (points, playerId) => {
   const myScore = points[playerId] || 0;

@@ -1,5 +1,3 @@
-// import { db, ref, get, update } from "../utils/firebase";
-
 import { get, ref, update } from "firebase/database";
 import { db } from "../utils/firebase";
 
@@ -10,8 +8,11 @@ const StartMatchButton = ({ roomId }) => {
     const roomSnap = await get(ref(db, `rooms/${roomId}`));
     const roomData = roomSnap.val();
 
-    // فقط player1 يمكنه بدء اللعبة
-    if (roomData.player1Id === playerId) {
+    if (!roomData || !roomData.players) return;
+
+    const currentPlayer = roomData.players[playerId];
+
+    if (currentPlayer?.isCreator) {
       await update(ref(db, `rooms/${roomId}`), {
         status: "countdown",
       });

@@ -76,42 +76,110 @@ const EnterRoomCodePage = () => {
       }
 
       const roomData = snapshot.val();
+      const players = roomData.players || {};
 
       if (roomData.status === "closed") {
         setError("الغرفة مغلقة");
         return;
       }
 
-      if (roomData.player2Id && roomData.player2Id !== "") {
+      // هل اللاعب موجود مسبقًا؟
+      if (players[playerId]) {
+        setError("أنت بالفعل في هذه الغرفة");
+        return;
+      }
+
+      // هل الغرفة ممتلئة؟
+      if (Object.keys(players).length >= 4) {
         setError("الغرفة ممتلئة بالفعل");
         return;
       }
 
       // تحديث بيانات الغرفة
+      const updatedPlayers = {
+        ...players,
+        [playerId]: {
+          name: playerName,
+          avatar: localStorage.getItem("playerAvatar") || "",
+        },
+      };
+
+      const newStatus =
+        Object.keys(updatedPlayers).length >= 2 ? "ready" : "waiting";
+
       await update(roomRef, {
-        player2: playerName,
-        player2Id: playerId,
-        status: "ready",
+        players: updatedPlayers,
+        status: newStatus,
       });
 
-      // onDisconnect لضمان إزالة اللاعب الثاني عند الخروج المفاجئ
-      onDisconnect(roomRef).update({
-        player2: null,
-        player2Id: null,
-        status: "waiting",
-      });
+      // onDisconnect: إزالة اللاعب تلقائيًا عند الخروج المفاجئ
+      onDisconnect(ref(db, `rooms/${fullCode}/players/${playerId}`)).remove();
 
-      // الذهاب إلى صفحة StartMatch مع roomId
+      // حفظ البيانات المحلية والانتقال للغرفة
       localStorage.setItem("roomId", fullCode);
       localStorage.setItem("matchType", "join_friend");
 
       navigate(`/competition`);
-      // localStorage.removeItem("roomId");
     } catch (err) {
       console.error(err);
       setError("حدث خطأ أثناء الانضمام إلى الغرفة");
     }
   };
+
+  // const handleJoinRoom = async () => {
+  //   setError("");
+
+  //   if (!fullCode.trim()) {
+  //     setError("يرجى إدخال رمز الغرفة");
+  //     return;
+  //   }
+
+  //   try {
+  //     const roomRef = ref(db, `rooms/${fullCode}`);
+  //     const snapshot = await get(roomRef);
+
+  //     if (!snapshot.exists()) {
+  //       setError("الغرفة غير موجودة");
+  //       return;
+  //     }
+
+  //     const roomData = snapshot.val();
+
+  //     if (roomData.status === "closed") {
+  //       setError("الغرفة مغلقة");
+  //       return;
+  //     }
+
+  //     if (roomData.player2Id && roomData.player2Id !== "") {
+  //       setError("الغرفة ممتلئة بالفعل");
+  //       return;
+  //     }
+
+  //     // تحديث بيانات الغرفة
+  //     await update(roomRef, {
+  //       player2: playerName,
+  //       player2Id: playerId,
+  //       status: "ready",
+  //     });
+
+  //     // onDisconnect لضمان إزالة اللاعب الثاني عند الخروج المفاجئ
+  //     onDisconnect(roomRef).update({
+  //       player2: null,
+  //       player2Id: null,
+  //       status: "waiting",
+  //     });
+
+  //     // الذهاب إلى صفحة StartMatch مع roomId
+  //     localStorage.setItem("roomId", fullCode);
+  //     localStorage.setItem("matchType", "join_friend");
+
+  //     navigate(`/competition`);
+  //     // localStorage.removeItem("roomId");
+  //   } catch (err) {
+  //     console.error(err);
+  //     setError("حدث خطأ أثناء الانضمام إلى الغرفة");
+  //   }
+  // };
 
   return (
     <div

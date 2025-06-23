@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CurrentReward from "./CurrentReward";
 
-const UserCard = React.memo(({ totalPoints = 240, playerName, avatar }) => {
+const UserCard = React.memo(({  playerName, avatar }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const UserCard = React.memo(({ totalPoints = 240, playerName, avatar }) => {
         position: "relative",
         backgroundColor: "#e4d4b892",
         borderRadius: "12px",
-        padding: isMobile ? "5px" : "15px",
+        padding: "12px",
         maxWidth: "220px",
         fontFamily: "serif",
         boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
@@ -43,14 +43,14 @@ const UserCard = React.memo(({ totalPoints = 240, playerName, avatar }) => {
       >
         <div>
           <img
-            style={{ width: 50, height: 50, borderRadius: "50%" }}
+            style={{ width: 55, height: 55, borderRadius: "50%" }}
             src={avatar}
             alt=""
           />
         </div>
         <div style={{ textAlign: "start" }}>
           <h4>{playerName}</h4>
-          <h5>{totalPoints} 💰</h5>
+          {/* <h5>{totalPoints} 💰</h5> */}
         </div>
       </div>
 

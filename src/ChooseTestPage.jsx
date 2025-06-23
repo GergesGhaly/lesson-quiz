@@ -95,7 +95,7 @@ const ChooseTestPage = () => {
       <div
         style={{
           position: "relative",
-          minHeight: "100vh",
+          minHeight: "100dvh",
           overflow: "hidden",
           display: "flex",
           justifyContent: "center",
@@ -242,7 +242,7 @@ const ChooseTestPage = () => {
           </div>
         </div>
         <BackBtn />
-        {!isNight && <ChickenGame />}
+        {/* {!isNight && <ChickenGame />} */}
       </div>
     </>
   );

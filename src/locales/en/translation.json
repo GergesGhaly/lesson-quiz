@@ -28,7 +28,8 @@
   "Join_Room": "Join",
   "Enter_Room_Code": "Enter Room Code",
   "Room_not_found": "Room not found",
-
+  "share": "Share with friends",
+  "download": "Download QR Code",
   "reward": {
     "beginner": "Beginner Medal",
     "effort": "Effort Medal",

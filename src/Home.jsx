@@ -164,7 +164,7 @@ function Home({ match, playerId, roomId }) {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        minHeight: "100vh",
+        minHeight: "100dvh",
         width: "100vw",
         overflow: "hidden",
         display: match && "flex",

@@ -19,14 +19,15 @@ import Logo from "./components/Logo";
 import FlyinLeafs from "./components/FlyinLeafs";
 import bgMusic from "/sound/gameBackground.mp3";
 import { useRef } from "react";
-import { p } from "framer-motion/client";
-import { useUser } from "./hooks/useUser";
 import RewardToast from "./components/RewardToast";
 import { getAndClearNewRewardToast } from "./utils/localStorageHelpers";
+import GameQrLink from "./components/GameQrLink";
 
 const StartPage = () => {
   const audioRef = useRef(null);
   const { isSoundOn, setIsSoundOn } = useSound();
+  const [isQrModalOpen, setQrModalOpen] = useState(false);
+
   const [selectedLang, setSelectedLang] = useState("ar"); // الحالة الافتراضية عربية
   const [showAbout, setShowAbout] = useState(false);
   const [newReward, setNewReward] = useState(false);
@@ -116,7 +117,9 @@ const StartPage = () => {
         flexDirection: "column",
       }}
     >
+    
       <Logo />
+      <GameQrLink isQrModalOpen={isQrModalOpen} setQrModalOpen={setQrModalOpen} />
 
       <div style={{ position: "absolute", top: "-50px", right: "0" }}>
         <FlyinLeafs />
@@ -303,7 +306,7 @@ const StartPage = () => {
           width: "100%",
         }}
       >
-        <StartPageNav setShowAbout={setShowAbout} />
+        <StartPageNav setShowAbout={setShowAbout} setQrModalOpen={setQrModalOpen} />
       </div>
 
       <AboutMoadal isOpen={showAbout} onClose={() => setShowAbout(false)} />

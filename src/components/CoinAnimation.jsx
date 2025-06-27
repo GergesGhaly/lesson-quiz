@@ -3,7 +3,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import coin from "../assets/coin.avif";
 
-const CoinAnimation = ({ visible }) => {
+const CoinAnimation = ({ visible, points }) => {
   return (
     <AnimatePresence>
       {visible && (
@@ -50,7 +50,7 @@ const CoinAnimation = ({ visible }) => {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             style={{ fontSize: 30, margin: 0 }}
           >
-            +1
+            +{points}
           </motion.h6>
         </motion.div>
       )}

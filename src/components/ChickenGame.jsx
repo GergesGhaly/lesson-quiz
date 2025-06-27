@@ -99,12 +99,12 @@ const ChickenGame = () => {
     <div
       style={{
         position: "absolute",
-        bottom: 0,
-        left: isMobile ? 0 : 300,
+        bottom: 50,
+        left: isMobile ? 0 : "10%",
         zIndex: 10,
         width: isMobile ? "100px" : "230px",
         height: "200px",
-        overflow: "hidden",
+        // overflow: "hidden",
         borderRadius: "16px",
         display: "flex",
         flexDirection: "column",
@@ -189,8 +189,8 @@ const ChickenGame = () => {
           animate={{ scale: 1, opacity: 1 }}
           style={{
             position: "absolute",
-            top: "100px",
-            left: "145px",
+            top: "50px",
+            left: "85%",
             backgroundColor: "#000",
             color: "#fff",
             padding: "3px 6px",

@@ -10,6 +10,7 @@ import PlayerDataUi from "./PlayerDataUi";
 import EnterRoomCodePage from "./EnterRoomCodePage";
 import ChoosMatchMood from "./ChoosMatchMood";
 import WatingRoom from "./WatingRoom";
+import BuildTheVerse from "./BuildTheVerse";
 
 function AnimatedRoutes() {
 
@@ -34,6 +35,14 @@ function AnimatedRoutes() {
           element={
             <PageWrapper>
               <ChooseTestPage />
+            </PageWrapper>
+          }
+        />
+         <Route
+          path="/BuildTheVerse"
+          element={
+            <PageWrapper>
+              <BuildTheVerse />
             </PageWrapper>
           }
         />

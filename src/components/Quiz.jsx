@@ -122,7 +122,7 @@ export default function Quiz({ questions, current, onAnswer }) {
         </button>
       ))}
 
-      <CoinAnimation visible={showCoin} />
+      <CoinAnimation visible={showCoin} points={1}/>
     </div>
   );
 }

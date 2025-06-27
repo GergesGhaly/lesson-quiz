@@ -6,6 +6,7 @@ import battel from "./assets/buttons/battel.avif";
 import correct from "./assets/correct.avif";
 import wrong from "./assets/wrong.avif";
 import sound from "./assets/buttons/sound.avif";
+import bounsIcon from "./assets/bounsIcon.png";
 
 import en from "./assets/buttons/en.avif";
 import ar from "./assets/buttons/ar.avif";
@@ -22,6 +23,8 @@ import { useRef } from "react";
 import RewardToast from "./components/RewardToast";
 import { getAndClearNewRewardToast } from "./utils/localStorageHelpers";
 import GameQrLink from "./components/GameQrLink";
+import DailyBonusModal from "./components/modals/DailyBonusModal";
+import SettingModal from "./components/modals/settingModal";
 
 const StartPage = () => {
   const audioRef = useRef(null);
@@ -30,8 +33,11 @@ const StartPage = () => {
 
   const [selectedLang, setSelectedLang] = useState("ar"); // الحالة الافتراضية عربية
   const [showAbout, setShowAbout] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [newReward, setNewReward] = useState(false);
   const { i18n } = useTranslation();
+  const [isDailyBonusAvailable, setIsDailyBonusAvailable] = useState(false);
+
   const [buttons] = useState([
     {
       title: "ابدأ الاختبار",
@@ -44,7 +50,22 @@ const StartPage = () => {
       image: battel,
       message: "⚠️",
     },
+    // {
+    //   title: " bouns",
+    //   link: "/BuildTheVerse",
+    //   image: sound,
+    // },
   ]);
+
+  useEffect(() => {
+    const ONE_DAY = 24 * 60 * 60 * 1000;
+    const lastPlayed = localStorage.getItem("dailyVersePlayedAt");
+    const now = Date.now();
+
+    if (!lastPlayed || now - parseInt(lastPlayed) >= ONE_DAY) {
+      setIsDailyBonusAvailable(true);
+    }
+  }, []);
 
   useEffect(() => {
     const reward = getAndClearNewRewardToast();
@@ -58,7 +79,7 @@ const StartPage = () => {
 
     const timeout = setTimeout(() => {
       setNewReward(null);
-    }, 3000);
+    }, 3500);
 
     return () => clearTimeout(timeout);
   }, [newReward]);
@@ -117,14 +138,18 @@ const StartPage = () => {
         flexDirection: "column",
       }}
     >
-    
       <Logo />
-      <GameQrLink isQrModalOpen={isQrModalOpen} setQrModalOpen={setQrModalOpen} />
+      <GameQrLink
+        isQrModalOpen={isQrModalOpen}
+        setQrModalOpen={setQrModalOpen}
+      />
 
       <div style={{ position: "absolute", top: "-50px", right: "0" }}>
         <FlyinLeafs />
       </div>
-
+      {isDailyBonusAvailable && (
+        <DailyBonusModal onClose={() => setIsDailyBonusAvailable(false)} />
+      )}
       <div
         style={{
           display: "flex",
@@ -154,14 +179,35 @@ const StartPage = () => {
           </motion.button>
         ))}
       </div>
+
+      <motion.button
+        style={{
+          backgroundColor: "transparent",
+          border: "none",
+          cursor: "pointer",
+          position: "relative",
+          outline: "none",
+        }}
+        whileTap={{ scale: 0.9 }}
+        sty
+      >
+        <p>⚠️</p>
+        <Link to="/BuildTheVerse">
+          <img
+            style={{ width: "100px", height: "110px", objectFit: "contain" }}
+            src={bounsIcon}
+            alt="bouns"
+          />
+        </Link>
+      </motion.button>
       {/* زر الصوت */}
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           gap: "20px",
-          maxWidth: "110px",
+          // maxWidth: "110px",
           position: "relative",
         }}
       >
@@ -199,9 +245,10 @@ const StartPage = () => {
             />
           )}
         </motion.button>
-      </div>
+      </div> */}
+
       {/* اختيار اللغة */}
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "center",
@@ -209,7 +256,6 @@ const StartPage = () => {
           gap: "20px",
         }}
       >
-        {/* علم EN */}
         <div style={{ position: "relative" }}>
           <motion.button
             style={{
@@ -252,7 +298,7 @@ const StartPage = () => {
           </motion.button>
         </div>
 
-        {/* علم AR */}
+    
         <div style={{ position: "relative" }}>
           <motion.button
             style={{
@@ -296,7 +342,7 @@ const StartPage = () => {
             )}
           </motion.button>
         </div>
-      </div>
+      </div> */}
       {/* التنقل */}
       <div
         style={{
@@ -306,11 +352,22 @@ const StartPage = () => {
           width: "100%",
         }}
       >
-        <StartPageNav setShowAbout={setShowAbout} setQrModalOpen={setQrModalOpen} />
+        <StartPageNav
+          setShowAbout={setShowAbout}
+          setQrModalOpen={setQrModalOpen}
+          setShowSettings={setShowSettings}
+        />
       </div>
 
       <AboutMoadal isOpen={showAbout} onClose={() => setShowAbout(false)} />
       {newReward && <RewardToast reward={newReward} isOpen={!!newReward} />}
+      {showSettings && (
+        <SettingModal
+          setShowSettings={setShowSettings}
+          setShowAbout={setShowAbout}
+          setQrModalOpen={setQrModalOpen}
+        />
+      )}
     </div>
   );
 };

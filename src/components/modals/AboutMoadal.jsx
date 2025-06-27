@@ -17,6 +17,8 @@ const AboutMoadal = ({ isOpen, onClose }) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+                          zIndex: 9999999999,
+
           }}
         >
           {/* المودال */}
@@ -31,7 +33,7 @@ const AboutMoadal = ({ isOpen, onClose }) => {
               color: "white",
               padding: "30px",
               borderRadius: "16px",
-              zIndex: 1001,
+              zIndex: 9999999999,
               minWidth: "300px",
               textAlign: "center",
               boxSizing: "border-box",
@@ -89,12 +91,7 @@ const AboutMoadal = ({ isOpen, onClose }) => {
               >
                 Gerges Ghaly
               </motion.a>{" "}
-              <motion.span
-              
-                style={{ display: "inline-block" }}
-              >
-                ❤️
-              </motion.span>
+              <motion.span style={{ display: "inline-block" }}>❤️</motion.span>
             </p>
           </motion.div>
         </div>

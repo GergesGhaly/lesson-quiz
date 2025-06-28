@@ -24,7 +24,7 @@ import RewardToast from "./components/RewardToast";
 import { getAndClearNewRewardToast } from "./utils/localStorageHelpers";
 import GameQrLink from "./components/GameQrLink";
 import DailyBonusModal from "./components/modals/DailyBonusModal";
-import SettingModal from "./components/modals/settingModal";
+import SettingModal from "./components/modals/SettingModal";
 
 const StartPage = () => {
   const audioRef = useRef(null);

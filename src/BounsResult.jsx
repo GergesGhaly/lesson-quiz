@@ -75,8 +75,6 @@ const BounsResult = ({ score }) => {
     return `${hours}:${minutes}:${seconds}`;
   };
 
-  
-
   return (
     <div
       style={{
@@ -148,24 +146,25 @@ const BounsResult = ({ score }) => {
           >
             {formatTime(remaining)}
           </strong>
+          <Link
+            to="/"
+            style={{
+              backgroundColor: "#FFD700",
+              color: "#ffffff",
+              fontSize: "20px",
+              fontWeight: "bold",
+              border: "none",
+              borderRadius: "15px",
+              padding: "12px 25px",
+              cursor: "pointer",
+              textShadow: "0 0 3px #00000042",
+            }}
+          >
+            {t("home")}
+          </Link>
         </>
       )}
-      <Link
-        to="/"
-        style={{
-          backgroundColor: "#FFD700",
-          color: "#ffffff",
-          fontSize: "20px",
-          fontWeight: "bold",
-          border: "none",
-          borderRadius: "15px",
-          padding: "12px 25px",
-          cursor: "pointer",
-          textShadow: "0 0 3px #00000042",
-        }}
-      >
-        {t("home")}
-      </Link>
+
       <ChickenGame />
     </div>
   );

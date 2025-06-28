@@ -2,14 +2,8 @@ import React, { useEffect, useState } from "react";
 import wallPc from "./assets/startWall.webp";
 import play from "./assets/buttons/play.avif";
 import battel from "./assets/buttons/battel.avif";
-// import logo from "./assets/logo2.png";
-import correct from "./assets/correct.avif";
-import wrong from "./assets/wrong.avif";
-import sound from "./assets/buttons/sound.avif";
-import bounsIcon from "./assets/bounsIcon.png";
+import bounsIcon from "./assets/buttons/bounsIcon2.png";
 
-import en from "./assets/buttons/en.avif";
-import ar from "./assets/buttons/ar.avif";
 import { Link } from "react-router-dom";
 import AboutMoadal from "./components/modals/AboutMoadal";
 import { useTranslation } from "react-i18next";
@@ -28,7 +22,7 @@ import SettingModal from "./components/modals/SettingModal";
 
 const StartPage = () => {
   const audioRef = useRef(null);
-  const { isSoundOn, setIsSoundOn } = useSound();
+  const { isSoundOn } = useSound();
   const [isQrModalOpen, setQrModalOpen] = useState(false);
 
   const [selectedLang, setSelectedLang] = useState("ar"); // الحالة الافتراضية عربية
@@ -50,11 +44,6 @@ const StartPage = () => {
       image: battel,
       message: "⚠️",
     },
-    // {
-    //   title: " bouns",
-    //   link: "/BuildTheVerse",
-    //   image: sound,
-    // },
   ]);
 
   useEffect(() => {
@@ -117,11 +106,6 @@ const StartPage = () => {
       }
     };
   }, [isSoundOn]);
-
-  const toggleLanguage = (lang) => {
-    i18n.changeLanguage(lang);
-    localStorage.setItem("lang", lang); // احفظ اللغة الجديدة
-  };
 
   return (
     <div
@@ -200,149 +184,7 @@ const StartPage = () => {
           />
         </Link>
       </motion.button>
-      {/* زر الصوت */}
-      {/* <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "20px",
-          // maxWidth: "110px",
-          position: "relative",
-        }}
-      >
-        <motion.button
-          onClick={() => setIsSoundOn((prev) => !prev)}
-          whileTap={{ scale: 0.9 }}
-          style={{
-            backgroundColor: "transparent",
-            border: "none",
-            outline: "none",
-            cursor: "pointer",
-            position: "relative",
-          }}
-        >
-          <img
-            src={sound}
-            alt="sound"
-            style={{ width: "100px", height: "110px", objectFit: "contain" }}
-          />
-          {!isSoundOn && (
-            <motion.img
-              src={wrong}
-              alt="sound off"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              style={{
-                position: "absolute",
-                bottom: "5px",
-                right: "-10px",
-                width: "60px",
-                height: "60px",
-                pointerEvents: "none",
-              }}
-            />
-          )}
-        </motion.button>
-      </div> */}
 
-      {/* اختيار اللغة */}
-      {/* <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "20px",
-        }}
-      >
-        <div style={{ position: "relative" }}>
-          <motion.button
-            style={{
-              backgroundColor: "transparent",
-              border: "none",
-              outline: "none",
-              cursor: "pointer",
-            }}
-            onClick={() => toggleLanguage("en")}
-            whileTap={{ scale: 0.9 }}
-          >
-            <img
-              style={{
-                objectFit: "cover",
-                width: "55px",
-                height: "55px",
-                borderRadius: "50%",
-              }}
-              src={en}
-              alt="English"
-            />
-            {selectedLang === "en" && (
-              <motion.img
-                src={correct}
-                alt="correct"
-                initial={{ scale: 0, opacity: 0, y: -20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0, opacity: 0, y: -20 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                style={{
-                  position: "absolute",
-                  top: "-15px",
-                  left: "0px",
-                  width: "90px",
-                  height: "90px",
-                  pointerEvents: "none",
-                }}
-              />
-            )}
-          </motion.button>
-        </div>
-
-    
-        <div style={{ position: "relative" }}>
-          <motion.button
-            style={{
-              backgroundColor: "transparent",
-              border: "none",
-              outline: "none",
-              cursor: "pointer",
-              position: "relative",
-            }}
-            onClick={() => toggleLanguage("ar")}
-            whileTap={{ scale: 0.9 }}
-          >
-            <img
-              style={{
-                objectFit: "cover",
-                width: "55px",
-                height: "55px",
-                borderRadius: "50%",
-              }}
-              src={ar}
-              alt="Arabic"
-            />
-
-            {selectedLang === "ar" && (
-              <motion.img
-                src={correct}
-                alt="correct"
-                initial={{ scale: 0, opacity: 0, y: -20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0, opacity: 0, y: -20 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                style={{
-                  position: "absolute",
-                  top: "-15px",
-                  left: "0px",
-                  width: "90px",
-                  height: "90px",
-                  pointerEvents: "none",
-                }}
-              />
-            )}
-          </motion.button>
-        </div>
-      </div> */}
       {/* التنقل */}
       <div
         style={{

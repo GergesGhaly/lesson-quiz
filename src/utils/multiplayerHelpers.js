@@ -1,4 +1,11 @@
-import { ref, get, set, update, onDisconnect } from "firebase/database";
+import {
+  ref,
+  get,
+  set,
+  update,
+  onDisconnect,
+  onValue,
+} from "firebase/database";
 import { db } from "./firebase";
 
 export const generateRoomId = () => {
@@ -23,6 +30,8 @@ export const createUniqueRoomId = async () => {
 export const createRoom = async (playerName, playerId, avatar) => {
   const roomId = await createUniqueRoomId();
   const roomRef = ref(db, `rooms/${roomId}`);
+  const playerRef = ref(db, `rooms/${roomId}/players/${playerId}`);
+
   const newRoom = {
     status: "waiting",
     createdAt: Date.now(),
@@ -37,7 +46,13 @@ export const createRoom = async (playerName, playerId, avatar) => {
   };
 
   await set(roomRef, newRoom);
-  onDisconnect(ref(db, `rooms/${roomId}/players/${playerId}`)).remove();
+
+  // ✅ تأكد أن الاتصال جاهز
+  await get(playerRef); // يجبر الاتصال أن يكون نشطًا قبل onDisconnect
+
+  // ✅ الآن onDisconnect مؤكد يعمل
+  onDisconnect(playerRef).remove();
+
   return { id: roomId, ...newRoom };
 };
 

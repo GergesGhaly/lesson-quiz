@@ -8,8 +8,13 @@ import selectModeBg from "./assets/selectModeBg.webp";
 import notfound from "./assets/room not found.webp";
 import timerBg from "./assets/timerBg.webp";
 import enterCodeBg from "./assets/enterCodeBg.webp";
+import comeBackTomorwBg from "./assets/comeBackTomorwBg.jpg";
 // Images
 import aleafs from "./assets/aleafs.avif";
+import chicken from "./assets/chicken.png";
+import bouns from "./assets/bouns.png";
+import bounsIcon from "./assets/buttons/bounsIcon2.png";
+
 import btnWall from "./assets/btnWall.avif";
 import butterfly from "./assets/butterfly.avif";
 import choosTestBg from "./assets/choosTestBg.webp";
@@ -81,6 +86,10 @@ const RootApp = () => {
     notfound,
     timerBg,
     enterCodeBg,
+    comeBackTomorwBg,
+    chicken,
+    bounsIcon,
+    bouns,
 
     aleafs,
     btnWall,
@@ -202,11 +211,11 @@ const RootApp = () => {
 
   return (
     // <StrictMode>
-      <UserProvider>
-        <SoundProvider>
-          <App />
-        </SoundProvider>
-      </UserProvider>
+    <UserProvider>
+      <SoundProvider>
+        <App />
+      </SoundProvider>
+    </UserProvider>
     // </StrictMode>
   );
 };

@@ -60,28 +60,72 @@ const StartMatch = () => {
 
   const countdown = useCountdown(gameStarted, () => endGame());
 
+  // const watchRoom = (roomId) => {
+  //   const roomRef = ref(db, `rooms/${roomId}`);
+  //   return onValue(roomRef, (snap) => {
+  //     const updatedRoom = snap.val();
+  //     if (!updatedRoom) return setRoom(null);
+
+  //     if (updatedRoom.status === "countdown") {
+  //       setShowCountdown(true);
+  //     }
+
+  //     if (updatedRoom.status === "ended") {
+  //       endGame(); // سيتم استدعاؤها مرة واحدة لكل لاعب عند تحديث الحالة إلى "ended"
+  //       return;
+  //     }
+
+  //     setRoom({ id: roomId, ...updatedRoom });
+
+  //     // الحل هنا: تحديث gameStarted إذا بدأت المباراة
+  //     if (
+  //       updatedRoom.status === "started" &&
+  //       Object.keys(updatedRoom.players || {}).length > 1
+  //     ) {
+  //       setGameStarted(true);
+  //       setShowCountdown(false);
+  //     }
+
+  //   });
+
+  // };
+
+  
   const watchRoom = (roomId) => {
     const roomRef = ref(db, `rooms/${roomId}`);
-    return onValue(roomRef, (snap) => {
+    return onValue(roomRef, async (snap) => {
       const updatedRoom = snap.val();
+
       if (!updatedRoom) return setRoom(null);
 
+      const playerCount = Object.keys(updatedRoom.players || {}).length;
+
+      // ✅ إذا لا يوجد لاعبين داخل الغرفة
+      if (playerCount === 0) {
+        try {
+          await remove(roomRef); // حذف الغرفة مباشرة
+          return;
+        } catch (err) {
+          console.error("Failed to remove empty room:", err);
+          return;
+        }
+      }
+
+      // ✅ إذا اللعبة في حالة العد التنازلي
       if (updatedRoom.status === "countdown") {
         setShowCountdown(true);
       }
 
+      // ✅ إذا اللعبة انتهت بالفعل
       if (updatedRoom.status === "ended") {
-        endGame(); // سيتم استدعاؤها مرة واحدة لكل لاعب عند تحديث الحالة إلى "ended"
+        endGame(); // عرض النتيجة للمستخدم
         return;
       }
 
       setRoom({ id: roomId, ...updatedRoom });
 
-      // الحل هنا: تحديث gameStarted إذا بدأت المباراة
-      if (
-        updatedRoom.status === "started" &&
-        Object.keys(updatedRoom.players || {}).length > 1
-      ) {
+      // ✅ إذا بدأت اللعبة وكان هناك أكثر من لاعب
+      if (updatedRoom.status === "started" && playerCount > 1) {
         setGameStarted(true);
         setShowCountdown(false);
       }
@@ -202,7 +246,7 @@ const StartMatch = () => {
 
   if (!gameStarted) {
     return (
-      <WatingRoom roomId={roomId} playerName={playerName} players={players} />
+      <WatingRoom roomId={roomId} playerName={playerName} players={players} playerId={playerId} />
     );
   }
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import bg from "../../assets/settingModal.png";
 import wrong from "../../assets/wrong.avif";
 import sound from "../../assets/buttons/sound.avif";
 import correct from "../../assets/correct.avif";
@@ -49,7 +48,7 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "rgba(0, 0, 0, 0.4)",
+          // backgroundColor: "rgba(0, 0, 0, 0.4)",
           zIndex: 999999,
         }}
       >
@@ -59,10 +58,10 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
           exit={{ scale: 0.8, opacity: 0 }}
           transition={{ duration: 0.2 }}
           style={{
-            width: isMobile ? "100dvw" : "50dvw",
-            height: isMobile ? "100dvh" : "50dvh",
-            background: `url(${bg}) no-repeat center center`,
-            backgroundSize: "contain",
+            width: isMobile ? "90dvw" : "40dvw",
+            height: isMobile ? "50dvh" : "40dvh" ,
+            // background: `url(${bg}) no-repeat center center`,
+            backgroundSize: "cover",
             position: "relative",
             display: "flex",
             flexDirection: "column",
@@ -71,17 +70,24 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
             padding: "20px",
             boxSizing: "border-box",
 
-            gap: isMobile ? "5px" : "50px",
+            gap: isMobile ? "20px" : "30px",
+            borderRadius: "12px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+            backgroundColor: "#2C3E50",
+            border: "2px solid #fff",
           }}
         >
+          {/* <div style={{ position: "absolute",top: 0, width: "100%", height: "100%" }}>
+            <img src={bgModal} style={{ width: "100%", height: "100%", objectFit: "contain" }} alt="" srcset="" />
+          </div> */}
           {/* زر الإغلاق */}
           <motion.button
             onClick={() => setShowSettings(false)}
             whileTap={{ scale: 0.9 }}
             style={{
               position: "absolute",
-              top: "10px",
-              right: "10px",
+              top: "-25px",
+              right: "-25px",
 
               background: "transparent",
               border: "none",
@@ -96,12 +102,12 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
           {/* الصوت + كلمة */}
           <div
             style={{
-              marginBottom: "20px",
+              // marginBottom: "20px",
               display: "flex",
-               marginTop: "40px",
+              // marginTop: "40px",
               // flexDirection: "column",
               alignItems: "center",
-              gap: "20px",
+              gap: isMobile ? "10px" : "20px",
             }}
           >
             <span style={{ color: "#fff", fontWeight: "bold" }}>Sound</span>
@@ -118,7 +124,10 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
               <img
                 src={sound}
                 alt="sound"
-                style={{ width: isMobile ? "75px" : "100px", height:isMobile ? "75px" : "100px" }}
+                style={{
+                  width: isMobile ? "85px" : "110px",
+                  height: isMobile ? "85px" : "110px",
+                }}
               />
               {!isSoundOn && (
                 <motion.img
@@ -156,7 +165,7 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                gap: "20px",
+                gap: isMobile ? "10px" : "20px",
                 flexWrap: "wrap",
               }}
             >
@@ -211,7 +220,7 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              gap: "30px",
+              gap: isMobile ? "10px" : "20px",
               flexWrap: "wrap",
               marginBottom: "10px",
               color: "#fff",

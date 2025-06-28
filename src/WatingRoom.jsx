@@ -4,10 +4,15 @@ import vs from "./assets/vs.avif";
 import { motion } from "framer-motion";
 import StartMatchButton from "./components/StartMatchButton";
 import AnimatedInfoDisplay from "./components/AnimatedInfoDisplay";
+import { ref, remove } from "firebase/database";
+import { db } from "./utils/firebase";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const MAX_PLAYERS = 4;
 
-const WatingRoom = ({ players = {}, roomId, playerName }) => {
+const WatingRoom = ({ players = {}, roomId, playerName, playerId }) => {
+  const location = useLocation();
+
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   const [showStartButton, setShowStartButton] = useState(false);
 
@@ -27,6 +32,23 @@ const WatingRoom = ({ players = {}, roomId, playerName }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    return () => {
+      const playerRef = ref(db, `rooms/${roomId}/players/${playerId}`);
+      remove(playerRef);
+    };
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleUnload = () => {
+      const playerRef = ref(db, `rooms/${roomId}/players/${playerId}`);
+      remove(playerRef); // حذف اللاعب يدويًا عند الإغلاق
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+    return () => window.removeEventListener("beforeunload", handleUnload);
+  }, [roomId, playerId]);
 
   useEffect(() => {
     let timeout;
@@ -103,7 +125,7 @@ const WatingRoom = ({ players = {}, roomId, playerName }) => {
               padding: "12px",
             }}
           >
-            في انتظار لاعب
+            انتظار لاعب
             <motion.div
               style={{
                 display: "flex",
@@ -129,7 +151,7 @@ const WatingRoom = ({ players = {}, roomId, playerName }) => {
         ))}
       </div>
 
-      {showStartButton && <StartMatchButton roomId={roomId}  isHost={isHost}/>}
+      {showStartButton && <StartMatchButton roomId={roomId} isHost={isHost} />}
 
       <AnimatedInfoDisplay />
     </div>

@@ -48,11 +48,12 @@ const StartPage = () => {
 
   useEffect(() => {
     const ONE_DAY = 24 * 60 * 60 * 1000;
-    const lastPlayed = localStorage.getItem("dailyVersePlayedAt");
+    const lastShown = localStorage.getItem("dailyBonusLastShown");
     const now = Date.now();
 
-    if (!lastPlayed || now - parseInt(lastPlayed) >= ONE_DAY) {
+    if (!lastShown || now - parseInt(lastShown) >= ONE_DAY) {
       setIsDailyBonusAvailable(true);
+      localStorage.setItem("dailyBonusLastShown", now.toString()); // احفظ وقت العرض
     }
   }, []);
 
@@ -134,6 +135,7 @@ const StartPage = () => {
       {isDailyBonusAvailable && (
         <DailyBonusModal onClose={() => setIsDailyBonusAvailable(false)} />
       )}
+
       <div
         style={{
           display: "flex",

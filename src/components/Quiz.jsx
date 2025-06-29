@@ -45,7 +45,7 @@ export default function Quiz({ questions, current, onAnswer }) {
         correctSoundRef.current?.play().catch(() => {});
       }
       setShowCoin(true);
-      setTimeout(() => setShowCoin(false), 1000);
+      setTimeout(() => setShowCoin(false), 700);
 
       setComboCount((prev) => {
         const newCount = prev + 1;

@@ -17,7 +17,7 @@ const DailyBonusModal = ({ onClose }) => {
         left: 0,
         width: "100dvw",
         height: "100dvh",
-        backgroundColor: "rgba(0, 0, 0, 0.39)",
+        // backgroundColor: "rgba(0, 0, 0, 0.39)",
         zIndex: 9999999,
         display: "flex",
         justifyContent: "center",
@@ -58,7 +58,17 @@ const DailyBonusModal = ({ onClose }) => {
             zIndex: 2,
           }}
         />
-
+        <h5
+          style={{
+            fontSize: "25px",
+            // padding: "9px",
+            marginBottom: "10px",
+            color: "#FFD700",
+            // textShadow: "0 0 15px #FFD700",
+          }}
+        >
+          Daily Bonus
+        </h5>
         {/* صورة البونس */}
         <div
           style={{
@@ -111,6 +121,7 @@ const DailyBonusModal = ({ onClose }) => {
               {t("bouns-modal-info")}
             </p>
           </div>
+
           <img
             src={bonusImage}
             alt="bonus"
@@ -124,6 +135,7 @@ const DailyBonusModal = ({ onClose }) => {
               textShadow: "2px 2px 0 #000",
             }}
           />
+
           {/* زر الحصول الآن */}
           <Link
             to="/BuildTheVerse"

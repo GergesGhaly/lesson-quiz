@@ -13,7 +13,9 @@ import comeBackTomorwBg from "./assets/comeBackTomorwBg.jpg";
 import aleafs from "./assets/aleafs.avif";
 import chicken from "./assets/chicken.png";
 import bouns from "./assets/bouns.png";
+import coinForBounsMOdal from "./assets/coinForBounsMOdal.jpg";
 import bounsIcon from "./assets/buttons/bounsIcon2.png";
+
 
 import btnWall from "./assets/btnWall.avif";
 import butterfly from "./assets/butterfly.avif";
@@ -90,6 +92,7 @@ const RootApp = () => {
     chicken,
     bounsIcon,
     bouns,
+    coinForBounsMOdal,
 
     aleafs,
     btnWall,

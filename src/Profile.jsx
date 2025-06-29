@@ -22,6 +22,8 @@ const Profile = () => {
   const [unlockedRewards, setUnlockedRewards] = useState([]);
   const [totalScore, setTotalScore] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+  const playerAvatar = localStorage.getItem("playerAvatar");
+  const playerId = localStorage.getItem("playerId");
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,13 +70,14 @@ const Profile = () => {
         justifyContent: "start",
 
         width: "100%",
+        overflow: "hidden",
         gap: "25px",
       }}
     >
       <div
         style={{
           // marginBottom: "20px",
-          fontSize: "24px",
+          fontSize: isMobile ? "20px" : "24px",
           fontWeight: "bold",
           textAlign: "center",
         }}
@@ -96,6 +99,48 @@ const Profile = () => {
       </div>
 
       <BackBtn />
+
+      <Link
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "20px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "41px",
+
+          // background: "#4CAF50",
+          width: "content",
+          // maxWidth: "300px",
+          color: "white",
+          padding: "3px ",
+          // fontSize: "18px",
+          marginTop: "20px",
+          // borderRadius: "10px",
+          border: "none",
+          cursor: "pointer",
+          zIndex: 9999,
+          boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+        }}
+        to="/PlayerInfo"
+        state={{ from: location.pathname }}
+      >
+        {playerAvatar && playerId ? (
+          <img
+            style={{
+              width: "40px",
+              borderRadius: "10px",
+              border: "3px solid #4CAF50",
+            }}
+            src={playerAvatar}
+            alt=""
+            srcset=""
+          />
+        ) : (
+          <h6 style={{ fontSize: "14px" }}>sign</h6>
+        )}
+      </Link>
     </div>
   );
 };

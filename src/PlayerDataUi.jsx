@@ -1,20 +1,22 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import { AnimatePresence, motion } from "framer-motion"; // ✅ استيراد framer-motion
 import { useUser } from "./hooks/useUser";
+import boy1 from "./assets/players/boy1.avif";
+import boy2 from "./assets/players/boy2.avif";
+import deacon from "./assets/players/deacon.jpg";
+import girl1 from "./assets/players/girl1.jpg";
+import girl2 from "./assets/players/girl2.avif";
+import girl3 from "./assets/players/girl3.avif";
+import man from "./assets/players/man.jpg";
+import woman from "./assets/players/woman.jpg";
 
 const generatePlayerId = () => {
   return "player_" + Math.random().toString(36).substr(2, 9);
 };
 
-const avatarOptions = [
-  "https://img.freepik.com/premium-photo/3d-avatar-cartoon-character_113255-103130.jpg",
-  "https://i.pinimg.com/736x/8c/6d/db/8c6ddb5fe6600fcc4b183cb2ee228eb7.jpg",
-  "https://img.freepik.com/premium-photo/3d-cartoon-avatar-man-minimal-3d-character-avatar-profile_652053-2068.jpg",
-  "https://img.freepik.com/premium-photo/3d-cartoon-avatar-girl-minimal-3d-character_652053-2350.jpg?w=360",
-  "https://img.freepik.com/premium-photo/3d-cartoon-avatar-girl-minimal-3d-character_652053-2338.jpg?w=360",
-  "https://thumbs.dreamstime.com/b/d-render-cartoon-avatar-isolated-white-background-icon-ideal-social-media-entertainment-personalization-visuals-364200456.jpg",
-];
+const avatarOptions = [boy1, boy2, girl1, girl2, girl3, deacon, man, woman];
 
 const PlayerDataUi = () => {
   const { setUser } = useUser();
@@ -27,8 +29,24 @@ const PlayerDataUi = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
 
+  useEffect(() => {
+    const storedAvatar = localStorage.getItem("playerAvatar");
+    if (storedAvatar) {
+      setSelectedAvatar(storedAvatar);
+      const index = avatarOptions.findIndex(
+        (avatar) => avatar === storedAvatar
+      );
+      setClickedIndex(index);
+    }
+  }, []);
   const handleSave = () => {
+    if (playerName.length > 6) {
+      setErrorMessage("اختر اسم أقصر");
+      return;
+    }
+
     if (!playerName.trim()) {
       setErrorMessage("يرجى إدخال اسم اللاعب");
       return;
@@ -48,15 +66,19 @@ const PlayerDataUi = () => {
       localStorage.setItem("playerId", playerId);
     }
 
-    // ✅ تحديث بيانات المستخدم في السياق
     setUser({
       userId: playerId,
       name: playerName,
       avatar: selectedAvatar,
-      // points: 0, // يمكنك تحميل النقاط من localStorage لاحقًا إن أردت
     });
 
-    navigate("/ChoosMatchMood");
+    // ✅ تحديد المسار حسب المكان السابق
+    const from = location.state?.from || location.pathname;
+    if (from === "/profile") {
+      navigate("/profile");
+    } else {
+      navigate("/ChoosMatchMood");
+    }
   };
 
   return (
@@ -74,7 +96,7 @@ const PlayerDataUi = () => {
       <h3>Enter Your Name</h3>
       <input
         type="text"
-        placeholder="Player Name"
+        placeholder="Choose a name with fewer 6 letters"
         value={playerName}
         onChange={(e) => setPlayerName(e.target.value)}
         style={{
@@ -82,6 +104,8 @@ const PlayerDataUi = () => {
           fontSize: "16px",
           borderRadius: "8px",
           border: "1px solid #ccc",
+          width: "100%",
+          maxWidth: "300px",
           // marginBottom: "20px",
           // margin: "20px 0",
         }}

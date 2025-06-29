@@ -16,7 +16,7 @@ const BackBtn = () => {
 
         background: "#4CAF50",
         width: "content",
-        // maxWidth: "300px",
+        // maxWidth: "30px",
         color: "white",
         padding: "10px 20px",
         fontSize: "18px",

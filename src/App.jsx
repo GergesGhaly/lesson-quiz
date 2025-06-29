@@ -13,9 +13,6 @@ import WatingRoom from "./WatingRoom";
 import BuildTheVerse from "./BuildTheVerse";
 
 function AnimatedRoutes() {
-
-
-
   const location = useLocation();
   const playerName = localStorage.getItem("playerName");
   const playerAvatar = localStorage.getItem("playerAvatar");
@@ -38,7 +35,7 @@ function AnimatedRoutes() {
             </PageWrapper>
           }
         />
-         <Route
+        <Route
           path="/BuildTheVerse"
           element={
             <PageWrapper>
@@ -91,6 +88,15 @@ function AnimatedRoutes() {
                 <PlayerDataUi />
               </PageWrapper>
             )
+          }
+        />
+
+        <Route
+          path="/PlayerInfo"
+          element={
+            <PageWrapper>
+              <PlayerDataUi />
+            </PageWrapper>
           }
         />
       </Routes>

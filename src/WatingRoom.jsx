@@ -33,22 +33,22 @@ const WatingRoom = ({ players = {}, roomId, playerName, playerId }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    return () => {
-      const playerRef = ref(db, `rooms/${roomId}/players/${playerId}`);
-      remove(playerRef);
-    };
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   return () => {
+  //     const playerRef = ref(db, `rooms/${roomId}/players/${playerId}`);
+  //     remove(playerRef);
+  //   };
+  // }, [location.pathname]);
 
-  useEffect(() => {
-    const handleUnload = () => {
-      const playerRef = ref(db, `rooms/${roomId}/players/${playerId}`);
-      remove(playerRef); // حذف اللاعب يدويًا عند الإغلاق
-    };
+  // useEffect(() => {
+  //   const handleUnload = () => {
+  //     const playerRef = ref(db, `rooms/${roomId}/players/${playerId}`);
+  //     remove(playerRef); // حذف اللاعب يدويًا عند الإغلاق
+  //   };
 
-    window.addEventListener("beforeunload", handleUnload);
-    return () => window.removeEventListener("beforeunload", handleUnload);
-  }, [roomId, playerId]);
+  //   window.addEventListener("beforeunload", handleUnload);
+  //   return () => window.removeEventListener("beforeunload", handleUnload);
+  // }, [roomId, playerId]);
 
   useEffect(() => {
     let timeout;

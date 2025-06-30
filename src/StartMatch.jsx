@@ -90,7 +90,23 @@ const StartMatch = () => {
 
   // };
 
-  
+  useEffect(() => {
+    return () => {
+      const playerRef = ref(db, `rooms/${roomId}/players/${playerId}`);
+      remove(playerRef);
+    };
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleUnload = () => {
+      const playerRef = ref(db, `rooms/${roomId}/players/${playerId}`);
+      remove(playerRef); // حذف اللاعب يدويًا عند الإغلاق
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+    return () => window.removeEventListener("beforeunload", handleUnload);
+  }, [roomId, playerId]);
+
   const watchRoom = (roomId) => {
     const roomRef = ref(db, `rooms/${roomId}`);
     return onValue(roomRef, async (snap) => {
@@ -246,7 +262,12 @@ const StartMatch = () => {
 
   if (!gameStarted) {
     return (
-      <WatingRoom roomId={roomId} playerName={playerName} players={players} playerId={playerId} />
+      <WatingRoom
+        roomId={roomId}
+        playerName={playerName}
+        players={players}
+        playerId={playerId}
+      />
     );
   }
 

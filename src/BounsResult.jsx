@@ -52,7 +52,7 @@ const BounsResult = ({ score }) => {
         if (current >= score) {
           current = score;
           clearInterval(interval);
-          setTimeout(() => setDisplayScoreEffect(false), 2000);
+          setTimeout(() => setDisplayScoreEffect(false), 2500);
         }
         setAnimatedScore(current);
       }, 100);
@@ -162,10 +162,9 @@ const BounsResult = ({ score }) => {
           >
             {t("home")}
           </Link>
+          <ChickenGame />
         </>
       )}
-
-      <ChickenGame />
     </div>
   );
 };

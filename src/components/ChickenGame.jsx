@@ -20,6 +20,9 @@ const ChickenGame = () => {
   const [gameOver, setGameOver] = useState(false);
   const audioRef = useRef(null);
   const chickenRef = useRef(null);
+  const pickRef = useRef(null);
+  const pickBombRef = useRef(null);
+  const chickenSoundBgRef = useRef(null);
   const [grainPosition, setGrainPosition] = useState({ top: 0, left: 0 });
 
   // مراقبة حجم الشاشة
@@ -28,6 +31,30 @@ const ChickenGame = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    pickRef.current = new Audio("/sound/pick.mp3"); // مسار مباشر للملف
+    chickenSoundBgRef.current = new Audio("/sound/chickenBg.mp3"); // مسار مباشر للملف
+    pickBombRef.current = new Audio("/sound/pickBomb.mp3"); // مسار مباشر للملف
+    chickenSoundBgRef.current.loop = true;
+  }, []);
+
+  useEffect(() => {
+    if (isSoundOn && chickenSoundBgRef.current) {
+      chickenSoundBgRef.current.play();
+    } else if (chickenSoundBgRef.current) {
+      chickenSoundBgRef.current.pause();
+      chickenSoundBgRef.current.currentTime = 0;
+    }
+
+    // ✅ إيقاف الصوت عند الخروج من الكمبوننت
+    return () => {
+      if (chickenSoundBgRef.current) {
+        chickenSoundBgRef.current.pause();
+        chickenSoundBgRef.current.currentTime = 0;
+      }
+    };
+  }, [isSoundOn]);
 
   // تحديث موقع الحبة أمام الدجاجة
   useLayoutEffect(() => {
@@ -75,7 +102,9 @@ const ChickenGame = () => {
       if (itemType === "grain") {
         setScore((prev) => prev + 1);
         setEffect("grain");
+        if (pickRef.current && isSoundOn) pickRef.current.play();
       } else if (itemType === "bomb") {
+        if (pickBombRef.current && isSoundOn) pickBombRef.current.play();
         const nextHearts = [...hearts];
         const lastRed = nextHearts.lastIndexOf(true);
         if (lastRed !== -1) nextHearts[lastRed] = false;

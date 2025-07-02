@@ -35,8 +35,8 @@ const DailyBonusModal = ({ onClose }) => {
           borderRadius: "30px",
           padding: " 20px",
           textAlign: "center",
-          width: "90%",
-          maxWidth: "350px",
+          width: "85%",
+          maxWidth: "320px",
           boxShadow: "0 0 20px #000000b5",
         }}
       >

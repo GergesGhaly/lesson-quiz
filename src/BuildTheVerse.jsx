@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import BounsResult from "./BounsResult";
 import CoinAnimation from "./components/CoinAnimation";
 import CountdownCircle from "./components/CountdownCircle";
+import click from "/sound/click.mp3";
 import {
   getQuizResults,
   getUnlockedRewards,
@@ -11,9 +12,21 @@ import {
   storeNewRewardToast,
 } from "./utils/localStorageHelpers";
 import { checkAndGrantRewards } from "./utils/rewardUtils";
+import { useSound } from "./contexts/SoundContext";
 
 const BuildTheVerse = () => {
   const { t } = useTranslation();
+  const { isSoundOn } = useSound();
+  const clickAudioRef = useRef(null);
+  const correctSoundRef = useRef(null);
+  // const RemoveclickRef = useRef(null);
+
+  useEffect(() => {
+    clickAudioRef.current = new Audio("/sound/click.mp3"); // مسار مباشر للملف
+    correctSoundRef.current = new Audio("/sound/correct.mp3");
+    // RemoveclickRef.current = new Audio("/sound/click2.mp3");
+  }, []);
+
   const verses = t("bounsVerses", { returnObjects: true });
 
   const ONE_DAY = 24 * 60 * 60 * 1000;
@@ -87,6 +100,10 @@ const BuildTheVerse = () => {
   const handleWordClick = (wordObj) => {
     if (selectedWords.includes(wordObj) || isCorrect || isFinished || isLocked)
       return;
+    if (isSoundOn && clickAudioRef.current) {
+      clickAudioRef.current.currentTime = 0;
+      clickAudioRef.current.play().catch(() => {});
+    }
 
     const updated = [...selectedWords, wordObj];
     setSelectedWords(updated);
@@ -95,6 +112,10 @@ const BuildTheVerse = () => {
       const result = updated.map((w) => w.word).join(" ") === currentVerse;
       setIsCorrect(result);
       if (result) {
+        if (isSoundOn && correctSoundRef.current) {
+          correctSoundRef.current.currentTime = 0;
+          correctSoundRef.current.play().catch(() => {});
+        }
         const newScore = score + 5;
         setScore(newScore);
         if (newScore >= 15) {
@@ -119,6 +140,11 @@ const BuildTheVerse = () => {
 
   const handleRemoveWord = (indexToRemove) => {
     if (isCorrect || isFinished || isLocked) return;
+    if (isSoundOn && clickAudioRef.current) {
+      clickAudioRef.current.currentTime = 0;
+      clickAudioRef.current.play().catch(() => {});
+    }
+
     const updated = [...selectedWords];
     updated.splice(indexToRemove, 1);
     setSelectedWords(updated);

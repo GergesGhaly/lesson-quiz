@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
-const AnimatedInfoDisplay = ({ interval = 3500 }) => {
+const AnimatedInfoDisplay = ({ interval = 4500 }) => {
   const { t, i18n } = useTranslation();
   const [shuffledItems, setShuffledItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);

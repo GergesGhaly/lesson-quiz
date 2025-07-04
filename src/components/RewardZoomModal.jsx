@@ -18,7 +18,7 @@ const RewardZoomModal = ({ imageSrc, altText, onClose, type = "image" }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: 9999,
+        zIndex: 9999999,
         cursor: "pointer",
       }}
     >

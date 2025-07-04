@@ -66,7 +66,14 @@ const CurrentReward = ({ imageSize, fontSize, title }) => {
   ) {
     return (
       <div style={{ marginBottom: "40px", textAlign: "center" }}>
-        <h3>🏆 {t("current_reward")}</h3>
+        <h3
+          style={{
+            fontSize: "16px",
+            direction: language === "en" ? "rtl" : "ltr",
+          }}
+        >
+          🏆 {t("current_reward")}
+        </h3>
         <p>{t("no_rewards")}.</p>
       </div>
     );

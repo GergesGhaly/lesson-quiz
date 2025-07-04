@@ -43,7 +43,7 @@ import swoard8 from "../assets/rewardsSwoards/8.avif";
 
 export const rewardLevels = [
   {
-    threshold: 15,
+    threshold: 10,
     reward: {
       ar: "وسام البدايات",
       en: "Beginner Medal",
@@ -52,7 +52,7 @@ export const rewardLevels = [
     icon: "🥉",
   },
   {
-    threshold: 30,
+    threshold: 20,
     reward: {
       ar: "وسام الاجتهاد",
       en: "Effort Medal",
@@ -61,7 +61,7 @@ export const rewardLevels = [
     icon: "🥈",
   },
   {
-    threshold: 40,
+    threshold: 30,
     reward: {
       ar: "شارة الاجتهاد ",
       en: "Effort flag",
@@ -72,7 +72,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 55,
+    threshold: 50,
     reward: {
       ar: "وسام الإنجاز",
       en: "Achievement Medal",
@@ -122,7 +122,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 110,
+    threshold: 115,
     reward: {
       ar: "شارة التميز",
       en: "Excellence flag",
@@ -133,7 +133,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 120,
+    threshold: 125,
     reward: {
       ar: "وسام الأسطورة",
       en: "Legend Medal",
@@ -143,7 +143,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 125,
+    threshold: 135,
     reward: {
       ar: "شارة الأسطورة",
       en: "Legend flag",
@@ -154,7 +154,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 135,
+    threshold: 150,
     reward: {
       ar: "وسام الحكمة",
       en: "Wisdom Medal",
@@ -164,7 +164,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 145,
+    threshold: 160,
     reward: {
       ar: "شارة الحكمة",
       en: "Wisdom flag",
@@ -175,7 +175,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 160,
+    threshold: 175,
     reward: {
       ar: "وسام النور",
       en: "Light Medal",
@@ -185,7 +185,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 160,
+    threshold: 190,
     reward: {
       ar: "شارة النور",
       en: "Light flag",
@@ -196,7 +196,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 175,
+    threshold: 200,
     reward: {
       ar: "وسام الشجاعة",
       en: "Courage Medal",
@@ -206,7 +206,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 185,
+    threshold: 215,
     reward: {
       ar: "شارة الشجاعة",
       en: "Courage flag",
@@ -217,7 +217,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 200,
+    threshold: 230,
     reward: {
       ar: "وسام المحارب",
       en: "Warrior Medal",
@@ -227,7 +227,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 210,
+    threshold: 240,
     reward: {
       ar: "شارة المحارب",
       en: "Warrior flag",
@@ -238,7 +238,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 225,
+    threshold: 255,
     reward: {
       ar: "وسام المُعلِّم",
       en: "Master Medal",
@@ -247,7 +247,7 @@ export const rewardLevels = [
     image: reward4,
   },
   {
-    threshold: 235,
+    threshold: 275,
     reward: {
       ar: "شارة المُعلِّم",
       en: "Master flag",
@@ -258,7 +258,7 @@ export const rewardLevels = [
   },
 
   {
-    threshold: 250,
+    threshold: 290,
     reward: {
       ar: "وسام الخالد",
       en: "Eternal Medal",
@@ -267,7 +267,7 @@ export const rewardLevels = [
     image: reward5,
   },
   {
-    threshold: 260,
+    threshold: 310,
     reward: {
       ar: "درع الحكيم",
       en: "Shield of Wisdom",
@@ -276,7 +276,7 @@ export const rewardLevels = [
     shield: shield0,
   },
   {
-    threshold: 270,
+    threshold: 330,
     reward: {
       ar: "سيف الشجاعة",
       en: "Sword of Courage",
@@ -285,7 +285,7 @@ export const rewardLevels = [
     sword: swoard0,
   },
   {
-    threshold: 280,
+    threshold: 350,
     reward: {
       ar: "درع النور",
       en: "Shield of Light",
@@ -294,7 +294,7 @@ export const rewardLevels = [
     shield: shield1,
   },
   {
-    threshold: 290,
+    threshold: 370,
     reward: {
       ar: "سيف النور",
       en: "Sword of Light",
@@ -303,7 +303,7 @@ export const rewardLevels = [
     sword: swoard1,
   },
   {
-    threshold: 300,
+    threshold: 390,
     reward: {
       ar: "درع المحارب",
       en: "Shield of the Warrior",
@@ -312,7 +312,7 @@ export const rewardLevels = [
     shield: shield2,
   },
   {
-    threshold: 310,
+    threshold: 400,
     reward: {
       ar: "سيف المحارب",
       en: "Sword of the Warrior",
@@ -321,7 +321,7 @@ export const rewardLevels = [
     sword: swoard2,
   },
   {
-    threshold: 320,
+    threshold: 420,
     reward: {
       ar: "درع المُعلِّم",
       en: "Shield of the Master",
@@ -330,7 +330,7 @@ export const rewardLevels = [
     shield: shield3,
   },
   {
-    threshold: 330,
+    threshold: 435,
     reward: {
       ar: "سيف المُعلِّم",
       en: "Sword of the Master",
@@ -339,7 +339,7 @@ export const rewardLevels = [
     sword: swoard3,
   },
   {
-    threshold: 340,
+    threshold: 450,
     reward: {
       ar: "درع الخالد",
       en: "Shield of the Eternal",
@@ -348,7 +348,7 @@ export const rewardLevels = [
     shield: shield4,
   },
   {
-    threshold: 350,
+    threshold: 460,
     reward: {
       ar: "سيف الخالد",
       en: "Sword of the Eternal",
@@ -357,7 +357,7 @@ export const rewardLevels = [
     sword: swoard4,
   },
   {
-    threshold: 360,
+    threshold: 475,
     reward: {
       ar: "درع التحدي",
       en: "Shield of Challenge",
@@ -366,7 +366,7 @@ export const rewardLevels = [
     shield: shield5,
   },
   {
-    threshold: 370,
+    threshold: 490,
     reward: {
       ar: "سيف التحدي",
       en: "Sword of Challenge",
@@ -375,7 +375,7 @@ export const rewardLevels = [
     sword: swoard5,
   },
   {
-    threshold: 380,
+    threshold: 500,
     reward: {
       ar: "درع النصر",
       en: "Shield of Victory",
@@ -384,7 +384,7 @@ export const rewardLevels = [
     shield: shield6,
   },
   {
-    threshold: 390,
+    threshold: 515,
     reward: {
       ar: "سيف النصر",
       en: "Sword of Victory",
@@ -393,7 +393,7 @@ export const rewardLevels = [
     sword: swoard6,
   },
   {
-    threshold: 400,
+    threshold: 530,
     reward: {
       ar: "درع الأسطورة",
       en: "Shield of Legend",
@@ -402,7 +402,7 @@ export const rewardLevels = [
     shield: shield7,
   },
   {
-    threshold: 410,
+    threshold: 540,
     reward: {
       ar: "سيف الأسطورة",
       en: "Sword of Legend",
@@ -411,7 +411,7 @@ export const rewardLevels = [
     sword: swoard7,
   },
   {
-    threshold: 420,
+    threshold: 555,
     reward: {
       ar: "درع القوة",
       en: "Shield of Power",
@@ -420,7 +420,7 @@ export const rewardLevels = [
     shield: shield8,
   },
   {
-    threshold: 430,
+    threshold: 570,
     reward: {
       ar: "سيف القوة",
       en: "Sword of Power",
@@ -429,7 +429,7 @@ export const rewardLevels = [
     sword: swoard8,
   },
   {
-    threshold: 440,
+    threshold: 580,
     reward: {
       ar: "درع النهاية",
       en: "Shield of the End",
@@ -438,7 +438,7 @@ export const rewardLevels = [
     shield: shield9,
   },
   {
-    threshold: 450,
+    threshold: 600,
     reward: {
       ar: "درع الأبطال",
       en: "Shield of Heroes",

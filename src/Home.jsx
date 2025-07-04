@@ -27,6 +27,15 @@ function Home({ match, playerId, roomId }) {
   const { isSoundOn, setIsSoundOn } = useSound();
 
   const { quizId } = useParams();
+  // const quiz = !match
+  //   ? quizzes.find((q) => q.id === Number(quizId))
+  //   : {
+  //       ...quizzes.find((q) => q.id === 101),
+  //       questions: [...quizzes.find((q) => q.id === 101).questions].sort(
+  //         () => Math.random() - 0.5
+  //       ),
+  //     };
+
   const quiz = !match
     ? quizzes.find((q) => q.id === Number(quizId))
     : quizzes.find((q) => q.id === 101);
@@ -97,13 +106,12 @@ function Home({ match, playerId, roomId }) {
     }
   };
 
-  const handleAnswer = async (index) => {
-    const isCorrect = index === quiz.questions[current].correct;
+  const handleAnswer = async (index, isCorrect) => {
     const newScore = isCorrect ? score + 1 : score;
 
     if (current + 1 < quiz.questions.length) {
       setScore(newScore);
-      setCurrent(current + 1);
+      setCurrent(current + 1); // ✅ الانتقال فقط عند الضغط على زر إجابة
     } else {
       setScore(newScore);
       setShowResult(true);
@@ -113,7 +121,6 @@ function Home({ match, playerId, roomId }) {
         setPendingFinalIcon(true);
       }
 
-      // ✅ في حالة غير مباراة، أرسل النتيجة إلى local
       if (!match) {
         updateLocalResults(newScore);
       }
@@ -121,13 +128,40 @@ function Home({ match, playerId, roomId }) {
 
     if (match && playerId && roomId) {
       await savePlayerScoreToFirebase(playerId, roomId, newScore);
-      // updateLocalResults(newScore);
     }
-
-    // if(match && countdown) {
-    //   // set scor to local storage
-    // }
   };
+
+  // const handleAnswer = async (index) => {
+  //   const isCorrect = index === quiz.questions[current].correct;
+  //   const newScore = isCorrect ? score + 1 : score;
+
+  //   if (current + 1 < quiz.questions.length) {
+  //     setScore(newScore);
+  //     setCurrent(current + 1);
+  //   } else {
+  //     setScore(newScore);
+  //     setShowResult(true);
+
+  //     if ((newScore / quiz.questions.length) * 100 >= 50 && !match) {
+  //       setPendingConfetti(true);
+  //       setPendingFinalIcon(true);
+  //     }
+
+  //     // ✅ في حالة غير مباراة، أرسل النتيجة إلى local
+  //     if (!match) {
+  //       updateLocalResults(newScore);
+  //     }
+  //   }
+
+  //   if (match && playerId && roomId) {
+  //     await savePlayerScoreToFirebase(playerId, roomId, newScore);
+  //     // updateLocalResults(newScore);
+  //   }
+
+  //   // if(match && countdown) {
+  //   //   // set scor to local storage
+  //   // }
+  // };
 
   const handleCloseRewardPopup = () => {
     setRewardPopup(null);

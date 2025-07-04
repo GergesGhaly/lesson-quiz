@@ -15,6 +15,9 @@ import { checkAndGrantRewards } from "./utils/rewardUtils";
 import { useSound } from "./contexts/SoundContext";
 
 const BuildTheVerse = () => {
+  const { i18n } = useTranslation(); // أضف هذا مع بقية useTranslation
+  const isRTL = i18n.dir() === "rtl";
+
   const { t } = useTranslation();
   const { isSoundOn } = useSound();
   const clickAudioRef = useRef(null);
@@ -158,6 +161,8 @@ const BuildTheVerse = () => {
   return (
     <div
       style={{
+        direction: isRTL ? "rtl" : "ltr",
+
         padding: "20px",
         textAlign: "center",
         fontFamily: "Arial",
@@ -170,9 +175,9 @@ const BuildTheVerse = () => {
         background: "radial-gradient(circle, #502a63, #30103F)",
       }}
     >
-      <h2 style={{ color: "#fff" }}>🎁 مكافأتك اليومية: كوّن الآية</h2>
-      <div style={{ color: "#fff", fontSize: "20px" }}>
-        السؤال {Math.min(score / 5 + 1, 3)} / 3
+      <h2 style={{ color: "#fff", fontSize: "20px" }}> {t("bouns_verse_title")} 🎁</h2>
+      <div style={{ color: "#fff", fontSize: "18px" }}>
+        {t("question")} {Math.min(score / 5 + 1, 3)} / 3
       </div>
 
       {!isFinished && (
@@ -219,7 +224,7 @@ const BuildTheVerse = () => {
           borderRadius: "10px",
           marginBottom: "20px",
           background: "#0000003e",
-          direction: "rtl",
+          direction: isRTL ? "rtl" : "ltr",
         }}
       >
         {selectedWords.map((wordObj, idx) => {

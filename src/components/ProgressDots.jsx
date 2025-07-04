@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const ProgressDots = ({ total, answersStatus }) => {
+  const { t, i18n } = useTranslation();
+
   return (
     <div
       style={{
@@ -9,6 +12,7 @@ const ProgressDots = ({ total, answersStatus }) => {
         marginBottom: "20px",
         gap: "8px",
         flexWrap: "wrap",
+        direction: i18n.language === "ar" ? "rtl" : "ltr",
       }}
     >
       {Array.from({ length: total }).map((_, index) => {
@@ -18,7 +22,7 @@ const ProgressDots = ({ total, answersStatus }) => {
           backgroundColor = "#4CAF50"; // أخضر
         } else if (answersStatus[index] === "wrong") {
           backgroundColor = "#F44336"; // أحمر
-        } 
+        }
 
         return (
           <div

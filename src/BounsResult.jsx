@@ -133,11 +133,7 @@ const BounsResult = ({ score }) => {
 
       {!displayScoreEffect && (
         <>
-          <p>
-            {" "}
-            لقد حصلت على مكافأتك اليومية! <br />
-            اراك غدا وحتى ذلك الوقت فضلا اعتنى بدجاجتى
-          </p>
+          <p>{t("bouns_result_message")}</p>
           <strong
             style={{
               color: "#ffffff",

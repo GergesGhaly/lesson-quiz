@@ -99,7 +99,7 @@ const RewardPopup = ({ reward, onClose }) => {
           <motion.img
             src={reward.sword}
             alt={reward.reward[language]}
-            style={{ width: 170, height: 170, marginBottom: 10 }}
+            style={{ width: 170, height: "auto", marginBottom: 10 }}
             initial="initial"
             animate="animate"
             variants={imageAnimation}

@@ -26,3 +26,7 @@ export function checkAndGrantRewards(totalScore, unlockedRewards) {
 export function getRewardsDisplay(unlockedKeys) {
   return rewardLevels.filter((r) => unlockedKeys.includes(r.key));
 }
+
+export function getAllRewards() {
+  return rewardLevels;
+}

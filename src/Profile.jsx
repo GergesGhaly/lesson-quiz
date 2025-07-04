@@ -5,7 +5,7 @@ import {
   getQuizResults,
   getUnlockedRewards,
 } from "./utils/localStorageHelpers";
-import { getRewardsDisplay } from "./utils/rewardUtils"; // ✅ استيراد الدالة
+import { getAllRewards, getRewardsDisplay } from "./utils/rewardUtils"; // ✅ استيراد الدالة
 import { Link } from "react-router-dom";
 import RewardsList from "./components/RewardsList";
 import CurrentReward from "./components/CurrentReward";
@@ -13,17 +13,22 @@ import { useTranslation } from "react-i18next";
 import { useSound } from "./contexts/SoundContext";
 import NextRewardProgress from "./components/NextRewardProgress";
 import BackBtn from "./components/BackBtn";
+import GetsAllRewards from "./components/GetsAllRewards";
+import TimeToVictoryBtn from "./components/TimeToVictoryBtn";
 
 const Profile = () => {
   const { t } = useTranslation();
   const { isSoundOn } = useSound();
-
+  const [showAllRewards, setShowAllRewards] = useState(false);
   const [quizResults, setQuizResults] = useState([]);
   const [unlockedRewards, setUnlockedRewards] = useState([]);
   const [totalScore, setTotalScore] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   const playerAvatar = localStorage.getItem("playerAvatar");
   const playerId = localStorage.getItem("playerId");
+
+  const allRewards = getAllRewards();
+  const hasCollectedAll = unlockedRewards.length === allRewards.length;
 
   useEffect(() => {
     const handleResize = () => {
@@ -59,7 +64,7 @@ const Profile = () => {
     <div
       style={{
         minHeight: "100dvh",
-        background: "radial-gradient(circle, #433C7D, #1E2247)",
+        background:hasCollectedAll ? "radial-gradient(circle, #e4a42e, #c72b2b)" : "radial-gradient(circle, #433C7D, #1E2247)",
         color: "#fff",
         padding: "40px 20px",
         fontFamily: "Arial, sans-serif",
@@ -94,11 +99,22 @@ const Profile = () => {
         }}
       >
         <CurrentReward imageSize={isMobile ? 90 : 135} fontSize={90} />
-        <NextRewardProgress totalScore={totalScore} />
+        {hasCollectedAll ? (
+         <TimeToVictoryBtn setShowAllRewards={setShowAllRewards}/>
+        ) : (
+          <NextRewardProgress totalScore={totalScore} />
+        )}
         <RewardsList rewards={unlockedRewards} />
       </div>
 
       <BackBtn />
+      {showAllRewards && (
+        <GetsAllRewards
+          onClose={() => {
+            setShowAllRewards(false);
+          }}
+        />
+      )}
 
       <Link
         style={{
@@ -138,7 +154,7 @@ const Profile = () => {
             srcset=""
           />
         ) : (
-          <h6 style={{ fontSize: "14px" }}>sign</h6>
+          <h6 style={{ fontSize: "14px" }}>Log in</h6>
         )}
       </Link>
     </div>

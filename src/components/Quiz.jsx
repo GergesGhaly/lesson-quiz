@@ -23,7 +23,7 @@ export default function Quiz({ questions, current, onAnswer }) {
 
   // أرقام الكمبونت اللي تظهر عندها الرسالة
   const comboTriggers = [
-    3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60
+    3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60,
   ];
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function Quiz({ questions, current, onAnswer }) {
     >
       {/* ✅ النقاط أعلى الكويز */}
       {/* ✅ dots */}
-      <ProgressDots 
+      <ProgressDots
         total={questions.length}
         current={current}
         answersStatus={answersStatus}
@@ -122,7 +122,7 @@ export default function Quiz({ questions, current, onAnswer }) {
         </button>
       ))}
 
-      <CoinAnimation visible={showCoin} points={1}/>
+      <CoinAnimation visible={showCoin} points={1} />
     </div>
   );
 }

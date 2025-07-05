@@ -3,6 +3,16 @@ import App from "./App.jsx";
 import { SoundProvider } from "./contexts/SoundContext";
 import LoadingScreen from "./LoadingScreen.jsx";
 
+//palyer
+import boy1 from "./assets/players/boy1.avif";
+import boy2 from "./assets/players/boy2.avif";
+import deacon from "./assets/players/deacon.jpg";
+import girl1 from "./assets/players/girl1.jpg";
+import girl2 from "./assets/players/girl2.avif";
+import girl3 from "./assets/players/girl3.avif";
+import man from "./assets/players/man.jpg";
+import woman from "./assets/players/woman.jpg";
+
 //bG
 import selectModeBg from "./assets/selectModeBg.webp";
 import notfound from "./assets/room not found.webp";
@@ -16,7 +26,6 @@ import bouns from "./assets/bouns.png";
 import coinForBounsMOdal from "./assets/coinForBounsMOdal.jpg";
 import bounsIcon from "./assets/buttons/bounsIcon2.png";
 
-
 import btnWall from "./assets/btnWall.avif";
 import butterfly from "./assets/butterfly.avif";
 import choosTestBg from "./assets/choosTestBg.webp";
@@ -28,6 +37,9 @@ import battel from "./assets/buttons/battel.avif";
 import profileBtn from "./assets/buttons/profileBtn.avif";
 import sound from "./assets/buttons/sound.avif";
 import play from "./assets/buttons/play.avif";
+import flagAr from "./assets/buttons/ar.avif";
+import flagEn from "./assets/buttons/en.avif";
+import setting from "./assets/buttons/setting.png";
 
 // Flags
 import flag0 from "./assets/rewardsFlags/0.avif";
@@ -93,6 +105,14 @@ const RootApp = () => {
     bounsIcon,
     bouns,
     coinForBounsMOdal,
+    boy1,
+    boy2,
+    deacon,
+    girl1,
+    girl2,
+    girl3,
+    man,
+    woman,
 
     aleafs,
     btnWall,
@@ -106,6 +126,9 @@ const RootApp = () => {
     profileBtn,
     sound,
     play,
+    flagAr,
+    flagEn,
+    setting,
     // Flags
     flag0,
     flag1,

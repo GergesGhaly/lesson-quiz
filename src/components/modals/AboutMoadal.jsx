@@ -17,8 +17,7 @@ const AboutMoadal = ({ isOpen, onClose }) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-                          zIndex: 9999999999,
-
+            zIndex: 9999999999,
           }}
         >
           {/* المودال */}
@@ -72,7 +71,7 @@ const AboutMoadal = ({ isOpen, onClose }) => {
               }}
             >
               The work would not have been completed without Mariam Ghaly, Ghaly
-              Bebawy, Remone Ghaly, Mariam Rushdi, and Dr. Sylvia Ikram.
+              Bebawy, Remon Ghaly, Mariam Rushdi, and Dr. Sylvia Ikram.
               Developed by <br />
               <motion.a
                 href="https://www.facebook.com/gerges.ghaly.35"

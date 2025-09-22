@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import wallPc from "./assets/startWall.webp";
+import wallPc from "./assets/startWall2.jpg";
 import play from "./assets/buttons/play.avif";
 import battel from "./assets/buttons/battel.avif";
 import bounsIcon from "./assets/buttons/bounsIcon2.png";
@@ -19,6 +19,7 @@ import { getAndClearNewRewardToast } from "./utils/localStorageHelpers";
 import GameQrLink from "./components/GameQrLink";
 import DailyBonusModal from "./components/modals/DailyBonusModal";
 import SettingModal from "./components/modals/SettingModal";
+import Library from "../Library";
 
 const StartPage = () => {
   const audioRef = useRef(null);
@@ -35,15 +36,15 @@ const StartPage = () => {
   const [buttons] = useState([
     {
       title: "ابدأ الاختبار",
-      link: "/ChooseTest",
+      link: "/Library",
       image: play,
     },
-    {
-      title: " البطولة",
-      link: "/ChoosMatchMood",
-      image: battel,
-      message: "⚠️",
-    },
+    // {
+    //   title: " البطولة",
+    //   link: "/ChoosMatchMood",
+    //   image: battel,
+    //   message: "⚠️",
+    // },
   ]);
 
   useEffect(() => {
@@ -145,6 +146,7 @@ const StartPage = () => {
           maxWidth: "300px",
         }}
       >
+        {/* <Library/> */}
         {buttons.map((btn) => (
           <motion.button
             key={btn.title}
@@ -160,7 +162,15 @@ const StartPage = () => {
           >
             {btn?.message && <p title="under devopment">{btn.message}</p>}
             <Link to={btn.link} key={btn.title}>
-              <img src={btn.image} alt={btn.title} />
+              <img
+                style={{
+                  width: "70%",
+                  height: "70%",
+                  objectFit: "contain",
+                }}
+                src={btn.image}
+                alt={btn.title}
+              />
             </Link>
           </motion.button>
         ))}

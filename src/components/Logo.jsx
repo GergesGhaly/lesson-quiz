@@ -139,7 +139,7 @@ const Logo = () => {
       />
 
       {/* الفراشة */}
-      <button>
+      {/* <button>
         <motion.img
           ref={butterflyRef}
           src={butterfly}
@@ -174,8 +174,8 @@ const Logo = () => {
             transition: "filter 0.3s ease",
           }}
         />
-      </button>
-      {showHint && (
+      </button> */}
+      {/* {showHint && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -202,8 +202,8 @@ const Logo = () => {
         >
           Click me
         </motion.div>
-      )}
-      {showRandomVerse && <RandomVerse x={x} y={hintY} />}
+      )} */}
+      {/* {showRandomVerse && <RandomVerse x={x} y={hintY} />} */}
     </div>
   );
 };

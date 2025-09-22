@@ -11,6 +11,8 @@ import EnterRoomCodePage from "./EnterRoomCodePage";
 import ChoosMatchMood from "./ChoosMatchMood";
 import WatingRoom from "./WatingRoom";
 import BuildTheVerse from "./BuildTheVerse";
+import BookDetails from "../BookDetails";
+import Library from "../Library";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -96,6 +98,22 @@ function AnimatedRoutes() {
           element={
             <PageWrapper>
               <PlayerDataUi />
+            </PageWrapper>
+          }
+        />
+         <Route
+          path="/Library"
+          element={
+            <PageWrapper>
+              <Library />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/book/:id"
+          element={
+            <PageWrapper>
+              <BookDetails />
             </PageWrapper>
           }
         />

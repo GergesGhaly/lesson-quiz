@@ -7,7 +7,7 @@ const NextLevelBtn = () => {
   // const { quizId } = useParams();
 
   const handleNextQuiz = () => {
-    navigate(`/ChooseTest`);
+    navigate(`/Library`);
   };
   const { t } = useTranslation();
 

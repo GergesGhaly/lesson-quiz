@@ -19,6 +19,8 @@ import notfound from "./assets/room not found.webp";
 import timerBg from "./assets/timerBg.webp";
 import enterCodeBg from "./assets/enterCodeBg.webp";
 import comeBackTomorwBg from "./assets/comeBackTomorwBg.jpg";
+import wallPc from "./assets/startWall2.jpg";
+
 // Images
 import aleafs from "./assets/aleafs.avif";
 import chicken from "./assets/chicken.png";
@@ -34,7 +36,7 @@ import mainWall from "./assets/mainWall.webp";
 import startChallengWall from "./assets/startChallengWall.webp";
 import aboutBtn from "./assets/buttons/aboutBtn.avif";
 import battel from "./assets/buttons/battel.avif";
-import profileBtn from "./assets/buttons/profileBtn.avif";
+import profileBtn from "./assets/buttons/profilBtn.png";
 import sound from "./assets/buttons/sound.avif";
 import play from "./assets/buttons/play.avif";
 import flagAr from "./assets/buttons/ar.avif";
@@ -96,6 +98,7 @@ const RootApp = () => {
   const [progress, setProgress] = useState(0);
 
   const imagesToPreload = [
+    wallPc,
     selectModeBg,
     notfound,
     timerBg,

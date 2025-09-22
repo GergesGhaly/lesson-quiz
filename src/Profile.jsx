@@ -64,7 +64,7 @@ const Profile = () => {
     <div
       style={{
         minHeight: "100dvh",
-        background:hasCollectedAll ? "radial-gradient(circle, #e4a42e, #c72b2b)" : "radial-gradient(circle, #433C7D, #1E2247)",
+        background:hasCollectedAll ? "radial-gradient(circle, #e4a42e, #c72b2b)" : "radial-gradient(circle, #C6542E, #1E2247)",
         color: "#fff",
         padding: "40px 20px",
         fontFamily: "Arial, sans-serif",
@@ -116,7 +116,7 @@ const Profile = () => {
         />
       )}
 
-      <Link
+      {/* <Link
         style={{
           position: "absolute",
           top: "10px",
@@ -156,7 +156,7 @@ const Profile = () => {
         ) : (
           <h6 style={{ fontSize: "14px" }}>Log in</h6>
         )}
-      </Link>
+      </Link> */}
     </div>
   );
 };

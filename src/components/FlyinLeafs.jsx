@@ -29,7 +29,7 @@ const FlyinLeaf = ({ props }) => (
       pointerEvents: "none",
       userSelect: "none",
       zIndex: 0,
-      filter: "drop-shadow(0 0 3px #A5E650)",
+      // filter: "drop-shadow(0 0 3px #A5E650)",
     }}
     animate={{
       y: [-props.initialY, -100],

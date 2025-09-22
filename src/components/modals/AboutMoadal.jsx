@@ -70,8 +70,8 @@ const AboutMoadal = ({ isOpen, onClose }) => {
                 textAlign: "center",
               }}
             >
-              The work would not have been completed without Mariam Ghaly, Ghaly
-              Bebawy, Remon Ghaly, Mariam Rushdi, and Dr. Sylvia Ikram.
+              The work would not have been completed without Michael Atef.
+              <br />
               Developed by <br />
               <motion.a
                 href="https://www.facebook.com/gerges.ghaly.35"

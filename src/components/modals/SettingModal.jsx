@@ -59,7 +59,7 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
           transition={{ duration: 0.2 }}
           style={{
             width: isMobile ? "90dvw" : "40dvw",
-            height: isMobile ? "50dvh" : "40dvh" ,
+            height: isMobile ? "50dvh" : "40dvh",
             // background: `url(${bg}) no-repeat center center`,
             backgroundSize: "cover",
             position: "relative",
@@ -245,7 +245,7 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
                 alt="qr"
                 onClick={() => setQrModalOpen(true)}
                 style={{
-                  width: "45px",
+                  width: "60px",
                   borderRadius: "40%",
                   cursor: "pointer",
                 }}

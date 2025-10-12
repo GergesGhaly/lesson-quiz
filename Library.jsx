@@ -42,12 +42,14 @@ const Library = () => {
       style={{
         position: "relative",
         flexDirection: "column",
-        height: "100%",
+        height: "100dvh",
         transition: "all ease 0.3s",
         display: "flex",
         justifyContent: "start",
         alignItems: "center",
-        padding: "10px",
+        padding: "20px 10px ",
+        backgroundColor: "#000",
+        overflowY: "auto",
         // backgroundImage: `url(${libararyWall})`,
         // backgroundSize: "cover",
         // backgroundRepeat: "no-repeat",
@@ -64,7 +66,20 @@ const Library = () => {
           marginBottom: "20px",
         }}
       >
-        <button onClick={() => navigate("/")}>🔙 Home</button>
+        <button
+          style={{
+            background: "transparent",
+            border: "2px solid #FFBD2B",
+            color: "#FFBD2B",
+            padding: "6px 14px",
+            borderRadius: "25px",
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+          onClick={() => navigate("/")}
+        >
+          Home
+        </button>
       </div>
       {/*  هالكتب  */}
       <div>

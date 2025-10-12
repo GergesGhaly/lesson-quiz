@@ -16,13 +16,13 @@ const LoadingScreen = ({ progress }) => {
       }}
     >
       <p style={{ marginBottom: "20px", fontSize: "20px"}}>
-        Loading fun stuff... 🎈🎉
+        Loading ... 
       </p>
 
       <div
         style={{
           width: "80%",
-          height: "20px",
+          height: "25px",
           background: "#ccc",
           borderRadius: "10px",
           overflow: "hidden",
@@ -34,7 +34,7 @@ const LoadingScreen = ({ progress }) => {
           transition={{ duration: 0.3, ease: "easeOut" }}
           style={{
             height: "100%",
-            background: "#4caf50",
+            background: "#FFBD2B",
           }}
         />
       </div>

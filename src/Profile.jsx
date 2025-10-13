@@ -15,6 +15,7 @@ import NextRewardProgress from "./components/NextRewardProgress";
 import BackBtn from "./components/BackBtn";
 import GetsAllRewards from "./components/GetsAllRewards";
 import TimeToVictoryBtn from "./components/TimeToVictoryBtn";
+import profilBg from "./assets/profil_bg.jpg";
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -64,6 +65,8 @@ const Profile = () => {
     <div
       style={{
         minHeight: "100dvh",
+        // backgroundImage: `url(${profilBg})`,
+        // backgroundSize: "cover",
         background:hasCollectedAll ? "radial-gradient(circle, #e4a42e, #c72b2b)" : "radial-gradient(circle, #C6542E, #1E2247)",
         color: "#fff",
         padding: "40px 20px",

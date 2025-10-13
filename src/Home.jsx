@@ -4,7 +4,7 @@ import Results from "./components/Results";
 import ConfettiOverlay from "./components/ConfettiOverlay";
 import RewardPopup from "./components/RewardPopup";
 import { motion } from "framer-motion";
-import { db, ref, set, update } from "./utils/firebase"; // عدّل المسار حسب ملفك
+import { db, ref, set, update } from "./utils/firebase";
 
 import {
   getQuizResults,
@@ -14,7 +14,7 @@ import {
 } from "./utils/localStorageHelpers";
 
 import { checkAndGrantRewards, getRewardsDisplay } from "./utils/rewardUtils";
-import { quizzes } from "./data/QuizzesWithTranslations";
+
 import { useParams } from "react-router-dom";
 import wall from "./assets/mainWall.webp";
 import matchBg from "./assets/matchBg.jpg";
@@ -22,33 +22,26 @@ import QuizNavBar from "./components/QuizNavBar";
 import { useSound } from "./contexts/SoundContext";
 import soundOn from "./assets/buttons/soundOn.png";
 import soundOf from "./assets/buttons/soundOf.png";
+import booksAndQaData from "./data/booskAndQaData";
 
 function Home({ match, playerId, roomId }) {
   const { isSoundOn, setIsSoundOn } = useSound();
-
   const { quizId } = useParams();
-  // const quiz = !match
-  //   ? quizzes.find((q) => q.id === Number(quizId))
-  //   : {
-  //       ...quizzes.find((q) => q.id === 101),
-  //       questions: [...quizzes.find((q) => q.id === 101).questions].sort(
-  //         () => Math.random() - 0.5
-  //       ),
-  //     };
 
-  const quiz = !match
-    ? quizzes.find((q) => q.id === Number(quizId))
-    : quizzes.find((q) => q.id === 101);
+  // ✅ نحصل على الكتاب المقابل بناءً على id من المسار
+  const book = !match
+    ? booksAndQaData.find((b) => b.id === Number(quizId))
+    : booksAndQaData.find((b) => b.id === 1); // يمكن اختيار كتاب افتراضي للمباريات
+
+  const quiz = book?.quiz; // ✅ نأخذ الكويز من داخل الكتاب
 
   const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
-
   const [showResult, setShowResult] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [unlockedRewards, setUnlockedRewards] = useState([]);
   const [rewardPopup, setRewardPopup] = useState(null);
-
   const [pendingConfetti, setPendingConfetti] = useState(false);
   const [pendingFinalIcon, setPendingFinalIcon] = useState(false);
 
@@ -67,7 +60,6 @@ function Home({ match, playerId, roomId }) {
       await update(ref(db, `rooms/${roomId}/playerPoints`), {
         [playerId]: score,
       });
-
       console.log("تم حفظ النقاط في Firebase");
     } catch (error) {
       console.error("خطأ في حفظ النقاط:", error);
@@ -95,8 +87,6 @@ function Home({ match, playerId, roomId }) {
       setUnlockedRewards(getRewardsDisplay(updatedUnlockedKeys));
 
       setRewardPopup(newlyUnlocked[0]);
-      // storeNewRewardToast(newlyUnlocked[0]);
-
       setPendingConfetti(true);
       setPendingFinalIcon(true);
     } else {
@@ -111,7 +101,7 @@ function Home({ match, playerId, roomId }) {
 
     if (current + 1 < quiz.questions.length) {
       setScore(newScore);
-      setCurrent(current + 1); // ✅ الانتقال فقط عند الضغط على زر إجابة
+      setCurrent(current + 1);
     } else {
       setScore(newScore);
       setShowResult(true);
@@ -130,38 +120,6 @@ function Home({ match, playerId, roomId }) {
       await savePlayerScoreToFirebase(playerId, roomId, newScore);
     }
   };
-
-  // const handleAnswer = async (index) => {
-  //   const isCorrect = index === quiz.questions[current].correct;
-  //   const newScore = isCorrect ? score + 1 : score;
-
-  //   if (current + 1 < quiz.questions.length) {
-  //     setScore(newScore);
-  //     setCurrent(current + 1);
-  //   } else {
-  //     setScore(newScore);
-  //     setShowResult(true);
-
-  //     if ((newScore / quiz.questions.length) * 100 >= 50 && !match) {
-  //       setPendingConfetti(true);
-  //       setPendingFinalIcon(true);
-  //     }
-
-  //     // ✅ في حالة غير مباراة، أرسل النتيجة إلى local
-  //     if (!match) {
-  //       updateLocalResults(newScore);
-  //     }
-  //   }
-
-  //   if (match && playerId && roomId) {
-  //     await savePlayerScoreToFirebase(playerId, roomId, newScore);
-  //     // updateLocalResults(newScore);
-  //   }
-
-  //   // if(match && countdown) {
-  //   //   // set scor to local storage
-  //   // }
-  // };
 
   const handleCloseRewardPopup = () => {
     setRewardPopup(null);
@@ -185,6 +143,20 @@ function Home({ match, playerId, roomId }) {
     setShowConfetti(false);
     setRewardPopup(null);
   };
+
+  if (!quiz) {
+    return (
+      <div
+        style={{
+          color: "#fff",
+          textAlign: "center",
+          paddingTop: "50px",
+        }}
+      >
+        ❌ No quiz found for this book.
+      </div>
+    );
+  }
 
   const percentage = (score / quiz.questions.length) * 100;
 
@@ -241,7 +213,6 @@ function Home({ match, playerId, roomId }) {
             outline: "none",
             cursor: "pointer",
             position: "absolute",
-
             bottom: "10px",
             right: "10px",
           }}

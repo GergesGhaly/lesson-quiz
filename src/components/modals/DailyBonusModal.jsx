@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import bonusImage from "../../assets/bouns.png";
+import bonusbg from "../../assets/profil_bg.jpg";
 import coinImage from "../../assets/coinForBounsMOdal.jpg";
 import closeIcon from "../../assets/wrong.avif";
 import { Link } from "react-router-dom";
@@ -31,13 +32,22 @@ const DailyBonusModal = ({ onClose }) => {
         transition={{ duration: 0.3 }}
         style={{
           position: "relative",
-          background: "radial-gradient(circle, #502a63, #30103F)",
+          // background: "radial-gradient(circle, #502a63, #30103F)",
           borderRadius: "30px",
           padding: " 20px",
           textAlign: "center",
           width: "85%",
           maxWidth: "320px",
           boxShadow: "0 0 20px #000000b5",
+          backgroundImage: `url(${bonusbg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "70%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         {/* زر الخروج */}

@@ -43,6 +43,7 @@ const NextRewardProgress = ({ totalScore }) => {
           marginBottom: "5px",
           fontWeight: "medium",
           direction: language === "en" ? "ltr" : "rtl",
+         
         }}
       >
         {t("Next challenge at")} {nextReward.threshold} {t("point")} -{" "}
@@ -65,7 +66,7 @@ const NextRewardProgress = ({ totalScore }) => {
           transition={{ duration: 1 }}
           style={{
             height: "100%",
-            background: "linear-gradient(90deg, #4CAF50, #8BC34A, #CDDC39)",
+            background: "linear-gradient(90deg, #FFBD2B, #ffc64c, #fdcd64)",
           }}
         />
         <div
@@ -74,7 +75,7 @@ const NextRewardProgress = ({ totalScore }) => {
             width: "100%",
             textAlign: "center",
             top: 0,
-            color: "#fff",
+            color: "black",
             fontWeight: "bold",
             lineHeight: "24px",
             fontSize: "14px",

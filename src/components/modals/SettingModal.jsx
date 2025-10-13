@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import wrong from "../../assets/wrong.avif";
 import sound from "../../assets/buttons/sound.avif";
 import correct from "../../assets/correct.avif";
+import seetingBg from "../../assets/seetingBg.jpg";
 import en from "../../assets/buttons/en.avif";
 import ar from "../../assets/buttons/ar.avif";
 import aboutBtn from "../../assets/buttons/aboutBtn.avif";
@@ -74,7 +75,11 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
             borderRadius: "12px",
             boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
             backgroundColor: "#2C3E50",
-            border: "2px solid #fff",
+            border: "3px solid #2C3E50",
+            backgroundImage: `url(${seetingBg})`,
+
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
           }}
         >
           {/* <div style={{ position: "absolute",top: 0, width: "100%", height: "100%" }}>
@@ -93,7 +98,7 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
               border: "none",
               fontSize: "20px",
               cursor: "pointer",
-              color: "#fff",
+              color: "black",
             }}
           >
             <img style={{ width: "60px" }} src={wrong} alt="close" srcset="" />
@@ -110,7 +115,7 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
               gap: isMobile ? "10px" : "20px",
             }}
           >
-            <span style={{ color: "#fff", fontWeight: "bold" }}>Sound</span>
+            <span style={{ color: "black", fontWeight: "bold" }}>Sound</span>
             <motion.button
               onClick={() => setIsSoundOn((prev) => !prev)}
               whileTap={{ scale: 0.9 }}
@@ -152,7 +157,7 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
           <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
             <span
               style={{
-                color: "#fff",
+                color: "black",
                 fontWeight: "bold",
                 display: "block",
                 marginBottom: "10px",
@@ -223,7 +228,7 @@ const SettingModal = ({ setShowAbout, setQrModalOpen, setShowSettings }) => {
               gap: isMobile ? "10px" : "20px",
               flexWrap: "wrap",
               marginBottom: "10px",
-              color: "#fff",
+              color: "black",
               fontWeight: "bold",
             }}
           >

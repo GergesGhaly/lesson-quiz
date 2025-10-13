@@ -53,16 +53,16 @@ const BookDetails = () => {
         <button
           onClick={() => navigate("/Library")}
           style={{
-            background: "transparent",
+            background: "#FFBD2B",
             border: "2px solid #FFBD2B",
-            color: "#FFBD2B",
-            padding: "6px 14px",
-            borderRadius: "25px",
+            color: "white",
+            padding: "10px 20px",
+            borderRadius: "12px",
             cursor: "pointer",
             fontWeight: "bold",
           }}
         >
-          العودة للمكتبة
+          المكتبة
         </button>
         <h4 style={{ direction: "rtl", color: "#fff" }}>{book.title}</h4>
       </div>

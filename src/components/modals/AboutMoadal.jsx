@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import wrong from "../../assets/wrong.avif";
+import infoBg from "../../assets/infoBg.jpg";
 import { Link } from "react-router-dom";
 
 const AboutMoadal = ({ isOpen, onClose }) => {
@@ -28,7 +29,13 @@ const AboutMoadal = ({ isOpen, onClose }) => {
             exit={{ scale: 0.5, opacity: 0 }}
             transition={{ duration: 0.1 }}
             style={{
-              background: "#2C3E50",
+              // background: "#2C3E50",
+              backgroundImage: `url(${infoBg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              width: "350px",
+              height: "170px",
               color: "white",
               padding: "30px",
               borderRadius: "16px",
@@ -36,7 +43,7 @@ const AboutMoadal = ({ isOpen, onClose }) => {
               minWidth: "300px",
               textAlign: "center",
               boxSizing: "border-box",
-              border: "2px solid white",
+              // border: "2px solid white",
               position: "relative",
             }}
           >
@@ -68,6 +75,7 @@ const AboutMoadal = ({ isOpen, onClose }) => {
                 fontSize: "14px",
                 lineHeight: "1.6",
                 textAlign: "center",
+                color: "black",
               }}
             >
               The work would not have been completed without Michael Atef.
@@ -78,7 +86,7 @@ const AboutMoadal = ({ isOpen, onClose }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  color: "white",
+                  color: "black",
                   textDecoration: "underline",
                   fontWeight: "bold",
                   display: "inline-block",

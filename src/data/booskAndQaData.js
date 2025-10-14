@@ -2,6 +2,8 @@ const booskAndQaData = [
   {
     id: 2,
     title: "Animales",
+    category: "لاهوتيات",
+    // ✅ التصنيف الجديد
     images: [
       "https://images.pexels.com/photos/19400410/pexels-photo-19400410/free-photo-of-a-cow-standing-in-a-field-with-mountains-in-the-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "https://images.pexels.com/photos/12846013/pexels-photo-12846013.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -130,6 +132,7 @@ const booskAndQaData = [
   {
     id: 3,
     title: "Seas",
+    category: "العهد القديم", // ✅ تصنيف مختلف
     images: [
       "https://images.pexels.com/photos/4122201/pexels-photo-4122201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "https://images.pexels.com/photos/4084064/pexels-photo-4084064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",

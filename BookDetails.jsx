@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
 import { useNavigate, useParams } from "react-router-dom";
-import booksData from "./src/data/booksData";
+import booskAndQaData from "./src/data/booskAndQaData";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -9,7 +9,7 @@ const BookDetails = () => {
   const bookRef = useRef();
   const [isLastPage, setIsLastPage] = useState(false);
 
-  const book = booksData.find((b) => b.id === Number(id));
+  const book = booskAndQaData.find((b) => b.id === Number(id));
   if (!book) return <h2>❌ الكتاب غير موجود</h2>;
 
   // ✅ دالة مضمونة لمعرفة الصفحة الحالية
@@ -55,7 +55,7 @@ const BookDetails = () => {
           style={{
             background: "#FFBD2B",
             border: "2px solid #FFBD2B",
-            color: "white",
+            color: "black",
             padding: "10px 20px",
             borderRadius: "12px",
             cursor: "pointer",
@@ -64,7 +64,18 @@ const BookDetails = () => {
         >
           المكتبة
         </button>
-        <h4 style={{ direction: "rtl", color: "#fff" }}>{book.title}</h4>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+
+            alignItems: "start",
+            direction: "rtl",
+          }}
+        >
+          <h4 style={{ direction: "rtl", color: "#fff" }}>{book.title}</h4>
+          <p style={{ direction: "rtl", color: "#fff" }}>{book.category}</p>
+        </div>
       </div>
 
       {/* 📖 flip book */}

@@ -32,7 +32,7 @@ const BackBtn = () => {
         whileTap={{ scale: 0.9 }}
         style={{
           background: "transparent",
-          color: "white",
+          color: "black",
           border: "none",
           cursor: "pointer",
           fontWeight: "900",

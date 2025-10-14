@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import profileBtn from "../assets/buttons/profilBtn.png";
+import profileBtn from "../assets/buttons/profilBtn0.png";
 import aboutBtn from "../assets/buttons/aboutBtn.avif";
 import qr from "../assets/buttons/qr-icon.png";
 import setting from "../assets/buttons/setting.png";

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { quizzes } from "./data/QuizzesWithTranslations";
+import booskAndQaData from "./data/booskAndQaData";
 import btnWall from "./assets/btnWall.avif";
 import startSound from "/sound/gameStart.mp3";
 import { useTranslation } from "react-i18next";
@@ -20,7 +20,7 @@ const ChooseTestPage = () => {
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   const [isNight, setIsNight] = useState(false);
-  const [rainDrops, setRainDrops] = useState([]);
+  // const [rainDrops, setRainDrops] = useState([]);
   const bgMusicRef = useRef(null);
 
   useEffect(() => {
@@ -74,21 +74,21 @@ const ChooseTestPage = () => {
   }, [isSoundOn, isNight]);
 
   // 💧 إنشاء قطرات المطر
-  const generateRain = (count) => {
-    return Array.from({ length: count }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      delay: Math.random() * 2,
-      duration: Math.random() * 1.5 + 1.5,
-      height: Math.random() * 20 + 10,
-    }));
-  };
+  // const generateRain = (count) => {
+  //   return Array.from({ length: count }, (_, i) => ({
+  //     id: i,
+  //     left: Math.random() * 100,
+  //     delay: Math.random() * 2,
+  //     duration: Math.random() * 1.5 + 1.5,
+  //     height: Math.random() * 20 + 10,
+  //   }));
+  // };
 
-  useEffect(() => {
-    if (isNight) {
-      setRainDrops(generateRain(100));
-    }
-  }, [isNight]);
+  // useEffect(() => {
+  //   if (isNight) {
+  //     setRainDrops(generateRain(100));
+  //   }
+  // }, [isNight]);
 
   return (
     <>
@@ -107,7 +107,7 @@ const ChooseTestPage = () => {
         }}
       >
         {/* 💧 تضمين تحريك قطرات المطر */}
-        <style>
+        {/* <style>
           {`
           @keyframes fall {
             0% {
@@ -123,7 +123,7 @@ const ChooseTestPage = () => {
             }
           }
         `}
-        </style>
+        </style> */}
 
         {/* ☀️ الشمس (تظهر فقط في النهار) */}
         {!isNight && (
@@ -166,7 +166,7 @@ const ChooseTestPage = () => {
           ></div>
         )}
 
-        {/* 💧 قطرات المطر */}
+        {/* 💧 قطرات المطر
         {isNight &&
           rainDrops.map((drop) => (
             <div
@@ -183,7 +183,7 @@ const ChooseTestPage = () => {
                 zIndex: 0,
               }}
             />
-          ))}
+          ))} */}
 
         {/* المحتوى */}
         <div
@@ -214,7 +214,7 @@ const ChooseTestPage = () => {
               gap: isMobile ? 13 : 20,
             }}
           >
-            {quizzes
+            {booskAndQaData
               .filter((quiz) => quiz.type !== "match")
               .map((quiz) => (
                 <motion.button
@@ -236,7 +236,7 @@ const ChooseTestPage = () => {
                     textShadow: "0px 3px 4px rgba(0, 0, 0, 0.836)",
                   }}
                 >
-                  {quiz.title[language]}
+                  {quiz.quiz.title[language]}
                 </motion.button>
               ))}
           </div>

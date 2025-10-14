@@ -3,6 +3,7 @@ import QRCode from "react-qr-code";
 import wrong from "../assets/wrong.avif";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import sharBg from "../assets/sharBg.jpg";
 
 const GameQrLink = ({ isQrModalOpen, setQrModalOpen }) => {
   const { t } = useTranslation();
@@ -56,7 +57,10 @@ const GameQrLink = ({ isQrModalOpen, setQrModalOpen }) => {
               alignItems: "center",
               justifyContent: "center",
               gap: "10px",
-              backgroundColor: "#2C3E50",
+              // backgroundColor: "#2C3E50",
+              backgroundImage: `url(${sharBg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
               padding: "20px",
               borderRadius: "10px",
               textAlign: "center",
@@ -92,7 +96,7 @@ const GameQrLink = ({ isQrModalOpen, setQrModalOpen }) => {
               />
             </motion.button>
 
-            <h3 style={{ color: "white" }}> {t("share")}</h3>
+            <h3 style={{ color: "black" }}> {t("share")}</h3>
 
             <div
               style={{
@@ -107,22 +111,16 @@ const GameQrLink = ({ isQrModalOpen, setQrModalOpen }) => {
               <QRCode value={currentUrl} size={200} ref={svgRef} />
             </div>
 
-            <p style={{ marginTop: "10px", color: "white",textAlign:"center" }}>{currentUrl}</p>
-
-            <button
-              onClick={downloadQRCode}
+            <p
               style={{
                 marginTop: "10px",
-                padding: "10px 20px",
-                backgroundColor: "#4CAF50",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
+
+                textAlign: "center",
+                color: "black",
               }}
             >
-              {t("download")}
-            </button>
+              {currentUrl}
+            </p>
           </div>
         </div>
       )}

@@ -1,28 +1,48 @@
 import React, { useRef, useState } from "react";
 import shelf from "./src/assets/shelf.png";
 import { useNavigate } from "react-router-dom";
-import booksAndQaData from "./src/data/booskAndQaData"; // ✅ التعديل هنا
+import booksAndQaData from "./src/data/booskAndQaData";
 import ShelfComponent from "./src/components/ShelfComponent";
 import BookComponent from "./src/components/BookComponent";
-import libararyWall from "./src/assets/libararyWall.jpg";
 import BackBtn from "./src/components/BackBtn";
+import libraryBg from "./src/assets/libraryBg.jpg";
 
 const Library = () => {
   const navigate = useNavigate();
-
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredBooks, setFilteredBooks] = useState(booksAndQaData); // ✅ التعديل هنا
+  const [selectedCategory, setSelectedCategory] = useState("الكل"); // ✅ تصنيف افتراضي
+  const [filteredBooks, setFilteredBooks] = useState(booksAndQaData);
 
   const bookRef = useRef();
 
-  const handleSearchChange = (e) => {
-    const query = e.target.value.toLowerCase();
-    setSearchQuery(query);
+  // ✅ استخراج التصنيفات الفريدة من الداتا
+  const categories = [
+    "الكل",
+    ...new Set(booksAndQaData.map((b) => b.category)),
+  ];
 
-    const filtered = booksAndQaData.filter((book) =>
-      book.title.toLowerCase().includes(query)
-    ); // ✅ التعديل هنا
+  // ✅ فلترة حسب البحث والتصنيف
+  const handleFilter = (query, category) => {
+    let filtered = booksAndQaData.filter((book) =>
+      book.title.toLowerCase().includes(query.toLowerCase())
+    );
+
+    if (category !== "الكل") {
+      filtered = filtered.filter((book) => book.category === category);
+    }
+
     setFilteredBooks(filtered);
+  };
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    handleFilter(query, selectedCategory);
+  };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    handleFilter(searchQuery, category);
   };
 
   const shelfWidth = 370;
@@ -31,7 +51,7 @@ const Library = () => {
   const booksPerShelf = 4;
 
   const handleBookClick = (book) => {
-    navigate(`/book/${book.id}`); // ✅ عند الضغط على الكتاب ننتقل لصفحته
+    navigate(`/book/${book.id}`);
   };
 
   return (
@@ -40,12 +60,17 @@ const Library = () => {
         position: "relative",
         flexDirection: "column",
         height: "100dvh",
+      
         transition: "all ease 0.3s",
         display: "flex",
         justifyContent: "start",
         alignItems: "center",
         padding: "20px 10px ",
         backgroundColor: "#000",
+        // backgroundImage: `url(${libraryBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        // backgroundRepeat: "no-repeat",
         overflowY: "auto",
       }}
     >
@@ -62,33 +87,59 @@ const Library = () => {
         <BackBtn />
       </div>
 
-      {/* مربع البحث */}
-      <div>
+      {/* مربع البحث + الفلاتر */}
+      <div style={{ textAlign: "center", direction: "rtl" }}>
         <input
           type="text"
-          placeholder="Search in books"
+          placeholder="ابحث في المكتبة"
           value={searchQuery}
           onChange={handleSearchChange}
           style={{
-            margin: "20px",
+            margin: "10px",
             padding: "10px",
             fontSize: "16px",
             backgroundColor: "transparent",
             border: "none",
-            borderBottom: `1px solid #000000`,
+            borderBottom: `1px solid #ffffff`,
             outline: "none",
-            color: "#000000",
+            color: "#ffffff",
             fontFamily: "burelom",
             fontWeight: "500",
           }}
         />
-        <style>
-          {`
-            input[type="text"]::placeholder {
-              color: #000000;
-            }
-          `}
-        </style>
+
+        {/* ✅ قائمة الفلاتر */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            gap: "10px",
+            marginTop: "10px",
+          }}
+        >
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => handleCategoryChange(category)}
+              style={{
+                backgroundColor:
+                  selectedCategory === category ? "#FFBD2B" : "transparent",
+                color: selectedCategory === category ? "#000" : "#fff",
+                border: "1px solid #fff",
+                borderRadius: "15px",
+                padding: "6px 12px",
+                fontFamily: "burelom",
+                cursor: "pointer",
+                transition: "0.3s",
+                fontSize: "17px",
+                fontWeight: "500",
+              }}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* عرض الرفوف والكتب */}
@@ -103,6 +154,7 @@ const Library = () => {
           overflowY: "auto",
           msOverflowStyle: "none",
           scrollbarWidth: "none",
+          marginTop: "20px",
         }}
       >
         {Array.from(

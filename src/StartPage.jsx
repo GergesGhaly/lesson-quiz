@@ -20,6 +20,7 @@ import GameQrLink from "./components/GameQrLink";
 import DailyBonusModal from "./components/modals/DailyBonusModal";
 import SettingModal from "./components/modals/SettingModal";
 import Library from "../Library";
+import AQbtn from "./assets/buttons/profilBtn.png";
 
 const StartPage = () => {
   const audioRef = useRef(null);
@@ -35,16 +36,15 @@ const StartPage = () => {
 
   const [buttons] = useState([
     {
-      title: "ابدأ الاختبار",
+      title: "ابدأ اللعبه",
       link: "/Library",
       image: play,
     },
-    // {
-    //   title: " البطولة",
-    //   link: "/ChoosMatchMood",
-    //   image: battel,
-    //   message: "⚠️",
-    // },
+    {
+      title: " الاسئله",
+      link: "/ChooseTest",
+      image: AQbtn,
+    },
   ]);
 
   useEffect(() => {
@@ -143,7 +143,8 @@ const StartPage = () => {
           justifyContent: "center",
           alignItems: "center",
           gap: "20px",
-          maxWidth: "300px",
+          maxWidth: "600px",
+       
         }}
       >
         {/* <Library/> */}
@@ -156,16 +157,18 @@ const StartPage = () => {
               cursor: "pointer",
               position: "relative",
               outline: "none",
+              width: btn.title !== "ابدأ اللعبه" ? "135px" : "155px",
+              height: "100%",
             }}
             whileTap={{ scale: 0.9 }}
             sty
           >
-            {btn?.message && <p title="under devopment">{btn.message}</p>}
+            {/* {btn?.message && <p title="under devopment">{btn.message}</p>} */}
             <Link to={btn.link} key={btn.title}>
               <img
                 style={{
-                  width: "70%",
-                  height: "70%",
+                  width: "100%",
+                  height: "100%",
                   objectFit: "contain",
                 }}
                 src={btn.image}
@@ -187,7 +190,7 @@ const StartPage = () => {
         whileTap={{ scale: 0.9 }}
         sty
       >
-        <p>⚠️</p>
+        {/* <p>⚠️</p> */}
         <Link to="/BuildTheVerse">
           <img
             style={{ width: "100px", height: "110px", objectFit: "contain" }}
